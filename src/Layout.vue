@@ -41,24 +41,14 @@
 </template>
 
 <script>
-import InicioSesion from './components/InicioSesion'
-import Registro from './components/Registro'
-import DataTable from './components/DataTable'
-
 export default {
   data: () => ({
-    dark: false,
     drawer: true,
     items: [
       { title: 'Iniciar sesión', icon: 'dashboard', route: '/inicio-sesion' },
       { title: 'Registro', icon: 'question_answer', route: '/registro' }
     ]
-  }),
-  components: {
-    'inicio-sesion': InicioSesion,
-    'registro': Registro,
-    'data-table': DataTable
-  }
+  })
 }
 </script>
 
