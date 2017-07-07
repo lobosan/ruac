@@ -1,13 +1,13 @@
 <template>
   <v-app id="sandbox" :light="true" standalone>
-    <v-navigation-drawer v-model="drawer" persistent clipped overflow enable-resize-watcher>
+    <v-navigation-drawer v-model="drawer" persistent overflow enable-resize-watcher>
       <v-list class="pa-0">
         <v-list-tile avatar tag="div">
           <v-list-tile-avatar>
             <img src="https://randomuser.me/api/portraits/men/85.jpg">
           </v-list-tile-avatar>
           <v-list-tile-content>
-            <v-list-tile-title>Juan Vergara</v-list-tile-title>
+            <v-list-tile-title>Santiago Galindo</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
@@ -31,7 +31,9 @@
     </v-toolbar>
     <main>
       <v-container fluid>
-        <router-view></router-view>
+        <v-layout align-center justify-center>
+          <router-view></router-view>
+        </v-layout>
       </v-container>
     </main>
     <v-footer>
@@ -45,8 +47,9 @@ export default {
   data: () => ({
     drawer: true,
     items: [
-      { title: 'Iniciar sesión', icon: 'dashboard', route: '/inicio-sesion' },
-      { title: 'Registro', icon: 'question_answer', route: '/registro' }
+      { title: 'Iniciar sesión', icon: 'verified_user', route: '/inicio-sesion' },
+      { title: 'Registro', icon: 'fingerprint', route: '/registro' },
+      { title: 'Creación de perfil', icon: 'face', route: '/perfil-creacion' }
     ]
   })
 }
