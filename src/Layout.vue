@@ -32,7 +32,9 @@
     <main>
       <v-container fluid>
         <v-layout align-center justify-center>
-          <router-view></router-view>
+          <v-slide-x-reverse-transition mode="out-in">
+            <router-view></router-view>
+          </v-slide-x-reverse-transition>
         </v-layout>
       </v-container>
     </main>

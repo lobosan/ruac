@@ -56,7 +56,7 @@
             <v-text-field label="Título registrado en la SENESCYT" v-model="perfil.titulo_senescyt" readonly="true"></v-text-field>
           </v-flex>
           <v-flex xs12>
-            <v-select label="¿Ha postulado en mecanismos de fomento?" v-bind:items="mecanismos_fomento" multiple></v-select>
+            <v-select label="¿Ha postulado en mecanismos de fomento?" v-bind:items="mecanismos_fomento" multiple chips></v-select>
           </v-flex>
           <v-flex xs12>
             <v-text-field label="Apoyo de otras entidades"></v-text-field>
