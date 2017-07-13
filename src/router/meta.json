@@ -1,0 +1,26 @@
+{
+  "/": {
+    "h1": "",
+    "title": "RUAC",
+    "description": "Registro Único de Artistas y Gestores Culturales.",
+    "keywords": "ruac, mcyp"
+  },
+  "/inicio-sesion": {
+    "h1": "Inicio de sesión",
+    "title": "Inicio de sesión",
+    "description": "Inicie sesión en el RUAC",
+    "keywords": "inicio sesion"
+  },
+  "/registro": {
+    "h1": "Registro de cuenta",
+    "title": "Registro de cuenta",
+    "description": "Registre su cuenta en el RUAC",
+    "keywords": "registro cuenta"
+  },
+  "/perfil-creacion": {
+    "h1": "Creación de perfil",
+    "title": "Creación de perfil",
+    "description": "Cree su perfil en el RUAC",
+    "keywords": "creacion perfil"
+  }
+}

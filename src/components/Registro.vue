@@ -1,9 +1,6 @@
 <template>
   <v-flex xs12 sm7 md5 lg4 xl3>
-    <v-card>
-      <v-card-title primary-title class="display-1 grey--text text--darken-1">
-        Creación de cuenta
-      </v-card-title>
+    <v-card class="pa-4">
       <v-card-text>
         <v-flex xs12>
           <v-text-field label="Cédula" hint="10 dígitos sin guiones" max="10"></v-text-field>
@@ -30,7 +27,7 @@
         <v-flex xs12>
           <v-text-field name="input-10-1" label="Contraseña" hint="Al menos 8 caracteres" min="8" :append-icon="e1 ? 'visibility' : 'visibility_off'" :append-icon-cb="()=> (e1 = !e1)" :type="e1 ? 'text' : 'password'"></v-text-field>
         </v-flex>
-        <v-btn light class="blue--text darken-1" @click.native="dialog = false">Registrar</v-btn>
+        <v-btn to="/perfil-creacion" router outline class="indigo--text" @click.native="dialog = false">Registrar</v-btn>
       </v-card-text>
     </v-card>
   </v-flex>
