@@ -14,7 +14,7 @@
         </v-flex>
         <v-flex xs12 md6>
           <v-card-text class="layout fill-height align-center justify-center">
-            <p class="px-3 ma-0 subheading grey--text text--darken-2">{{items[0].text}}</p>
+            <p class="px-3 ma-0 subheading grey--text text--darken-3">{{items[0].text}}</p>
           </v-card-text>
         </v-flex>
       </v-layout>
@@ -23,7 +23,7 @@
       <v-layout row wrap>
         <v-flex xs12 md6>
           <v-card-text class="layout fill-height align-center justify-center">
-            <div class="px-3 ma-0 subheading grey--text text--darken-2" v-html="items[1].text"></div>
+            <div class="px-3 ma-0 subheading grey--text text--darken-3" v-html="items[1].text"></div>
           </v-card-text>
         </v-flex>
         <v-flex xs12 md6>
@@ -46,13 +46,13 @@
         </v-flex>
         <v-flex xs12 md6>
           <v-card-text class="layout fill-height align-center justify-center">
-            <p class="px-3 ma-0 subheading grey--text text--darken-2">{{items[2].text}}</p>
+            <p class="px-3 ma-0 subheading grey--text text--darken-3">{{items[2].text}}</p>
           </v-card-text>
         </v-flex>
       </v-layout>
     </v-card>
-    <h2 class="mb-4 pt-5 display-1 grey--text text--darken-3">Preguntas Frecuentes</h2>
-    <v-card flat>
+    <h2 class="mb-4 pt-3 display-1 grey--text text--darken-3">Preguntas Frecuentes</h2>
+    <v-card flat class="mb-4">
       <v-expansion-panel>
         <v-expansion-panel-content v-for="(pregunta, i) in preguntas" :key="i">
           <div slot="header" class="ml-2 mr-5 subheading grey--text text--darken-4">{{i+1}}. {{pregunta.title}}</div>
@@ -61,6 +61,19 @@
           </v-card>
         </v-expansion-panel-content>
       </v-expansion-panel>
+    </v-card>
+    <h2 class="mb-4 pt-5 display-1 grey--text text--darken-3">Base Legal</h2>
+    <v-card class="py-2">
+      <v-card-text>
+        <ul class="subheading grey--text text--darken-3">
+          <li class="mb-2">
+            <a href="http://ruac.culturaypatrimonio.gob.ec/wp-content/uploads/2017/02/Acuerdo-Ministerial.pdf">Acuerdo Ministerial</a>
+          </li>
+          <li>
+            <a href="http://ruac.culturaypatrimonio.gob.ec/wp-content/uploads/2017/02/NORMA-TE%CC%81CNICA_FINAL.pdf">Norma Técnica</a>
+          </li>
+        </ul>
+      </v-card-text>
     </v-card>
   </v-flex>
 </template>
@@ -153,17 +166,9 @@ export default {
 </script>
 
 <style>
-.slide-content {
-  padding: 100px
-}
-
-.slide-title,
-.slide-text {
-  color: white
-}
-
-.slide-text {
-  font-size: 21px
+.expansion-panel__header {
+  height: auto;
+  padding: 15px 10px;
 }
 </style>
 

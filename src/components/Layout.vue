@@ -1,9 +1,9 @@
 <template>
-  <v-app id="sandbox" :light="true" standalone>
-    <v-navigation-drawer v-model="drawer" temporary overflow absolute enable-resize-watcher>
+  <v-app>
+    <v-navigation-drawer temporary v-model="sideNav">
       <v-list class="pt-0" dense>
         <v-divider></v-divider>
-        <v-list-tile v-for="item in items" :key="item" :to="item.route" router ripple @click.native="title = item.title">
+        <v-list-tile v-for="item in items" :key="item" :to="item.route" router ripple>
           <v-list-tile-action>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-tile-action>
@@ -16,7 +16,7 @@
       </v-list>
     </v-navigation-drawer>
     <v-toolbar fixed dark class="deep-purple">
-      <v-toolbar-side-icon @click.native.stop="drawer = !drawer"></v-toolbar-side-icon>
+      <v-toolbar-side-icon @click.native.stop="sideNav = !sideNav"></v-toolbar-side-icon>
       <v-slide-x-reverse-transition mode="out-in">
         <v-toolbar-title :key="title">{{title}}</v-toolbar-title>
       </v-slide-x-reverse-transition>
@@ -44,7 +44,7 @@
 <script>
 export default {
   data: () => ({
-    drawer: true,
+    sideNav: false,
     title: '',
     items: [
       { title: 'RUAC', icon: 'home', route: '/' },
@@ -63,17 +63,5 @@ export default {
 </script>
 
 <style lang="stylus">
-  @import '../../node_modules/vuetify/src/stylus/settings/_colors'
-
-  $theme := {
-    primary: $deep-purple.accent-2
-    accent: $purple.accent-2
-    secondary: $grey.lighten-1
-    info: $indigo.lighten-1
-    warning: $amber.darken-2
-    error: $purple.accent-4
-    success: $green.lighten-2
-  }
-
   @import '../stylus/main'
 </style>
