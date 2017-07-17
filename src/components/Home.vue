@@ -14,24 +14,36 @@
         </v-flex>
         <v-flex xs12 md6>
           <v-card-text class="layout fill-height align-center justify-center">
-            <p class="px-3 ma-0 subheading grey--text text--darken-3">{{items[0].text}}</p>
+            <div class="px-3 ma-0 subheading grey--text text--darken-3">
+              {{items[0].text}}
+              <v-layout mt-4>
+                <v-btn :to="'/inicio-sesion'" router primary>
+                  <v-icon dark left>lock_outline</v-icon>
+                  Inicia sesión
+                </v-btn>
+                <v-btn :to="'/registro'" router primary>
+                  <v-icon dark left>fingerprint</v-icon>
+                  Regístrate
+                </v-btn>
+              </v-layout>
+            </div>
           </v-card-text>
         </v-flex>
       </v-layout>
     </v-card>
     <v-card class="mb-5">
       <v-layout row wrap>
-        <v-flex xs12 md6>
-          <v-card-text class="layout fill-height align-center justify-center">
-            <div class="px-3 ma-0 subheading grey--text text--darken-3" v-html="items[1].text"></div>
-          </v-card-text>
-        </v-flex>
-        <v-flex xs12 md6>
+        <v-flex xs12 md6 order-xs1 order-md2>
           <v-card-media :src="items[1].src" height="250">
             <v-layout fill-height align-center justify-center>
               <h2 class="display-2 white--text">{{items[1].title}}</h2>
             </v-layout>
           </v-card-media>
+        </v-flex>
+        <v-flex xs12 md6 order-xs2 order-md1>
+          <v-card-text class="layout fill-height align-center justify-center">
+            <div class="px-3 ma-0 subheading grey--text text--darken-3" v-html="items[1].text"></div>
+          </v-card-text>
         </v-flex>
       </v-layout>
     </v-card>
@@ -46,7 +58,17 @@
         </v-flex>
         <v-flex xs12 md6>
           <v-card-text class="layout fill-height align-center justify-center">
-            <p class="px-3 ma-0 subheading grey--text text--darken-3">{{items[2].text}}</p>
+            <div class="px-3 ma-0 subheading grey--text text--darken-3">
+              {{items[2].text}}
+              <v-layout mt-4>
+                <v-btn href="/static/docs/acuerdo_ministerial.pdf" target="_blank" outline class="indigo--text">
+                  Acuerdo Ministerial
+                </v-btn>
+                <v-btn href="/static/docs/norma_tecnica.pdf" target="_blank" outline class="indigo--text">
+                  Norma Técnica
+                </v-btn>
+              </v-layout>
+            </div>
           </v-card-text>
         </v-flex>
       </v-layout>
@@ -62,19 +84,6 @@
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-card>
-    <h2 class="mb-4 pt-5 display-1 grey--text text--darken-3">Base Legal</h2>
-    <v-card class="py-2">
-      <v-card-text>
-        <ul class="subheading grey--text text--darken-3">
-          <li class="mb-2">
-            <a href="http://ruac.culturaypatrimonio.gob.ec/wp-content/uploads/2017/02/Acuerdo-Ministerial.pdf">Acuerdo Ministerial</a>
-          </li>
-          <li>
-            <a href="http://ruac.culturaypatrimonio.gob.ec/wp-content/uploads/2017/02/NORMA-TE%CC%81CNICA_FINAL.pdf">Norma Técnica</a>
-          </li>
-        </ul>
-      </v-card-text>
-    </v-card>
   </v-flex>
 </template>
 
@@ -89,7 +98,7 @@ export default {
       },
       {
         src: '/static/website/4.jpg',
-        title: 'Beneficios del RUAC',
+        title: 'Beneficios',
         text: `<ul>
                 <li>Permite la inclusión de los artistas y gestores culturales en el régimen de seguridad social.</li>
                 <li>Facilita la aplicación del Régimen Integral de Educación y Formación en Artes, Cultura y Patrimonio.</li>
@@ -99,7 +108,7 @@ export default {
       },
       {
         src: '/static/website/3.jpg',
-        title: 'Motivación',
+        title: 'Base Legal',
         text: 'La Ley Orgánica de Cultura establece que el Sistema Integral de Información Cultural (SIIC) recopilará, sintetizará, difundirá y pondrá en valor la información del ámbito cultural y patrimonial, generada por las entidades públicas, privadas o comunitarias, la comunidad artística y la ciudadanía en general.'
       }
     ],

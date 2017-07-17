@@ -16,12 +16,12 @@
       </v-list>
     </v-navigation-drawer>
     <v-toolbar fixed dark class="deep-purple">
-      <v-toolbar-side-icon @click.native.stop="sideNav = !sideNav"></v-toolbar-side-icon>
+      <v-toolbar-side-icon class="hidden-sm-and-up" @click.native.stop="sideNav = !sideNav"></v-toolbar-side-icon>
       <v-slide-x-reverse-transition mode="out-in">
         <v-toolbar-title :key="title">{{title}}</v-toolbar-title>
       </v-slide-x-reverse-transition>
       <v-spacer></v-spacer>
-      <v-toolbar-items class="hidden-sm-and-down">
+      <v-toolbar-items>
         <v-btn flat to="/inicio-sesion" router>Inicia sesión</v-btn>
         <v-btn flat to="/registro" router>Regístrate</v-btn>
       </v-toolbar-items>
@@ -35,7 +35,7 @@
         </v-layout>
       </v-container>
     </main>
-    <v-footer class="layout justify-center pa-4 mt-5">
+    <v-footer class="layout grey lighten-2 justify-center pa-4 mt-5">
       <span>&copy; Ministerio de Cultura y Patrimonio - {{ new Date().getFullYear() }}</span>
     </v-footer>
   </v-app>
