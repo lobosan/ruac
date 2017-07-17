@@ -61,10 +61,10 @@
             <div class="px-3 ma-0 subheading grey--text text--darken-3">
               {{items[2].text}}
               <v-layout mt-4>
-                <v-btn href="/static/docs/acuerdo_ministerial.pdf" target="_blank" outline class="indigo--text">
+                <v-btn tag="a" href="/static/docs/acuerdo_ministerial.pdf" target="_blank" outline class="indigo--text">
                   Acuerdo Ministerial
                 </v-btn>
-                <v-btn href="/static/docs/norma_tecnica.pdf" target="_blank" outline class="indigo--text">
+                <v-btn tag="a" href="/static/docs/norma_tecnica.pdf" target="_blank" outline class="indigo--text">
                   Norma Técnica
                 </v-btn>
               </v-layout>
