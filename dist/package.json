@@ -1,0 +1,10 @@
+{
+    "name": "ruac",
+    "version": "2.0.0",
+    "description": "Registro Único de Artistas y Gestores Culturales",
+    "author": "Santiago Galindo",
+    "private": true,
+    "scripts": {
+        "postinstall": "npm install express"
+    }
+}
