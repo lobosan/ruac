@@ -8,25 +8,25 @@
         <v-flex xs12 md6>
           <v-card-media :src="items[0].src" height="250">
             <v-layout fill-height align-center justify-center>
-              <h2 class="display-2 white--text">{{items[0].title}}</h2>
+              <h2 class="display-2 white--text text-xs-center">{{items[0].title}}</h2>
             </v-layout>
           </v-card-media>
         </v-flex>
         <v-flex xs12 md6>
-          <v-card-text class="layout fill-height align-center justify-center">
-            <div class="px-3 ma-0 subheading grey--text text--darken-3">
-              {{items[0].text}}
-              <v-layout mt-4>
+          <v-card-text>
+            <v-layout row wrap>
+              <v-flex xs12 class="pa-2 subheading grey--text text--darken-3">
+                {{items[0].text}}
+              </v-flex>
+              <v-flex xs12 pl-0>
                 <v-btn :to="'/inicio-sesion'" primary>
-                  <v-icon dark left>lock_outline</v-icon>
-                  Inicia sesión
+                  <v-icon dark left>lock_outline</v-icon> Inicia sesión
                 </v-btn>
                 <v-btn :to="'/registro'" primary>
-                  <v-icon dark left>fingerprint</v-icon>
-                  Regístrate
+                  <v-icon dark left>fingerprint</v-icon> Regístrate
                 </v-btn>
-              </v-layout>
-            </div>
+              </v-flex>
+            </v-layout>
           </v-card-text>
         </v-flex>
       </v-layout>
@@ -36,13 +36,13 @@
         <v-flex xs12 md6 order-xs1 order-md2>
           <v-card-media :src="items[1].src" height="250">
             <v-layout fill-height align-center justify-center>
-              <h2 class="display-2 white--text">{{items[1].title}}</h2>
+              <h2 class="display-2 white--text text-xs-center">{{items[1].title}}</h2>
             </v-layout>
           </v-card-media>
         </v-flex>
         <v-flex xs12 md6 order-xs2 order-md1>
           <v-card-text class="layout fill-height align-center justify-center">
-            <div class="px-3 ma-0 subheading grey--text text--darken-3" v-html="items[1].text"></div>
+            <div class="pa-2 subheading grey--text text--darken-3" v-html="items[1].text"></div>
           </v-card-text>
         </v-flex>
       </v-layout>
@@ -52,23 +52,25 @@
         <v-flex xs12 md6>
           <v-card-media :src="items[2].src" height="250">
             <v-layout fill-height align-center justify-center>
-              <h2 class="display-2 white--text">{{items[2].title}}</h2>
+              <h2 class="display-2 white--text text-xs-center">{{items[2].title}}</h2>
             </v-layout>
           </v-card-media>
         </v-flex>
         <v-flex xs12 md6>
           <v-card-text class="layout fill-height align-center justify-center">
-            <div class="px-3 ma-0 subheading grey--text text--darken-3">
-              {{items[2].text}}
-              <v-layout mt-4>
+            <v-layout row wrap>
+              <v-flex xs12 class="pa-2 subheading grey--text text--darken-3">
+                {{items[2].text}}
+              </v-flex>
+              <v-flex xs12 pl-0>
                 <v-btn href="/static/docs/acuerdo_ministerial.pdf" target="_blank" outline class="indigo--text">
                   Acuerdo Ministerial
                 </v-btn>
                 <v-btn href="/static/docs/norma_tecnica.pdf" target="_blank" outline class="indigo--text">
                   Norma Técnica
                 </v-btn>
-              </v-layout>
-            </div>
+              </v-flex>
+            </v-layout>
           </v-card-text>
         </v-flex>
       </v-layout>
