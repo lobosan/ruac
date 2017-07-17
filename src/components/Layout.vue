@@ -1,9 +1,9 @@
 <template>
-  <v-app>
+  <v-app toolbar footer>
     <v-navigation-drawer temporary v-model="sideNav">
       <v-list class="pt-0" dense>
         <v-divider></v-divider>
-        <v-list-tile v-for="item in items" :key="item" :to="item.route" router ripple>
+        <v-list-tile v-for="(item, i) in items" :key="i" :to="item.route" ripple>
           <v-list-tile-action>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-tile-action>
@@ -16,14 +16,14 @@
       </v-list>
     </v-navigation-drawer>
     <v-toolbar fixed dark class="deep-purple">
-      <v-toolbar-side-icon @click.native.stop="sideNav = !sideNav"></v-toolbar-side-icon>
+      <v-toolbar-side-icon @click.stop="sideNav = !sideNav"></v-toolbar-side-icon>
       <v-slide-x-reverse-transition mode="out-in">
         <v-toolbar-title :key="title">{{title}}</v-toolbar-title>
       </v-slide-x-reverse-transition>
       <v-spacer></v-spacer>
       <v-toolbar-items>
-        <v-btn flat to="/inicio-sesion" router>Inicia sesión</v-btn>
-        <v-btn flat to="/registro" router>Regístrate</v-btn>
+        <v-btn flat to="/inicio-sesion">Inicia sesión</v-btn>
+        <v-btn flat to="/registro">Regístrate</v-btn>
       </v-toolbar-items>
     </v-toolbar>
     <main>
@@ -35,7 +35,7 @@
         </v-layout>
       </v-container>
     </main>
-    <v-footer class="layout grey lighten-2 justify-center pa-4 mt-5">
+    <v-footer class="grey lighten-2 justify-center pa-4 mt-5">
       <span>&copy; Ministerio de Cultura y Patrimonio - {{ new Date().getFullYear() }}</span>
     </v-footer>
   </v-app>

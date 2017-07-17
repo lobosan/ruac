@@ -36,7 +36,7 @@
           <v-flex xs12>
             <v-text-field label="Teléfono de contacto"></v-text-field>
           </v-flex>
-          <v-btn outline class="indigo--text" @click.native="step = 2">
+          <v-btn outline class="indigo--text" @click="step = 2">
             Continuar
             <v-icon class="indigo--text">navigate_next</v-icon>
           </v-btn>
@@ -76,7 +76,7 @@
           <v-flex xs12>
             <v-select label="Tipo de seguridad social" :items="tipo_seguridad_social"></v-select>
           </v-flex>
-          <v-btn outline class="indigo--text" @click.native="step = 3">
+          <v-btn outline class="indigo--text" @click="step = 3">
             Continuar
             <v-icon class="indigo--text">navigate_next</v-icon>
           </v-btn>

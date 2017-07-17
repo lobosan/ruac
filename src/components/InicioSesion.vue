@@ -8,7 +8,7 @@
         <v-flex xs12>
           <v-text-field label="Contraseña" hint="Al menos 8 caracteres" min="8" :append-icon="e1 ? 'visibility' : 'visibility_off'" :append-icon-cb="() => (e1 = !e1)" :type="e1 ? 'text' : 'password'"></v-text-field>
         </v-flex>
-        <v-btn outline class="indigo--text" @click.native="dialog = false">Ingresar</v-btn>
+        <v-btn outline class="indigo--text" @click="dialog = false">Ingresar</v-btn>
       </v-card-text>
     </v-card>
   </v-flex>

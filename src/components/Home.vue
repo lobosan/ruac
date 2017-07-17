@@ -17,11 +17,11 @@
             <div class="px-3 ma-0 subheading grey--text text--darken-3">
               {{items[0].text}}
               <v-layout mt-4>
-                <v-btn :to="'/inicio-sesion'" router primary>
+                <v-btn :to="'/inicio-sesion'" primary>
                   <v-icon dark left>lock_outline</v-icon>
                   Inicia sesión
                 </v-btn>
-                <v-btn :to="'/registro'" router primary>
+                <v-btn :to="'/registro'" primary>
                   <v-icon dark left>fingerprint</v-icon>
                   Regístrate
                 </v-btn>
@@ -61,10 +61,10 @@
             <div class="px-3 ma-0 subheading grey--text text--darken-3">
               {{items[2].text}}
               <v-layout mt-4>
-                <v-btn tag="a" href="/static/docs/acuerdo_ministerial.pdf" target="_blank" outline class="indigo--text">
+                <v-btn href="/static/docs/acuerdo_ministerial.pdf" target="_blank" outline class="indigo--text">
                   Acuerdo Ministerial
                 </v-btn>
-                <v-btn tag="a" href="/static/docs/norma_tecnica.pdf" target="_blank" outline class="indigo--text">
+                <v-btn href="/static/docs/norma_tecnica.pdf" target="_blank" outline class="indigo--text">
                   Norma Técnica
                 </v-btn>
               </v-layout>
