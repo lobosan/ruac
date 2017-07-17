@@ -13,8 +13,8 @@
         </v-flex>
         <v-flex xs12>
           <v-dialog persistent v-model="modal" lazy full-width>
-            <v-text-field slot="activator" label="Fecha de nacimiento" hint="Año-mes-día" v-model="e2" readonly></v-text-field>
-            <v-date-picker v-model="e2" :months="months" :days="days" first-day-of-week="Lunes" :scrollable="true">
+            <v-text-field slot="activator" label="Fecha de nacimiento" hint="Año-mes-día" v-model="picker" readonly></v-text-field>
+            <v-date-picker locale="es-sp" first-day-of-week="1" v-model="picker" :scrollable="true">
               <template scope="{ save, cancel }">
                 <v-card-actions>
                   <v-btn flat primary @click="cancel()">Cancelar</v-btn>
@@ -25,7 +25,7 @@
           </v-dialog>
         </v-flex>
         <v-flex xs12>
-          <v-text-field name="input-10-1" label="Contraseña" hint="Al menos 8 caracteres" min="8" :append-icon="e1 ? 'visibility' : 'visibility_off'" :append-icon-cb="()=> (e1 = !e1)" :type="e1 ? 'text' : 'password'"></v-text-field>
+          <v-text-field name="input-10-1" label="Contraseña" hint="Al menos 8 caracteres" min="8" :append-icon="visible ? 'visibility' : 'visibility_off'" :append-icon-cb="()=> (visible = !visible)" :type="visible ? 'text' : 'password'"></v-text-field>
         </v-flex>
         <v-btn to="/perfil-creacion" outline class="indigo--text" @click="dialog = false">Registrar</v-btn>
       </v-card-text>
@@ -36,32 +36,9 @@
 <script>
 export default {
   data: () => ({
-    e1: false,
-    e2: null,
-    modal: false,
-    months: [
-      'Enero',
-      'Febrero',
-      'Marzo',
-      'Abril',
-      'Mayo',
-      'Junio',
-      'Julio',
-      'Agosto',
-      'Septiembre',
-      'Octubre',
-      'Noviembre',
-      'Diciembre'
-    ],
-    days: [
-      'Domingo',
-      'Lunes',
-      'Martes',
-      'Miércoles',
-      'Jueves',
-      'Viernes',
-      'Sábado'
-    ]
+    visible: false,
+    picker: null,
+    modal: false
   })
 }
 </script>
