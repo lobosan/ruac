@@ -16,7 +16,7 @@
       </v-list>
     </v-navigation-drawer>
     <v-toolbar fixed dark class="deep-purple">
-      <v-toolbar-side-icon class="hidden-sm-and-up" @click.native.stop="sideNav = !sideNav"></v-toolbar-side-icon>
+      <v-toolbar-side-icon @click.native.stop="sideNav = !sideNav"></v-toolbar-side-icon>
       <v-slide-x-reverse-transition mode="out-in">
         <v-toolbar-title :key="title">{{title}}</v-toolbar-title>
       </v-slide-x-reverse-transition>

@@ -1,5 +1,5 @@
 <template>
-  <v-flex xs12 sm11 md10 lg9 xl8>
+  <v-flex xs12 sm10 md10 lg9 xl8>
     <h1 class="mt-3 mb-5 display-1 grey--text text--darken-3 text-xs-center">
       Bienvenido al Registro Único de Artistas y Gestores Culturales
     </h1>
@@ -32,7 +32,7 @@
       </v-layout>
     </v-card>
     <v-card class="mb-5">
-      <v-layout row wrap>
+      <v-layout row wrap align-center>
         <v-flex xs12 md6 order-xs1 order-md2>
           <v-card-media :src="items[1].src" height="250">
             <v-layout fill-height align-center justify-center>
@@ -94,17 +94,15 @@ export default {
       {
         src: '/static/website/5.jpg',
         title: 'Qué es el RUAC?',
-        text: 'Es la plataforma virtual que sirve para el registro de artistas y gestores cuya actividad económica u oficio se desarrolla en el campo de la cultura y las artes.'
+        text: 'Es la plataforma virtual que sirve para el registro de artistas y gestores cuya actividad económica u oficio se desarrolla en el campo de la cultura y las artes del Ecuador.'
       },
       {
         src: '/static/website/4.jpg',
         title: 'Beneficios',
-        text: `<ul>
-                <li>Permite la inclusión de los artistas y gestores culturales en el régimen de seguridad social.</li>
-                <li>Facilita la aplicación del Régimen Integral de Educación y Formación en Artes, Cultura y Patrimonio.</li>
-                <li>Permite el acceso a los incentivos tributarios contemplados en la Ley Orgánica de Cultura.</li>
-                <li>Faculta la participación en las Asambleas Provinciales de la Casa de la Cultura Ecuatoriana Benjamín Carrión.</li>
-              </ul>`
+        text: `<div class="mb-2">Permite incluir a los artistas y gestores culturales en el régimen de seguridad social.</div>
+               <div class="mb-2">Facilita la aplicación del Régimen Integral de Educación y Formación en Artes, Cultura y Patrimonio.</div>
+               <div class="mb-2">Habilita el acceso a los incentivos tributarios contemplados en la Ley Orgánica de Cultura.</div>
+               <div>Faculta la participación en las Asambleas Provinciales de la Casa de la Cultura Ecuatoriana Benjamín Carrión.</div>`
       },
       {
         src: '/static/website/3.jpg',
