@@ -21,7 +21,7 @@
         <v-toolbar-title :key="title">{{title}}</v-toolbar-title>
       </v-slide-x-reverse-transition>
       <v-spacer></v-spacer>
-      <v-toolbar-items>
+      <v-toolbar-items class="hidden-xs-only">
         <v-btn flat to="/inicio-sesion">Inicia sesión</v-btn>
         <v-btn flat to="/registro">Regístrate</v-btn>
       </v-toolbar-items>
