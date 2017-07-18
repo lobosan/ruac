@@ -16,6 +16,7 @@
     "event-source-polyfill": "^0.0.9",
     "vue": "2.4.1",
     "vue-router": "2.7.0",
+    "vue2-google-maps": "^0.7.9",
     "vuetify": "0.14.2"
   },
   "devDependencies": {

@@ -1,12 +1,13 @@
 <template>
-  <v-flex xs12 sm10 md10 lg9 xl8>
+  <v-flex xs12 sm11 md11 lg9 xl8>
     <h1 class="mt-3 mb-5 display-1 grey--text text--darken-3 text-xs-center">
       Bienvenido al Registro Único de Artistas y Gestores Culturales
     </h1>
+    <!-- Qué es el RUAC -->
     <v-card class="mb-5">
       <v-layout row wrap>
         <v-flex xs12 md6>
-          <v-card-media :src="items[0].src" height="250">
+          <v-card-media :src="items[0].src" height="270">
             <v-layout fill-height align-center justify-center>
               <h2 class="display-2 white--text text-xs-center">{{items[0].title}}</h2>
             </v-layout>
@@ -18,11 +19,11 @@
               <v-flex xs12 class="pa-2 subheading grey--text text--darken-3">
                 {{items[0].text}}
               </v-flex>
-              <v-flex xs12 pl-0>
-                <v-btn :to="'/inicio-sesion'" primary>
-                  <v-icon dark left>lock_outline</v-icon> Inicia sesión
+              <v-flex xs12 pl-0 pt-2>
+                <v-btn to="/inicio-sesion" primary>
+                  <v-icon dark left>face</v-icon> Inicia sesión
                 </v-btn>
-                <v-btn :to="'/registro'" primary>
+                <v-btn to="/registro" primary>
                   <v-icon dark left>fingerprint</v-icon> Regístrate
                 </v-btn>
               </v-flex>
@@ -31,38 +32,40 @@
         </v-flex>
       </v-layout>
     </v-card>
+    <!-- Beneficios -->
     <v-card class="mb-5">
-      <v-layout row wrap align-center>
+      <v-layout row wrap>
         <v-flex xs12 md6 order-xs1 order-md2>
-          <v-card-media :src="items[1].src" height="250">
+          <v-card-media :src="items[1].src" height="270">
             <v-layout fill-height align-center justify-center>
               <h2 class="display-2 white--text text-xs-center">{{items[1].title}}</h2>
             </v-layout>
           </v-card-media>
         </v-flex>
         <v-flex xs12 md6 order-xs2 order-md1>
-          <v-card-text class="layout fill-height align-center justify-center">
+          <v-card-text>
             <div class="pa-2 subheading grey--text text--darken-3" v-html="items[1].text"></div>
           </v-card-text>
         </v-flex>
       </v-layout>
     </v-card>
+    <!-- Base legal -->
     <v-card class="mb-5">
       <v-layout row wrap>
         <v-flex xs12 md6>
-          <v-card-media :src="items[2].src" height="250">
+          <v-card-media :src="items[2].src" height="270">
             <v-layout fill-height align-center justify-center>
               <h2 class="display-2 white--text text-xs-center">{{items[2].title}}</h2>
             </v-layout>
           </v-card-media>
         </v-flex>
         <v-flex xs12 md6>
-          <v-card-text class="layout fill-height align-center justify-center">
+          <v-card-text>
             <v-layout row wrap>
               <v-flex xs12 class="pa-2 subheading grey--text text--darken-3">
                 {{items[2].text}}
               </v-flex>
-              <v-flex xs12 pl-0>
+              <v-flex xs12 pl-0 pt-2>
                 <v-btn href="/static/docs/acuerdo_ministerial.pdf" target="_blank" outline class="indigo--text">
                   Acuerdo Ministerial
                 </v-btn>
@@ -75,8 +78,9 @@
         </v-flex>
       </v-layout>
     </v-card>
+    <!-- Preguntas Frecuentes -->
     <h2 class="mb-4 pt-3 display-1 grey--text text--darken-3">Preguntas Frecuentes</h2>
-    <v-card flat class="mb-4">
+    <v-card flat class="mb-5">
       <v-expansion-panel>
         <v-expansion-panel-content v-for="(pregunta, i) in preguntas" :key="i">
           <div slot="header" class="ml-2 mr-5 subheading grey--text text--darken-4">{{i+1}}. {{pregunta.title}}</div>
@@ -86,12 +90,33 @@
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-card>
+    <!-- Dirección y contactos -->
+    <h2 class="mb-4 pt-3 display-1 grey--text text--darken-3">Dirección y contactos</h2>
+    <v-card>
+      <v-layout row wrap>
+        <v-flex xs12 md4 pa-4 class="pa-2 subheading grey--text text--darken-3" order-xs2 order-md1>
+          <p>Av. Colón E5-34 y Juan León Mera</p>
+          <p>Email: ruac@culturaypatrimonio.gob.ec</p>
+          <p>Teléfono: 593-2 381-4550</p>
+          <p>Quito – Ecuador</p>
+        </v-flex>
+        <v-flex xs12 md8 order-xs1 order-md2>
+          <gmap-map :center="center" :zoom="19" style="min-width: 320px; height: 350px">
+            <gmap-marker :key="index" v-for="(m, index) in markers" :position="m.position" :clickable="true" :draggable="true" @click="center=m.position"></gmap-marker>
+          </gmap-map>
+        </v-flex>
+      </v-layout>
+    </v-card>
   </v-flex>
 </template>
 
 <script>
 export default {
   data: () => ({
+    center: { lat: -0.200840, lng: -78.489790 },
+    markers: [{
+      position: { lat: -0.200840, lng: -78.489790 }
+    }],
     items: [
       {
         src: '/static/website/5.jpg',
@@ -101,9 +126,9 @@ export default {
       {
         src: '/static/website/4.jpg',
         title: 'Beneficios',
-        text: `<div class="mb-2">Permite incluir a los artistas y gestores culturales en el régimen de seguridad social.</div>
-               <div class="mb-2">Facilita la aplicación del Régimen Integral de Educación y Formación en Artes, Cultura y Patrimonio.</div>
-               <div class="mb-2">Habilita el acceso a los incentivos tributarios contemplados en la Ley Orgánica de Cultura.</div>
+        text: `<div class="mb-1">Permite incluir a los artistas y gestores culturales en el régimen de seguridad social.</div>
+               <div class="mb-1">Facilita la aplicación del Régimen Integral de Educación y Formación en Artes, Cultura y Patrimonio.</div>
+               <div class="mb-1">Habilita el acceso a los incentivos tributarios contemplados en la Ley Orgánica de Cultura.</div>
                <div>Faculta la participación en las Asambleas Provinciales de la Casa de la Cultura Ecuatoriana Benjamín Carrión.</div>`
       },
       {
@@ -177,7 +202,7 @@ export default {
 <style>
 .expansion-panel__header {
   height: auto;
-  padding: 15px 10px;
+  padding: 15px 0 15px 10px;
 }
 </style>
 

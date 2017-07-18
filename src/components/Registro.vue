@@ -25,7 +25,7 @@
           </v-dialog>
         </v-flex>
         <v-flex xs12>
-          <v-text-field name="input-10-1" label="Contraseña" hint="Al menos 8 caracteres" min="8" :append-icon="visible ? 'visibility' : 'visibility_off'" :append-icon-cb="()=> (visible = !visible)" :type="visible ? 'text' : 'password'"></v-text-field>
+          <v-text-field name="input-10-1" label="Contraseña" hint="Al menos 8 caracteres" min="8" :append-icon="visible ? 'visibility' : 'visibility_off'" :append-icon-cb="() => (visible = !visible)" :type="visible ? 'text' : 'password'"></v-text-field>
         </v-flex>
         <v-btn to="/perfil-creacion" outline class="indigo--text" @click="dialog = false">Registrar</v-btn>
       </v-card-text>

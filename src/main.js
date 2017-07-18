@@ -10,7 +10,15 @@ import Vuetify from 'vuetify'
 import Layout from './components/Layout'
 import { createRouter } from './router/index'
 
+import * as VueGoogleMaps from 'vue2-google-maps'
+
 Vue.use(Vuetify)
+Vue.use(VueGoogleMaps, {
+  load: {
+    key: 'AIzaSyBjkOESteDGfqatHkRHYXrTHlcMrMkjBL0'
+  }
+})
+
 Vue.config.productionTip = false
 
 const router = createRouter()

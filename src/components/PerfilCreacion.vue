@@ -87,13 +87,13 @@
         </v-stepper-step>
         <v-stepper-content step="3">
           <v-flex xs12>
-            <v-text-field label="Logros alcanzados" multi-line></v-text-field>
+            <v-text-field label="Logros alcanzados" multi-line rows="4"></v-text-field>
           </v-flex>
           <v-flex xs12>
-            <v-text-field label="Participación en proyectos culturales" multi-line></v-text-field>
+            <v-text-field label="Participación en proyectos culturales" multi-line rows="4"></v-text-field>
           </v-flex>
           <v-flex xs12>
-            <v-text-field label="Formación y capacitación" multi-line></v-text-field>
+            <v-text-field label="Formación y capacitación" multi-line rows="4"></v-text-field>
           </v-flex>
           <v-flex xs12>
             <v-text-field label="Página web o blog" prepend-icon="web"></v-text-field>
