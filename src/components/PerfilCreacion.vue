@@ -106,11 +106,14 @@
         <v-flex xs12>
           <v-text-field label="Twitter"></v-text-field>
         </v-flex>
-        <v-flex xs12>
-          <v-switch :label="`Declaro que son ciertos, reales y verificables todos los datos consignados, haciéndome responsable de cualquier omisión o falsedad en la información solicitada: ${declaracion.toString()}`" v-model="declaracion" color="primary" false-value="NO" true-value="SI"></v-switch>
+        <v-flex xs12 mb-3>
+          <label class="subheading">
+            Declaro que son ciertos, reales y verificables todos los datos consignados, haciéndome responsable de cualquier omisión o falsedad en la información solicitada:
+            <v-select class="custom-select" :items="declaracion_si_no" single-line v-model="declaracion"></v-select>
+          </label>
         </v-flex>
-        <v-btn outline class="indigo--text mt-5 mb-3">
-          <v-icon left class="indigo--text">save</v-icon>
+        <v-btn primary>
+          <v-icon left dark>save</v-icon>
           Guardar perfil
         </v-btn>
       </v-stepper-content>
@@ -122,7 +125,6 @@
 export default {
   data: () => ({
     step: 1,
-    declaracion: 'NO',
     perfil: {
       cedula: '1718896580',
       nombre_completo: 'GALINDO HIDALGO SANTIAGO PAÚL',
@@ -180,7 +182,30 @@ export default {
     tipo_seguridad_social: [
       'Voluntario',
       'Dependiente'
+    ],
+    declaracion: 'No',
+    declaracion_si_no: [
+      'Sí',
+      'No'
     ]
   })
 }
 </script>
+
+<style>
+.stepper--vertical .stepper__content:not(:last-child) {
+  border-left: none;
+}
+
+.stepper--vertical .stepper__content {
+  margin: 0;
+  padding: 5px 25px;
+}
+
+.custom-select {
+  width: 50px;
+  display: inline-flex;
+  margin: 0 0 0 10px;
+  font-weight: 500;
+}
+</style>
