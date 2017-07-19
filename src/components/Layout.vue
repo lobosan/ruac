@@ -50,7 +50,7 @@ export default {
       { title: 'RUAC', icon: 'home', route: '/' },
       { title: 'Inicio de sesión', icon: 'face', route: '/inicio-sesion' },
       { title: 'Registro de cuenta', icon: 'fingerprint', route: '/registro' },
-      { title: 'Creación de perfil', icon: 'star_border', route: '/perfil-creacion' }
+      { title: 'Creación de perfil', icon: 'account_box', route: '/perfil-creacion' }
     ]
   }),
   watch: {

@@ -94,13 +94,13 @@
     <h2 class="mb-4 pt-3 display-1 grey--text text--darken-3">Dirección y contactos</h2>
     <v-card>
       <v-layout row wrap>
-        <v-flex xs12 md4 pa-4 class="pa-2 subheading grey--text text--darken-3" order-xs2 order-md1>
-          <p>Av. Colón E5-34 y Juan León Mera</p>
+        <v-flex xs12 md5 pa-4 class="pa-2 subheading grey--text text--darken-3" order-xs2 order-md1>
+          <p>Dirección: Av. Colón E5-34 y Juan León Mera</p>
           <p>Email: ruac@culturaypatrimonio.gob.ec</p>
           <p>Teléfono: 593-2 381-4550</p>
           <p>Quito – Ecuador</p>
         </v-flex>
-        <v-flex xs12 md8 order-xs1 order-md2>
+        <v-flex xs12 md7 order-xs1 order-md2>
           <gmap-map :center="center" :zoom="19" style="min-width: 320px; height: 350px">
             <gmap-marker :key="index" v-for="(m, index) in markers" :position="m.position" :clickable="true" :draggable="true" @click="center=m.position"></gmap-marker>
           </gmap-map>
