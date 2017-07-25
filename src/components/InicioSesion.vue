@@ -15,7 +15,7 @@
               :append-icon-cb="() => (visible = !visible)"
               :type="visible ? 'text' : 'password'"></v-text-field>
           </v-flex>
-          <v-btn outline class="indigo--text ml-1 mt-4">Ingresar</v-btn>
+          <v-btn to="/perfil-creacion" outline class="deep-purple--text ml-1 mt-4">Ingresar</v-btn>
         </form>
       </v-card-text>
     </v-card>

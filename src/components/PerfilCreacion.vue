@@ -2,7 +2,7 @@
   <v-flex xs12 sm10 md10 lg8 xl8 class="white">
     <v-stepper v-model="step" vertical>
       <v-stepper-step step="1" editable :complete="step > 1">
-        <span class="subheading indigo--text">DATOS GENERALES</span>
+        <span class="subheading deep-purple--text">DATOS GENERALES</span>
       </v-stepper-step>
       <!-- Datos Generales -->
       <v-stepper-content step="1">
@@ -16,14 +16,14 @@
         <v-select label="Provincia de domicilio" :items="provincias"></v-select>
         <v-select label="Cantón de domicilio" :items="cantones"></v-select>
         <v-text-field label="Teléfono de contacto"></v-text-field>
-        <v-btn outline class="indigo--text mt-3" @click="step = 2">
+        <v-btn outline class="deep-purple--text mt-3" @click="step = 2">
           Continuar
-          <v-icon class="indigo--text">navigate_next</v-icon>
+          <v-icon class="deep-purple--text">navigate_next</v-icon>
         </v-btn>
       </v-stepper-content>
       <!-- Actividad Cultural -->
       <v-stepper-step step="2" editable :complete="step > 2">
-        <span class="subheading indigo--text">ACTIVIDAD CULTURAL</span>
+        <span class="subheading deep-purple--text">ACTIVIDAD CULTURAL</span>
       </v-stepper-step>
       <v-stepper-content step="2">
         <v-select label="Tipo de actividad" :items="tipo_actividad"></v-select>
@@ -36,14 +36,14 @@
         <v-select label="¿Pertenece a algún tipo de organización cultural?" :items="si_no"></v-select>
         <v-select label="¿Tiene usted seguridad social?" :items="si_no"></v-select>
         <v-select label="Tipo de seguridad social" :items="tipo_seguridad_social"></v-select>
-        <v-btn outline class="indigo--text mt-3" @click="step = 3">
+        <v-btn outline class="deep-purple--text mt-3" @click="step = 3">
           Continuar
-          <v-icon class="indigo--text">navigate_next</v-icon>
+          <v-icon class="deep-purple--text">navigate_next</v-icon>
         </v-btn>
       </v-stepper-content>
       <!-- Trayectoria -->
       <v-stepper-step step="3" editable>
-        <span class="subheading indigo--text">TRAYECTORIA</span>
+        <span class="subheading deep-purple--text">TRAYECTORIA</span>
       </v-stepper-step>
       <v-stepper-content step="3">
         <v-text-field label="Logros alcanzados" multi-line rows="4"></v-text-field>
@@ -148,7 +148,14 @@ export default {
   width: 50px;
   display: inline-flex;
   margin: 0 0 0 10px;
+  padding-top: 0;
   font-weight: 500;
+}
+
+@media only screen and (max-width: 386px) {
+  .custom-select {
+    margin: 0;
+  }
 }
 
 @media only screen and (max-width: 700px) {

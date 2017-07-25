@@ -66,10 +66,10 @@
                 {{items[2].text}}
               </v-flex>
               <v-flex xs12 pl-0 pt-2>
-                <v-btn href="/static/docs/acuerdo_ministerial.pdf" target="_blank" outline class="indigo--text">
+                <v-btn href="/static/docs/acuerdo_ministerial.pdf" target="_blank" outline class="deep-purple--text">
                   Acuerdo Ministerial
                 </v-btn>
-                <v-btn href="/static/docs/norma_tecnica.pdf" target="_blank" outline class="indigo--text">
+                <v-btn href="/static/docs/norma_tecnica.pdf" target="_blank" outline class="deep-purple--text">
                   Norma Técnica
                 </v-btn>
               </v-flex>
