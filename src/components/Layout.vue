@@ -72,8 +72,4 @@ export default {
   .application--light .input-group:not(.input-group--error):not(.input-group--focused):not(.input-group--disabled):hover .input-group__details:before {
     background-color: rgba(0,0,0,0.34);
   }
-
-  .input-group {
-    padding-bottom: 0;
-  }
 </style>
