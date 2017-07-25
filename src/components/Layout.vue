@@ -28,7 +28,7 @@
     </v-toolbar>
     <main>
       <v-container fluid>
-        <v-layout justify-center>
+        <v-layout justify-center mt-3>
           <v-slide-x-reverse-transition mode="out-in">
             <router-view></router-view>
           </v-slide-x-reverse-transition>
@@ -64,4 +64,16 @@ export default {
 
 <style lang="stylus">
   @import '../stylus/main'
+
+  .application--light .input-group:not(.input-group--error) .input-group__details:before {
+    background-color: rgba(0,0,0,.12);
+  }
+
+  .application--light .input-group:not(.input-group--error):not(.input-group--focused):not(.input-group--disabled):hover .input-group__details:before {
+    background-color: rgba(0,0,0,0.34);
+  }
+
+  .input-group {
+    padding-bottom: 0;
+  }
 </style>

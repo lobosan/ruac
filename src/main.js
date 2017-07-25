@@ -6,13 +6,13 @@ import 'event-source-polyfill'
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import Vuetify from 'vuetify'
+import * as VueGoogleMaps from 'vue2-google-maps'
 
 import Layout from './components/Layout'
 import { createRouter } from './router/index'
 
-import * as VueGoogleMaps from 'vue2-google-maps'
-
 Vue.use(Vuetify)
+
 Vue.use(VueGoogleMaps, {
   load: {
     key: 'AIzaSyBjkOESteDGfqatHkRHYXrTHlcMrMkjBL0'

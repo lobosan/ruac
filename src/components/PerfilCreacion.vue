@@ -16,7 +16,7 @@
         <v-select label="Provincia de domicilio" :items="provincias"></v-select>
         <v-select label="Cantón de domicilio" :items="cantones"></v-select>
         <v-text-field label="Teléfono de contacto"></v-text-field>
-        <v-btn outline class="indigo--text" @click="step = 2">
+        <v-btn outline class="indigo--text mt-3" @click="step = 2">
           Continuar
           <v-icon class="indigo--text">navigate_next</v-icon>
         </v-btn>
@@ -36,7 +36,7 @@
         <v-select label="¿Pertenece a algún tipo de organización cultural?" :items="si_no"></v-select>
         <v-select label="¿Tiene usted seguridad social?" :items="si_no"></v-select>
         <v-select label="Tipo de seguridad social" :items="tipo_seguridad_social"></v-select>
-        <v-btn outline class="indigo--text" @click="step = 3">
+        <v-btn outline class="indigo--text mt-3" @click="step = 3">
           Continuar
           <v-icon class="indigo--text">navigate_next</v-icon>
         </v-btn>
@@ -52,12 +52,12 @@
         <v-text-field label="Página web o blog" prepend-icon="web"></v-text-field>
         <v-text-field label="YouTube"></v-text-field>
         <v-text-field label="Facebook"></v-text-field>
-        <v-text-field label="Twitter"></v-text-field>
+        <v-text-field label="Twitter" class="mb-4"></v-text-field>
         <label class="subheading">
           Declaro que son ciertos, reales y verificables todos los datos consignados, haciéndome responsable de cualquier omisión o falsedad en la información solicitada:
           <v-select class="custom-select" :items="declaracion_si_no" single-line v-model="declaracion"></v-select>
         </label>
-        <v-flex mt-2 pl-0>
+        <v-flex my-3 pl-0>
           <v-btn primary>
             <v-icon left dark>save</v-icon>
             Guardar perfil
@@ -140,6 +140,10 @@ export default {
 </script>
 
 <style>
+.application--light .stepper .stepper__step--active .stepper__label {
+  text-shadow: 0px 0px 0px #3f51b5;
+}
+
 .custom-select {
   width: 50px;
   display: inline-flex;
