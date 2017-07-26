@@ -36,7 +36,7 @@
       </v-container>
     </main>
     <v-footer class="grey lighten-2 justify-center pa-4 mt-5">
-      <span>&copy; Ministerio de Cultura y Patrimonio - {{ new Date().getFullYear() }}</span>
+      <span class="grey--text text--darken-3">&copy; Ministerio de Cultura y Patrimonio - {{ new Date().getFullYear() }}</span>
     </v-footer>
   </v-app>
 </template>
@@ -67,6 +67,26 @@ export default {
 
   html {
     font-size: 15px;
+  }
+
+  .display-1 {
+    font-size: 32px !important;
+  }
+
+  .display-2 {
+    font-size: 40px !important;
+  }
+
+  .container.fluid {
+    padding-top: 16px;
+  }
+
+  .toolbar--fixed + main {
+    padding-top: 64px;
+  }
+
+  .application--light {
+    background: #f2f2f2;
   }
 
   .toolbar__title, .btn {

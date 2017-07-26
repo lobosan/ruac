@@ -1,6 +1,6 @@
 <template>
   <v-flex xs12 sm7 md5 lg4 xl3>
-    <v-card class="pa-4">
+    <v-card class="pa-3">
       <v-card-text>
         <v-flex xs12>
           <v-text-field label="Cédula" hint="10 dígitos sin guiones" max="10"></v-text-field>
@@ -12,7 +12,11 @@
             hint="Año-mes-día"
             v-model="picker"
             readonly></v-text-field>
-            <v-date-picker locale="es-sp" first-day-of-week="1" v-model="picker" :scrollable="true">
+            <v-date-picker locale="es-sp"
+              first-day-of-week="1"
+              v-model="picker"
+              :scrollable="true"
+              ref="picker">
               <template scope="{ save, cancel }">
                 <v-card-actions>
                   <v-btn flat primary @click="cancel()">Cancelar</v-btn>
@@ -41,6 +45,15 @@ export default {
     visible: false,
     picker: null,
     modal: false
-  })
+  }),
+  watch: {
+    modal(val) {
+      if (val) {
+        this.$nextTick(() => {
+          this.$refs.picker.isSelected = true
+        })
+      }
+    }
+  }
 }
 </script>

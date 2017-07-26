@@ -1,6 +1,6 @@
 <template>
   <v-flex xs12 sm11 md11 lg9 xl8>
-    <h1 class="mt-3 mb-5 display-1 grey--text text--darken-3 text-xs-center">
+    <h1 class="mt-3 mb-5 display-1 grey--text text--darken-4 text-xs-center">
       Bienvenido al Registro Único de Artistas y Gestores Culturales
     </h1>
     <!-- Qué es el RUAC -->
@@ -16,7 +16,7 @@
         <v-flex xs12 md6>
           <v-card-text>
             <v-layout row wrap>
-              <v-flex xs12 class="pa-2 grey--text text--darken-3">
+              <v-flex xs12 class="pa-2 grey--text text--darken-4">
                 {{items[0].text}}
               </v-flex>
               <v-flex xs12 pl-0 pt-2>
@@ -44,7 +44,7 @@
         </v-flex>
         <v-flex xs12 md6 order-xs2 order-md1>
           <v-card-text>
-            <div class="pa-2 grey--text text--darken-3" v-html="items[1].text"></div>
+            <div class="pa-2 grey--text text--darken-4" v-html="items[1].text"></div>
           </v-card-text>
         </v-flex>
       </v-layout>
@@ -62,7 +62,7 @@
         <v-flex xs12 md6>
           <v-card-text>
             <v-layout row wrap>
-              <v-flex xs12 class="pa-2 grey--text text--darken-3">
+              <v-flex xs12 class="pa-2 grey--text text--darken-4">
                 {{items[2].text}}
               </v-flex>
               <v-flex xs12 pl-0 pt-2>
@@ -79,7 +79,7 @@
       </v-layout>
     </v-card>
     <!-- Preguntas Frecuentes -->
-    <h2 class="mb-4 pt-3 headline grey--text text--darken-3">Preguntas Frecuentes</h2>
+    <h2 class="mb-4 pt-3 headline grey--text text--darken-4">Preguntas Frecuentes</h2>
     <v-card flat class="mb-5">
       <v-expansion-panel>
         <v-expansion-panel-content v-for="(pregunta, i) in preguntas" :key="i">
@@ -91,10 +91,10 @@
       </v-expansion-panel>
     </v-card>
     <!-- Dirección y contactos -->
-    <h2 class="mb-4 pt-3 headline grey--text text--darken-3">Dirección y contactos</h2>
+    <h2 class="mb-4 pt-3 headline grey--text text--darken-4">Dirección y contactos</h2>
     <v-card>
       <v-layout row wrap>
-        <v-flex xs12 md5 pa-4 class="pa-2 grey--text text--darken-3" order-xs2 order-md1>
+        <v-flex xs12 md5 pa-4 class="pa-2 grey--text text--darken-4" order-xs2 order-md1>
           <p>Dirección: Av. Colón E5-34 y Juan León Mera</p>
           <p>Email: ruac@culturaypatrimonio.gob.ec</p>
           <p>Teléfono: 593-2 381-4550</p>

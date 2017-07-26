@@ -1,6 +1,6 @@
 <template>
   <v-flex xs12 sm7 md5 lg4 xl3>
-    <v-card class="pa-4">
+    <v-card class="pa-3">
       <v-card-text>
         <form autocomplete="off">
           <v-flex xs12>

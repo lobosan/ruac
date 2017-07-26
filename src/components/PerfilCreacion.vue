@@ -1,5 +1,5 @@
 <template>
-  <v-flex xs12 sm10 md10 lg8 xl8 class="white">
+  <v-flex xs12 sm10 md10 lg8 xl8>
     <v-stepper v-model="step" vertical>
       <v-stepper-step step="1" editable :complete="step > 1">
         <span class="subheading deep-purple--text">DATOS GENERALES</span>
@@ -16,7 +16,7 @@
         <v-select label="Provincia de domicilio" :items="provincias"></v-select>
         <v-select label="Cantón de domicilio" :items="cantones"></v-select>
         <v-text-field label="Teléfono de contacto"></v-text-field>
-        <v-btn outline class="deep-purple--text mt-3" @click="step = 2">
+        <v-btn outline class="deep-purple--text my-3" @click="step = 2">
           Continuar
           <v-icon class="deep-purple--text">navigate_next</v-icon>
         </v-btn>
@@ -36,7 +36,7 @@
         <v-select label="¿Pertenece a algún tipo de organización cultural?" :items="si_no"></v-select>
         <v-select label="¿Tiene usted seguridad social?" :items="si_no"></v-select>
         <v-select label="Tipo de seguridad social" :items="tipo_seguridad_social"></v-select>
-        <v-btn outline class="deep-purple--text mt-3" @click="step = 3">
+        <v-btn outline class="deep-purple--text my-3" @click="step = 3">
           Continuar
           <v-icon class="deep-purple--text">navigate_next</v-icon>
         </v-btn>
@@ -46,10 +46,10 @@
         <span class="subheading deep-purple--text">TRAYECTORIA</span>
       </v-stepper-step>
       <v-stepper-content step="3">
-        <v-text-field label="Logros alcanzados" multi-line rows="4"></v-text-field>
-        <v-text-field label="Participación en proyectos culturales" multi-line rows="4"></v-text-field>
-        <v-text-field label="Formación y capacitación" multi-line rows="4"></v-text-field>
-        <v-text-field label="Página web o blog" prepend-icon="web"></v-text-field>
+        <v-text-field label="Logros alcanzados" multi-line rows="3"></v-text-field>
+        <v-text-field label="Participación en proyectos culturales" multi-line rows="3"></v-text-field>
+        <v-text-field label="Formación y capacitación" multi-line rows="3"></v-text-field>
+        <v-text-field label="Página web o blog"></v-text-field>
         <v-text-field label="YouTube"></v-text-field>
         <v-text-field label="Facebook"></v-text-field>
         <v-text-field label="Twitter" class="mb-4"></v-text-field>
@@ -58,7 +58,7 @@
           <v-select class="custom-select" :items="declaracion_si_no" single-line v-model="declaracion"></v-select>
         </label>
         <v-flex my-3 pl-0>
-          <v-btn primary>
+          <v-btn primary :disabled="declaracion === 'No' ? true : false">
             <v-icon left dark>save</v-icon>
             Guardar perfil
           </v-btn>
