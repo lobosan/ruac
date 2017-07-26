@@ -44,7 +44,13 @@
         </v-flex>
         <v-flex xs12 md6 order-xs2 order-md1>
           <v-card-text>
-            <div class="pa-2 grey--text text--darken-4" v-html="items[1].text"></div>
+          <v-flex xs12 class="pa-2 grey--text text--darken-4">
+            <ul class="beneficios">
+              <li class="mb-1" v-for="(beneficio, i) in items[1].text" :key="i">
+                {{beneficio}}
+              </li>
+            </ul>
+          </v-flex>
           </v-card-text>
         </v-flex>
       </v-layout>
@@ -126,10 +132,12 @@ export default {
       {
         src: '/static/website/4.jpg',
         title: 'Beneficios',
-        text: `<div class="mb-1">Permite incluir a los artistas y gestores culturales en el régimen de seguridad social.</div>
-               <div class="mb-1">Facilita la aplicación del Régimen Integral de Educación y Formación en Artes, Cultura y Patrimonio.</div>
-               <div class="mb-1">Habilita el acceso a los incentivos tributarios contemplados en la Ley Orgánica de Cultura.</div>
-               <div>Faculta la participación en las Asambleas Provinciales de la Casa de la Cultura Ecuatoriana Benjamín Carrión.</div>`
+        text: [
+          'Permite incluir a los artistas y gestores culturales en el régimen de seguridad social.',
+          'Facilita la aplicación del Régimen Integral de Educación y Formación en Artes, Cultura y Patrimonio.',
+          'Habilita el acceso a los incentivos tributarios contemplados en la Ley Orgánica de Cultura.',
+          'Faculta la participación en las Asambleas Provinciales de la Casa de la Cultura Ecuatoriana Benjamín Carrión.'
+        ]
       },
       {
         src: '/static/website/3.jpg',
@@ -203,6 +211,19 @@ export default {
 .expansion-panel__header {
   height: auto;
   padding: 15px 0 15px 10px;
+}
+
+.beneficios {
+  padding-left: 12px;
+  text-indent: -2px;
+  list-style: none;
+  list-style-position: outside;
+}
+
+.beneficios > li:before {
+  content: '✓';
+  margin-left: -1em;
+  margin-right: .100em;
 }
 </style>
 
