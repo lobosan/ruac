@@ -28,7 +28,7 @@
     </v-toolbar>
     <main>
       <v-container fluid>
-        <v-layout justify-center mt-3>
+        <v-layout justify-center>
           <v-slide-x-reverse-transition mode="out-in">
             <router-view></router-view>
           </v-slide-x-reverse-transition>
