@@ -125,12 +125,12 @@ export default {
     }],
     items: [
       {
-        src: '/static/website/5.jpg',
+        src: '/static/website/3.jpg',
         title: 'Qué es el RUAC?',
         text: 'Es la plataforma virtual que sirve para el registro de artistas y gestores cuya actividad económica u oficio se desarrolla en el campo de la cultura y las artes del Ecuador.'
       },
       {
-        src: '/static/website/4.jpg',
+        src: '/static/website/5.jpg',
         title: 'Beneficios',
         text: [
           'Permite incluir a los artistas y gestores culturales en el régimen de seguridad social.',
@@ -140,7 +140,7 @@ export default {
         ]
       },
       {
-        src: '/static/website/3.jpg',
+        src: '/static/website/4.jpg',
         title: 'Base Legal',
         text: 'La Ley Orgánica de Cultura establece que el Sistema Integral de Información Cultural (SIIC) recopilará, sintetizará, difundirá y pondrá en valor la información del ámbito cultural y patrimonial, generada por las entidades públicas, privadas o comunitarias, la comunidad artística y la ciudadanía en general.'
       }
@@ -214,16 +214,15 @@ export default {
 }
 
 .beneficios {
-  padding-left: 12px;
-  text-indent: -2px;
+  padding-left: 15px;
   list-style: none;
   list-style-position: outside;
 }
 
 .beneficios > li:before {
   content: '✓';
-  margin-left: -1em;
-  margin-right: .100em;
+  margin-left: -20px;
+  margin-right: 4px;
 }
 </style>
 
