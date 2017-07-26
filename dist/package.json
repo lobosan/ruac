@@ -5,7 +5,7 @@
   "author": "Santiago Galindo",
   "private": true,
   "scripts": {
-    "postinstall": "npm install express && npm install express-history-api-fallback"
+    "postinstall": "npm install express express-history-api-fallback"
   },
   "engines": {
     "node": "8.1.3",
