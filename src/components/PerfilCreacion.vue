@@ -140,8 +140,9 @@ export default {
 </script>
 
 <style>
+.application--light .stepper .stepper__step--editable:hover .stepper__label,
 .application--light .stepper .stepper__step--active .stepper__label {
-  text-shadow: 0px 0px 0px #3f51b5;
+  text-shadow: 0px 0px 0px #7c4dff;
 }
 
 .custom-select {

@@ -65,11 +65,31 @@ export default {
 <style lang="stylus">
   @import '../stylus/main'
 
-  .application--light .input-group:not(.input-group--error) .input-group__details:before {
-    background-color: rgba(0,0,0,.12);
+  html {
+    font-size: 15px;
+  }
+
+  .toolbar__title, .btn {
+    font-weight: 400;
+  }
+
+  .toolbar__content {
+    height: 56px;
+  }
+
+  .application--light .input-group:not(.input-group--error):not(.input-group--focused):not(.input-group--disabled) .input-group__details:before {
+    background-color: rgba(0,0,0,0.24);
   }
 
   .application--light .input-group:not(.input-group--error):not(.input-group--focused):not(.input-group--disabled):hover .input-group__details:before {
-    background-color: rgba(0,0,0,0.34);
+    background-color: rgba(0,0,0,0.44);
+  }
+
+  .input-group.input-group--text-field {
+    padding-bottom: 7px;
+  }
+
+  .footer span {
+    font-size: 13.5px;
   }
 </style>

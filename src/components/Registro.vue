@@ -29,7 +29,7 @@
             :append-icon-cb="() => (visible = !visible)"
             :type="visible ? 'text' : 'password'"></v-text-field>
         </v-flex>
-        <v-btn to="/perfil-creacion" outline class="deep-purple--text ml-1 mt-4">Registrar</v-btn>
+        <v-btn to="/perfil-creacion" outline class="deep-purple--text ml-1 mt-4">Registrar Cuenta</v-btn>
       </v-card-text>
     </v-card>
   </v-flex>

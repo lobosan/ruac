@@ -1,7 +1,6 @@
 var express = require('express')
-var serveStatic = require('serve-static')
+var history = require('connect-history-api-fallback')
 var app = express()
-app.use(serveStatic(__dirname))
-var port = process.env.PORT || 5000
-app.listen(port)
-console.log('server started ' + port)
+app.use(history())
+app.listen(3000)
+console.log('Server started on port 3000')
