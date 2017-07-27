@@ -216,13 +216,11 @@ export default {
 .beneficios {
   padding-left: 15px;
   list-style: none;
-  list-style-position: outside;
 }
 
 .beneficios > li:before {
   content: '✓';
-  margin-left: -20px;
-  margin-right: 4px;
+  margin-left: -16px;
 }
 </style>
 

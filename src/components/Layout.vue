@@ -106,7 +106,7 @@ export default {
   }
 
   .input-group.input-group--text-field {
-    padding-bottom: 7px;
+    padding-bottom: 6px;
   }
 
   .footer span {
