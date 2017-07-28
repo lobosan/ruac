@@ -7,10 +7,11 @@
       <!-- Datos Generales -->
       <v-stepper-content step="1">
         <v-text-field label="Número de cédula" v-model="perfil.cedula" disabled></v-text-field>
-        <v-text-field label="Nombre completo" v-model="perfil.nombre_completo" disabled></v-text-field>
-        <v-text-field label="Fecha de nacimiento" v-model="perfil.fecha_nacimiento" disabled></v-text-field>
-        <v-text-field label="Lugar de nacimiento" v-model="perfil.lugar_nacimiento" disabled></v-text-field>
+        <v-text-field label="Nombre completo" v-model="perfil.nombreCompleto" disabled></v-text-field>
+        <v-text-field label="Fecha de nacimiento" v-model="perfil.fechaNacimiento" disabled></v-text-field>
+        <v-text-field label="Lugar de nacimiento" v-model="perfil.lugarNacimiento" disabled></v-text-field>
         <v-text-field label="Nacionalidad" v-model="perfil.nacionalidad" disabled></v-text-field>
+        <v-text-field label="Título registrado en la SENESCYT" v-model="perfil.tituloSenescyt" disabled></v-text-field>
         <v-text-field label="Nombre artístico"></v-text-field>
         <v-select label="País de domicilio" :items="paises"></v-select>
         <v-select label="Provincia de domicilio" :items="provincias"></v-select>
@@ -26,16 +27,15 @@
         <span class="subheading deep-purple--text">ACTIVIDAD CULTURAL</span>
       </v-stepper-step>
       <v-stepper-content step="2">
-        <v-select label="Tipo de actividad" :items="tipo_actividad"></v-select>
-        <v-select label="Ámbito de la actividad principal" :items="ambito_actividad"></v-select>
-        <v-select label="Ámbito de la actividad secundaria" :items="ambito_actividad"></v-select>
-        <v-text-field label="Título registrado en la SENESCYT" v-model="perfil.titulo_senescyt" disabled></v-text-field>
-        <v-select label="¿Ha postulado en mecanismos de fomento?" :items="mecanismos_fomento" multiple chips></v-select>
-        <v-text-field label="Apoyo de otras entidades"></v-text-field>
-        <v-select label="¿Alguna obra de su autoría está registrada en el IEPI?" :items="si_no"></v-select>
-        <v-select label="¿Pertenece a algún tipo de organización cultural?" :items="si_no"></v-select>
-        <v-select label="¿Tiene usted seguridad social?" :items="si_no"></v-select>
-        <v-select label="Tipo de seguridad social" :items="tipo_seguridad_social"></v-select>
+        <v-select label="Tipo de actor cultural" :items="tipoActividad"></v-select>
+        <v-select label="Actividad principal" :items="ambitoActividad"></v-select>
+        <v-select label="Actividad secundaria" :items="ambitoActividad"></v-select>
+        <v-select label="Postulaciones a financiamiento" :items="mecanismosFomento" multiple chips></v-select>
+        <v-text-field label="Otras entidades que lo han apoyado"></v-text-field>
+        <v-select label="Obras registradas en el IEPI" :items="siNo"></v-select>
+        <v-select label="Pertenece a una organización cultural" :items="siNo"></v-select>
+        <v-select label="Afiliado a seguridad social" :items="siNo"></v-select>
+        <v-select label="Tipo de seguridad social" :items="tipoSeguridadSocial"></v-select>
         <v-btn outline class="deep-purple--text my-3" @click="step = 3">
           Continuar
           <v-icon class="deep-purple--text">navigate_next</v-icon>
@@ -43,19 +43,28 @@
       </v-stepper-content>
       <!-- Trayectoria -->
       <v-stepper-step step="3" editable>
-        <span class="subheading deep-purple--text">TRAYECTORIA</span>
+        <span class="subheading deep-purple--text">PORTAFOLIO / TRAYECTORIA</span>
       </v-stepper-step>
       <v-stepper-content step="3">
-        <v-text-field label="Logros alcanzados" multi-line rows="3"></v-text-field>
-        <v-text-field label="Participación en proyectos culturales" multi-line rows="3"></v-text-field>
-        <v-text-field label="Formación y capacitación" multi-line rows="3"></v-text-field>
+        <v-text-field label="Logros alcanzados"
+          hint="Publicaciones, galardones, reconocimientos, conciertos, grabaciones, festivales, entre otros."
+          :persistent-hint="true"
+          multi-line rows="3"></v-text-field>
+        <v-text-field label="Proyectos culturales"
+          hint="Describir su vinculación con proyectos culturales."
+          :persistent-hint="true"
+          multi-line rows="3"></v-text-field>
+        <v-text-field label="Formación y capacitación"
+          hint="Talleres, cursos, diplomados, entre otros espacios que no generen título reconocido por la SENESCYT"
+          :persistent-hint="true"
+          multi-line rows="3"></v-text-field>
         <v-text-field label="Página web o blog"></v-text-field>
         <v-text-field label="YouTube"></v-text-field>
         <v-text-field label="Facebook"></v-text-field>
         <v-text-field label="Twitter" class="mb-4"></v-text-field>
         <label class="subheading">
           Declaro que son ciertos, reales y verificables todos los datos consignados, haciéndome responsable de cualquier omisión o falsedad en la información solicitada:
-          <v-select class="custom-select" :items="declaracion_si_no" single-line v-model="declaracion"></v-select>
+          <v-select class="custom-select" :items="declaracionSiNo" v-model="declaracion"></v-select>
         </label>
         <v-flex my-3 pl-0>
           <v-btn primary :disabled="declaracion === 'No' ? true : false">
@@ -72,70 +81,41 @@
 export default {
   data: () => ({
     step: 1,
-    perfil: {
-      cedula: '1718896580',
-      nombre_completo: 'GALINDO HIDALGO SANTIAGO PAÚL',
-      fecha_nacimiento: '1983-03-06',
-      lugar_nacimiento: 'PICHINCHA/QUITO/SAN BLAS',
-      nacionalidad: 'ECUATORIANA',
-      titulo_senescyt: 'INGENIERO EN SISTEMAS INFORMATICOS Y DE COMPUTACION'
-    },
-    paises: [
-      'ECUADOR', 'COLOMBIA', 'PERU', 'BRASIL', 'ARGENTINA', 'CHILE', 'PANAMA', 'MEXICO', 'CUBA', 'BOLIVIA',
-      'PARAGUAY', 'URUGUAY', 'HONDURAS', 'COSTA RICA', 'GUATEMALA', 'EL SALVADOR', 'NICARAGUA', 'EGIPTO',
-      'REPUBLICA DOMINICANA', 'CANADA', 'ESTADOS UNIDOS DE AMERICA', 'FRANCIA', 'PAISES BAJOS (HOLANDA)',
-      'FEDERACION DE RUSIA', 'ESPAÑA', 'INDONESIA', 'MALASIA', 'PORTUGAL', 'COREA DEL SUR', 'AUSTRIA',
-      'ALEMANIA', 'SUECIA', 'BELGICA', 'ITALIA', 'AUSTRALIA', 'CHINA', 'JAPON', 'SUIZA', 'POLONIA',
-      'ISRAEL', 'REINO UNIDO', 'HUNGRIA', 'INDIA', 'VENEZUELA', 'OTROS'
-    ],
-    provincias: [
-      'PICHINCHA',
-      'GUAYAS'
-    ],
-    cantones: [
-      'QUITO',
-      'GUAYAQUIL'
-    ],
-    tipo_actividad: [
-      'Creador',
-      'Productor',
-      'Gestor cultural',
-      'Técnicos',
-      'Otro trabajador de la cultura'
-    ],
-    ambito_actividad: [
-      'Artes vivas y escénicas',
-      'Artes plásticas y visuales',
-      'Artes literarias, narrativas y producción editorial',
-      'Artes cinematográficas y audiovisuales',
-      'Artes musicales y sonoras',
-      'Diseño y artes aplicadas',
-      'Producción y gestión cultural',
-      'Investigación, promoción y difusión',
-      'Memoria social',
-      'Patrimonio cultural',
-      'Otras'
-    ],
-    mecanismos_fomento: [
-      'Fondos concursables del MCYP',
-      'Auspicios del MCYP',
-      'Fondo de fomento CNCine',
-      'Financiamiento Foncultura'
-    ],
-    si_no: [
-      'Si',
-      'No'
-    ],
-    tipo_seguridad_social: [
-      'Voluntario',
-      'Dependiente'
-    ],
     declaracion: 'No',
-    declaracion_si_no: [
+    declaracionSiNo: [
       'Sí',
       'No'
     ]
-  })
+  }),
+  computed: {
+    perfil() {
+      return this.$store.getters.perfilCreacionPerfil
+    },
+    paises() {
+      return this.$store.getters.perfilCreacionPaises
+    },
+    provincias() {
+      return this.$store.getters.perfilCreacionProvincias
+    },
+    cantones() {
+      return this.$store.getters.perfilCreacionCantones
+    },
+    tipoActividad() {
+      return this.$store.getters.perfilCreacionTipoActividad
+    },
+    ambitoActividad() {
+      return this.$store.getters.perfilCreacionAmbitoActividad
+    },
+    mecanismosFomento() {
+      return this.$store.getters.perfilCreacionMecanismosFomento
+    },
+    siNo() {
+      return this.$store.getters.perfilCreacionSiNo
+    },
+    tipoSeguridadSocial() {
+      return this.$store.getters.perfilCreacionTipoSeguridadSocial
+    }
+  }
 }
 </script>
 

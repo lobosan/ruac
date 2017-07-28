@@ -2,7 +2,6 @@
   <v-app toolbar footer>
     <v-navigation-drawer temporary v-model="sideNav">
       <v-list class="pt-0" dense>
-        <v-divider></v-divider>
         <v-list-tile v-for="(item, i) in items" :key="i" :to="item.route" ripple>
           <v-list-tile-action>
             <v-icon>{{ item.icon }}</v-icon>
@@ -35,7 +34,7 @@
         </v-layout>
       </v-container>
     </main>
-    <v-footer class="grey lighten-2 justify-center pa-4 mt-5">
+    <v-footer class="grey lighten-2 justify-center pa-4 mt-3">
       <span class="grey--text text--darken-3">&copy; Ministerio de Cultura y Patrimonio - {{ new Date().getFullYear() }}</span>
     </v-footer>
   </v-app>

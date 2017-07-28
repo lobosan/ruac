@@ -9,7 +9,8 @@ import Vuetify from 'vuetify'
 import * as VueGoogleMaps from 'vue2-google-maps'
 
 import Layout from './components/Layout'
-import { createRouter } from './router/index'
+import { createRouter } from './router'
+import { store } from './store'
 
 Vue.use(Vuetify)
 
@@ -27,6 +28,7 @@ const router = createRouter()
 new Vue({
   el: '#app',
   router,
+  store,
   template: '<Layout/>',
   components: { Layout }
 })
