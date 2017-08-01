@@ -2,20 +2,25 @@
   <v-flex xs12 sm7 md5 lg4 xl3>
     <v-card class="pa-3">
       <v-card-text>
-        <form autocomplete="off">
-          <v-flex xs12>
-            <v-text-field name="cedula"
-              label="Cédula"
-              hint="10 dígitos sin guiones"></v-text-field>
-            <v-text-field name="contrasena"
-              label="Contraseña"
-              hint="Al menos 8 caracteres"
-              min="8"
-              :append-icon="visible ? 'visibility' : 'visibility_off'"
-              :append-icon-cb="() => (visible = !visible)"
-              :type="visible ? 'text' : 'password'"></v-text-field>
-          </v-flex>
-          <v-btn to="/perfil-creacion" outline class="deep-purple--text ml-1 mt-4">Ingresar</v-btn>
+        <form @submit.prevent="login()" autocomplete="off">
+          <v-text-field label="Cédula"
+            name="cedula"
+            maxlength="10"
+            v-model="form.cedula"
+            :rules="rules.cedula"
+            data-vv-as="Cédula"
+            v-validate="'required|digits:10'"></v-text-field>
+          <v-text-field label="Contraseña"
+            name="contrasena"
+            maxlength="15"
+            v-model="form.contrasena"
+            :rules="rules.contrasena"
+            data-vv-as="Contraseña"
+            v-validate="'required|min:8'"
+            :append-icon="viewPassword ? 'visibility' : 'visibility_off'"
+            :append-icon-cb="() => (viewPassword = !viewPassword)"
+            :type="viewPassword ? 'text' : 'password'"></v-text-field>
+          <v-btn type="submit" outline class="deep-purple--text ml-0 mt-3">Ingresar</v-btn>
         </form>
       </v-card-text>
     </v-card>
@@ -23,9 +28,29 @@
 </template>
 
 <script>
+import { validateForm } from '@/mixins/validateForm'
+
 export default {
+  mixins: [validateForm],
   data: () => ({
-    visible: false
-  })
+    viewPassword: false,
+    rules: {
+      cedula: [],
+      contrasena: []
+    },
+    form: {
+      cedula: '',
+      contrasena: ''
+    }
+  }),
+  methods: {
+    login() {
+      this.$validator.validateAll().then((res) => {
+        res ? this.$router.push('perfil-creacion') : undefined
+      }).catch(() => {
+        console.log('Errors while validating')
+      })
+    }
+  }
 }
 </script>

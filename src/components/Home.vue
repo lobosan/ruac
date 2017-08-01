@@ -85,20 +85,18 @@
       </v-layout>
     </v-card>
     <!-- Preguntas Frecuentes -->
-    <h2 class="mb-4 pt-3 headline grey--text text--darken-4">Preguntas Frecuentes</h2>
-    <v-card flat class="mb-5">
-      <v-expansion-panel>
-        <v-expansion-panel-content v-for="(pregunta, i) in preguntas" :key="i">
-          <div slot="header" class="ml-2 mr-5 grey--text text--darken-4">{{i+1}}. {{pregunta.title}}</div>
-          <v-card>
-            <v-card-text class="px-4 grey lighten-3 grey--text text--darken-3">{{pregunta.response}}</v-card-text>
-          </v-card>
-        </v-expansion-panel-content>
-      </v-expansion-panel>
-    </v-card>
+    <h2 class="mb-3 headline grey--text text--darken-4">Preguntas Frecuentes</h2>
+    <v-expansion-panel class="white mb-5">
+      <v-expansion-panel-content v-for="(pregunta, i) in preguntas" :key="i">
+        <div slot="header" class="ml-2 mr-5 grey--text text--darken-4">{{i+1}}. {{pregunta.title}}</div>
+        <v-card>
+          <v-card-text class="px-4 grey lighten-3 grey--text text--darken-3">{{pregunta.response}}</v-card-text>
+        </v-card>
+      </v-expansion-panel-content>
+    </v-expansion-panel>
     <!-- Dirección y contactos -->
-    <h2 class="mb-4 pt-3 headline grey--text text--darken-4">Dirección y contactos</h2>
-    <v-card>
+    <h2 class="mb-3 headline grey--text text--darken-4">Dirección y contactos</h2>
+    <v-card class="mb-5">
       <v-layout row wrap>
         <v-flex xs12 md5 pa-4 class="pa-2 grey--text text--darken-4" order-xs2 order-md1>
           <p>Dirección: Av. Colón E5-34 y Juan León Mera</p>

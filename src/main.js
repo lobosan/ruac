@@ -7,12 +7,21 @@ import 'event-source-polyfill'
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 import * as VueGoogleMaps from 'vue2-google-maps'
+import es from 'vee-validate/dist/locale/es'
+import VeeValidate, { Validator } from 'vee-validate'
 
 import Layout from './components/Layout'
 import { createRouter } from './router'
 import { store } from './store'
 
 Vue.use(Vuetify)
+
+Validator.addLocale(es)
+
+Vue.use(VeeValidate, {
+  errorBagName: 'veeErrors',
+  locale: 'es'
+})
 
 Vue.use(VueGoogleMaps, {
   load: {

@@ -108,6 +108,14 @@ export default {
     padding-bottom: 6px;
   }
 
+  .input-group.input-group--error label, .input-group.input-group--error .input-group__input .icon {
+    // color: rgba(0,0,0,0.54);
+  }
+
+  .input-group .input-group__error {
+    // color: red;
+  }
+
   .footer span {
     font-size: 13.5px;
   }
