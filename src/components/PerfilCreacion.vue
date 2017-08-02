@@ -140,12 +140,12 @@ export default {
 }
 
 @media only screen and (max-width: 700px) {
-  .stepper--vertical .stepper__content:not(:last-child) {
+  .application--light .stepper--vertical .stepper__content:not(:last-child) {
     border-left: none;
   }
-  .stepper--vertical .stepper__content {
+  .application--light .stepper--vertical .stepper__content {
     margin: 0;
-    padding: 5px 23px;
+    padding: 5px 24px;
   }
 }
 </style>
