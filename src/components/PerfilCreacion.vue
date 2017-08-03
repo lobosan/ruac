@@ -81,41 +81,70 @@
 export default {
   data: () => ({
     step: 1,
+    perfil: {
+      cedula: '1718896580',
+      nombreCompleto: 'GALINDO HIDALGO SANTIAGO PAÚL',
+      fechaNacimiento: '1983-03-06',
+      lugarNacimiento: 'PICHINCHA/QUITO/SAN BLAS',
+      nacionalidad: 'ECUATORIANA',
+      tituloSenescyt: 'INGENIERO EN SISTEMAS INFORMATICOS Y DE COMPUTACION'
+    },
+    paises: [
+      'ECUADOR', 'COLOMBIA', 'PERU', 'BRASIL', 'ARGENTINA', 'CHILE', 'PANAMA', 'MEXICO', 'CUBA', 'BOLIVIA',
+      'PARAGUAY', 'URUGUAY', 'HONDURAS', 'COSTA RICA', 'GUATEMALA', 'EL SALVADOR', 'NICARAGUA', 'EGIPTO',
+      'REPUBLICA DOMINICANA', 'CANADA', 'ESTADOS UNIDOS DE AMERICA', 'FRANCIA', 'PAISES BAJOS (HOLANDA)',
+      'FEDERACION DE RUSIA', 'ESPAÑA', 'INDONESIA', 'MALASIA', 'PORTUGAL', 'COREA DEL SUR', 'AUSTRIA',
+      'ALEMANIA', 'SUECIA', 'BELGICA', 'ITALIA', 'AUSTRALIA', 'CHINA', 'JAPON', 'SUIZA', 'POLONIA',
+      'ISRAEL', 'REINO UNIDO', 'HUNGRIA', 'INDIA', 'VENEZUELA', 'OTROS'
+    ],
+    provincias: [
+      'PICHINCHA',
+      'GUAYAS'
+    ],
+    cantones: [
+      'QUITO',
+      'GUAYAQUIL'
+    ],
+    tipoActividad: [
+      'Creador',
+      'Productor',
+      'Gestor cultural',
+      'Técnico',
+      'Otro trabajador de la cultura'
+    ],
+    ambitoActividad: [
+      'Artes vivas y escénicas',
+      'Artes plásticas y visuales',
+      'Artes literarias, narrativas y producción editorial',
+      'Artes cinematográficas y audiovisuales',
+      'Artes musicales y sonoras',
+      'Diseño y artes aplicadas',
+      'Producción y gestión cultural',
+      'Investigación, promoción y difusión',
+      'Memoria social',
+      'Patrimonio cultural',
+      'Otras'
+    ],
+    mecanismosFomento: [
+      'Fondos concursables del MCYP',
+      'Auspicios del MCYP',
+      'Fondo de fomento CNCine',
+      'Financiamiento Foncultura'
+    ],
+    siNo: [
+      'Si',
+      'No'
+    ],
+    tipoSeguridadSocial: [
+      'Voluntario',
+      'Dependiente'
+    ],
     declaracion: 'No',
     declaracionSiNo: [
       'Sí',
       'No'
     ]
-  }),
-  computed: {
-    perfil() {
-      return this.$store.getters.perfilCreacionPerfil
-    },
-    paises() {
-      return this.$store.getters.perfilCreacionPaises
-    },
-    provincias() {
-      return this.$store.getters.perfilCreacionProvincias
-    },
-    cantones() {
-      return this.$store.getters.perfilCreacionCantones
-    },
-    tipoActividad() {
-      return this.$store.getters.perfilCreacionTipoActividad
-    },
-    ambitoActividad() {
-      return this.$store.getters.perfilCreacionAmbitoActividad
-    },
-    mecanismosFomento() {
-      return this.$store.getters.perfilCreacionMecanismosFomento
-    },
-    siNo() {
-      return this.$store.getters.perfilCreacionSiNo
-    },
-    tipoSeguridadSocial() {
-      return this.$store.getters.perfilCreacionTipoSeguridadSocial
-    }
-  }
+  })
 }
 </script>
 

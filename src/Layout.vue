@@ -21,8 +21,9 @@
       </v-slide-x-reverse-transition>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-xs-only">
-        <v-btn flat to="/inicio-sesion">Inicia sesión</v-btn>
-        <v-btn flat to="/registro">Regístrate</v-btn>
+        <v-btn v-if="user === undefined" flat to="/inicio-sesion">Inicia sesión</v-btn>
+        <v-btn v-if="user === undefined" flat to="/registro">Regístrate</v-btn>
+        <v-btn v-if="user !== undefined" flat @click="cerrarSesion">Cerrar sesión</v-btn>
       </v-toolbar-items>
     </v-toolbar>
     <main>
@@ -41,6 +42,8 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
+
 export default {
   data: () => ({
     sideNav: false,
@@ -52,17 +55,35 @@ export default {
       { title: 'Creación de perfil', icon: 'account_box', route: '/perfil-creacion' }
     ]
   }),
+  computed: {
+    // The user is automatically set by the feathers-vuex auth module upon login.
+    ...mapState('auth', ['user'])
+  },
+  methods: {
+    ...mapActions('auth', ['logout']),
+    cerrarSesion () {
+      this.logout()
+      this.$router.push('inicio-sesion')
+    }
+  },
   watch: {
-    '$route'(to, from) {
+    '$route' (to, from) {
       let item = this.items.find(item => item.route === this.$route.path)
       this.title = item.title
     }
+  },
+  mounted () {
+    this.$store.dispatch('auth/authenticate').catch(error => {
+      if (!error.message.includes('Could not find stored JWT')) {
+        console.error(error)
+      }
+    })
   }
 }
 </script>
 
 <style lang="stylus">
-  @import '../stylus/main'
+  @import './stylus/main'
 
   html {
     font-size: 15px;
@@ -106,6 +127,12 @@ export default {
 
   .input-group.input-group--text-field {
     padding-bottom: 6px;
+  }
+
+  .input-group--text-field.input-group--dirty:not(.input-group--textarea) label,
+  .input-group--text-field:not(.input-group--single-line).input-group--focused:not(.input-group--textarea) label,
+  .input-group--text-field:not(.input-group--single-line):focus:not(.input-group--textarea) label {
+    min-width: 133%; /* This makes label same width as input when transformed above the input */
   }
 
   .input-group.input-group--error label, .input-group.input-group--error .input-group__input .icon {

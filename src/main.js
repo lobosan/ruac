@@ -10,9 +10,10 @@ import * as VueGoogleMaps from 'vue2-google-maps'
 import es from 'vee-validate/dist/locale/es'
 import VeeValidate, { Validator } from 'vee-validate'
 
-import Layout from './components/Layout'
+import Layout from './Layout'
 import { createRouter } from './router'
-import { store } from './store'
+import store from './store'
+import './api/feathers-client'
 
 Vue.use(Vuetify)
 

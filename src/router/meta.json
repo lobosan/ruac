@@ -21,6 +21,7 @@
     "h1": "Creación de perfil",
     "title": "Creación de perfil",
     "description": "Cree su perfil en el RUAC",
-    "keywords": "creacion perfil"
+    "keywords": "creacion perfil",
+    "requiresAuth": true
   }
 }

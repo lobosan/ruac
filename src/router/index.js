@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import store from '../store'
 
 const meta = require('./meta.json')
 
 // Route helper function for lazy loading
-function route(path, view) {
+function route (path, view) {
   return {
     path: path,
     meta: meta[path],
@@ -14,7 +15,7 @@ function route(path, view) {
 
 Vue.use(Router)
 
-export function createRouter() {
+export function createRouter () {
   const router = new Router({
     mode: 'history',
     scrollBehavior: () => ({ y: 0 }),
@@ -23,9 +24,20 @@ export function createRouter() {
       route('/inicio-sesion', 'InicioSesion'),
       route('/registro', 'Registro'),
       route('/perfil-creacion', 'PerfilCreacion'),
-      // Global redirect for 404
       { path: '*', redirect: '/' }
     ]
+  })
+
+  router.beforeEach((to, from, next) => {
+    if (to.meta.requiresAuth) {
+      if (!store.state.auth.user) {
+        next('/inicio-sesion')
+      } else {
+        next()
+      }
+    } else {
+      next()
+    }
   })
 
   router.afterEach(route => {
@@ -35,23 +47,6 @@ export function createRouter() {
       document.querySelector('meta[name="keywords"]').setAttribute('content', route.meta.keywords)
     }
   })
-
-  // router.beforeEach((to, from, next) => {
-  //   if (to.matched.some(record => record.meta.requiresAuth)) {
-  //     // this route requires auth, check if logged in
-  //     // if not, redirect to login page.
-  //     if (!auth.loggedIn()) {
-  //       next({
-  //         path: '/login',
-  //         query: { redirect: to.fullPath }
-  //       })
-  //     } else {
-  //       next()
-  //     }
-  //   } else {
-  //     next() // make sure to always call next()!
-  //   }
-  // })
 
   return router
 }
