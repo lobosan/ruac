@@ -1,6 +1,4 @@
-# ruac_api
-
-> RUAC Backend API
+# RUAC Backend API
 
 ## About
 
@@ -10,22 +8,22 @@ This project uses [Feathers](http://feathersjs.com). An open source web framewor
 
 Getting up and running is as easy as 1, 2, 3.
 
-1. Make sure you have [NodeJS](https://nodejs.org/) and [npm](https://www.npmjs.com/) installed.
-2. Install your dependencies
+1. Make sure you have [NodeJS](https://nodejs.org/) and [yarn](https://yarnpkg.com/) installed.
+2. Install dependencies
 
     ```
-    cd path/to/ruac_api; npm install
+    yarn
     ```
 
-3. Start your app
+3. Start the server
 
     ```
-    npm start
+    yarn start
     ```
 
 ## Testing
 
-Simply run `npm test` and all your tests in the `test/` directory will be run.
+Simply run `yarn test` and all the tests in the `test/` directory will be run.
 
 ## Scaffolding
 
@@ -52,6 +50,6 @@ __0.1.0__
 
 ## License
 
-Copyright (c) 2016
+Copyright (c) 2017
 
 Licensed under the [MIT license](LICENSE).

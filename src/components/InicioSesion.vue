@@ -3,21 +3,18 @@
     <v-card class="pa-3">
       <v-card-text>
         <form method="post" @submit.prevent="login(form)" autocomplete="off">
-          <v-text-field label="Cédula" name="cedula" maxlength="10" v-model="form.cedula"
-            :rules="rules.cedula" data-vv-as="Cédula" v-validate="'required|digits:10'"></v-text-field>
-          <v-text-field label="Contraseña" name="contrasena" maxlength="15"
-            v-model="form.contrasena" :rules="rules.contrasena"
-            data-vv-as="Contraseña" v-validate="'required|min:8'"
-            :append-icon="viewPassword ? 'visibility' : 'visibility_off'"
-            :append-icon-cb="() => (viewPassword = !viewPassword)"
+          <v-text-field label="Cédula" name="cedula" maxlength="10" v-model="form.cedula" :rules="rules.cedula"
+            data-vv-as="Cédula" v-validate="'required|digits:10'"></v-text-field>
+          <v-text-field label="Contraseña" name="contrasena" maxlength="15" v-model="form.contrasena"
+            :rules="rules.contrasena" data-vv-as="Contraseña" v-validate="'required'"
+            :append-icon="viewPassword ? 'visibility' : 'visibility_off'" :append-icon-cb="() => (viewPassword = !viewPassword)"
             :type="viewPassword ? 'text' : 'password'"></v-text-field>
           <v-btn type="submit" outline class="deep-purple--text ml-0 mt-3">Ingresar</v-btn>
         </form>
       </v-card-text>
-      <v-snackbar :timeout="3500" :top="true" :warning="true" :multi-line="true"
-        v-model="snackbar">
+      <v-snackbar :info="true" :timeout="3500" :top="true" :multi-line="true" v-model="snackbar">
         {{ serverError }}
-        <v-btn flat class="pink--text" @click="clearServerError">Cerrar</v-btn>
+        <v-icon class="close-icon white--text" @click="snackbar = false">close</v-icon>
       </v-snackbar>
     </v-card>
   </v-flex>
@@ -25,7 +22,6 @@
 
 <script>
   import { validateForm } from '@/mixins/validateForm'
-  import { mapMutations, mapActions } from 'vuex'
 
   export default {
     mixins: [validateForm],
@@ -46,8 +42,7 @@
       login ({ cedula, contrasena }) {
         this.$validator.validateAll().then((response) => {
           if (response) {
-            this.clearServerError()
-            this.authenticate({ strategy: 'local', cedula, contrasena }).then((response) => {
+            this.$store.dispatch('auth/authenticate', { strategy: 'local', cedula, contrasena }).then((response) => {
               if (response) this.$router.push('perfil-creacion')
             }).catch(error => {
               // Convert the error to a plain object and add a message.
@@ -63,16 +58,7 @@
         }).catch(() => {
           console.log('Error en el cliente al validar el formulario.')
         })
-      },
-      clearServerError () {
-        this.serverError = undefined
-        this.snackbar = false
-        this.clearAuthenticateError()
-      },
-      ...mapMutations('auth', {
-        clearAuthenticateError: 'clearAuthenticateError'
-      }),
-      ...mapActions('auth', ['authenticate'])
+      }
     }
   }
 

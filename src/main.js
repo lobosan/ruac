@@ -11,8 +11,8 @@ import es from 'vee-validate/dist/locale/es'
 import VeeValidate, { Validator } from 'vee-validate'
 
 import Layout from './Layout'
-import { createRouter } from './router'
 import store from './store'
+import { createRouter } from './router'
 import './api/feathers-client'
 
 Vue.use(Vuetify)
@@ -21,7 +21,8 @@ Validator.addLocale(es)
 
 Vue.use(VeeValidate, {
   errorBagName: 'veeErrors',
-  locale: 'es'
+  locale: 'es',
+  events: 'input|blur'
 })
 
 Vue.use(VueGoogleMaps, {

@@ -2,13 +2,23 @@
   <v-app toolbar footer>
     <v-navigation-drawer temporary v-model="sideNav">
       <v-list class="pt-0" dense>
-        <v-list-tile v-for="(item, i) in items" :key="i" :to="item.route" ripple>
+        <v-list-tile v-for="(item, i) in sideNavItems" :key="i" :to="item.route" ripple>
           <v-list-tile-action>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
             <v-list-tile-title>
               {{ item.title }}
+            </v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile v-if="user" @click="cerrarSesion">
+          <v-list-tile-action>
+            <v-icon>exit_to_app</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>
+              Cerrar sesión
             </v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
@@ -21,9 +31,9 @@
       </v-slide-x-reverse-transition>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-xs-only">
-        <v-btn v-if="user === undefined" flat to="/inicio-sesion">Inicia sesión</v-btn>
-        <v-btn v-if="user === undefined" flat to="/registro">Regístrate</v-btn>
-        <v-btn v-if="user !== undefined" flat @click="cerrarSesion">Cerrar sesión</v-btn>
+        <v-btn v-if="!user" flat to="/inicio-sesion">Inicia sesión</v-btn>
+        <v-btn v-if="!user" flat to="/registro">Regístrate</v-btn>
+        <v-btn v-if="user" flat @click="cerrarSesion">Cerrar sesión</v-btn>
       </v-toolbar-items>
     </v-toolbar>
     <main>
@@ -42,48 +52,55 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
-
-export default {
-  data: () => ({
-    sideNav: false,
-    title: '',
-    items: [
-      { title: 'RUAC', icon: 'home', route: '/' },
-      { title: 'Inicio de sesión', icon: 'face', route: '/inicio-sesion' },
-      { title: 'Registro de cuenta', icon: 'fingerprint', route: '/registro' },
-      { title: 'Creación de perfil', icon: 'account_box', route: '/perfil-creacion' }
-    ]
-  }),
-  computed: {
-    // The user is automatically set by the feathers-vuex auth module upon login.
-    ...mapState('auth', ['user'])
-  },
-  methods: {
-    ...mapActions('auth', ['logout']),
-    cerrarSesion () {
-      this.logout()
-      this.$router.push('inicio-sesion')
-    }
-  },
-  watch: {
-    '$route' (to, from) {
-      let item = this.items.find(item => item.route === this.$route.path)
-      this.title = item.title
-    }
-  },
-  mounted () {
-    this.$store.dispatch('auth/authenticate').catch(error => {
-      if (!error.message.includes('Could not find stored JWT')) {
-        console.error(error)
+  export default {
+    data: () => ({
+      sideNav: false,
+      title: ''
+    }),
+    computed: {
+      // The user is automatically set by the feathers-vuex auth module upon login
+      user () {
+        return this.$store.state.auth.user
+      },
+      sideNavItems () {
+        let items = [{ title: 'RUAC', icon: 'home', route: '/' }]
+        if (this.user) {
+          items.push(
+            { title: 'Creación de perfil', icon: 'account_box', route: '/perfil-creacion' }
+          )
+        } else {
+          items.push(
+            { title: 'Inicio de sesión', icon: 'face', route: '/inicio-sesion' },
+            { title: 'Registro de cuenta', icon: 'fingerprint', route: '/registro' }
+          )
+        }
+        return items
       }
-    })
+    },
+    methods: {
+      cerrarSesion () {
+        this.$store.dispatch('auth/logout').then(() => this.$router.push('inicio-sesion'))
+      }
+    },
+    watch: {
+      '$route' (to, from) {
+        let item = this.sideNavItems.find(item => item.route === this.$route.path)
+        this.title = item.title
+      }
+    },
+    mounted () {
+      this.$store.dispatch('auth/authenticate').catch(error => {
+        if (!error.message.includes('Could not find stored JWT')) {
+          console.log('Authentication error', error)
+        }
+      })
+    }
   }
-}
+
 </script>
 
 <style lang="stylus">
-  @import './stylus/main'
+  @import './stylus/main';
 
   html {
     font-size: 15px;
@@ -101,7 +118,7 @@ export default {
     padding-top: 16px;
   }
 
-  .toolbar--fixed + main {
+  .toolbar--fixed+main {
     padding-top: 64px;
   }
 
@@ -109,7 +126,8 @@ export default {
     background: #f2f2f2;
   }
 
-  .toolbar__title, .btn {
+  .toolbar__title,
+  .btn {
     font-weight: 400;
   }
 
@@ -118,11 +136,11 @@ export default {
   }
 
   .application--light .input-group:not(.input-group--error):not(.input-group--focused):not(.input-group--disabled) .input-group__details:before {
-    background-color: rgba(0,0,0,0.24);
+    background-color: rgba(0, 0, 0, 0.24);
   }
 
   .application--light .input-group:not(.input-group--error):not(.input-group--focused):not(.input-group--disabled):hover .input-group__details:before {
-    background-color: rgba(0,0,0,0.44);
+    background-color: rgba(0, 0, 0, 0.44);
   }
 
   .input-group.input-group--text-field {
@@ -132,15 +150,12 @@ export default {
   .input-group--text-field.input-group--dirty:not(.input-group--textarea) label,
   .input-group--text-field:not(.input-group--single-line).input-group--focused:not(.input-group--textarea) label,
   .input-group--text-field:not(.input-group--single-line):focus:not(.input-group--textarea) label {
-    min-width: 133%; /* This makes label same width as input when transformed above the input */
+    min-width: 133%;
   }
 
-  .input-group.input-group--error label, .input-group.input-group--error .input-group__input .icon {
-    // color: rgba(0,0,0,0.54);
-  }
-
-  .input-group .input-group__error {
-    // color: red;
+  .close-icon {
+    cursor: pointer;
+    margin-left: 10px;
   }
 
   .footer span {

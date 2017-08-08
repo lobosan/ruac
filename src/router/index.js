@@ -29,12 +29,10 @@ export function createRouter () {
   })
 
   router.beforeEach((to, from, next) => {
-    if (to.meta.requiresAuth) {
-      if (!store.state.auth.user) {
-        next('/inicio-sesion')
-      } else {
-        next()
-      }
+    let userAuthenticated = store.state.auth.user
+
+    if (to.meta.requiresAuth && !userAuthenticated) {
+      next('/inicio-sesion')
     } else {
       next()
     }
