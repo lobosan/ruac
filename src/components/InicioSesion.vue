@@ -40,9 +40,9 @@
     }),
     methods: {
       login ({ cedula, contrasena }) {
-        this.$validator.validateAll().then((response) => {
+        this.$validator.validateAll().then(response => {
           if (response) {
-            this.$store.dispatch('auth/authenticate', { strategy: 'local', cedula, contrasena }).then((response) => {
+            this.$store.dispatch('auth/authenticate', { strategy: 'local', cedula, contrasena }).then(response => {
               if (response) this.$router.push('perfil-creacion')
             }).catch(error => {
               // Convert the error to a plain object and add a message.

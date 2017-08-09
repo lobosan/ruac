@@ -1,12 +1,8 @@
 {
   "name": "ruac_api",
   "description": "RUAC Backend API",
-  "version": "0.0.0",
-  "homepage": "",
+  "version": "1.0.0",
   "main": "src",
-  "keywords": [
-    "feathers"
-  ],
   "author": {
     "name": "Santiago Galindo",
     "email": "sp.galindoh@gmail.com"
@@ -18,8 +14,8 @@
     "test": "test/"
   },
   "engines": {
-    "node": ">= 6.0.0",
-    "yarn": ">= 0.18.0"
+    "node": "^8.2.1",
+    "yarn": "^0.18.0"
   },
   "scripts": {
     "test": "npm run eslint && npm run mocha",

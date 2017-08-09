@@ -87,13 +87,6 @@
         let item = this.sideNavItems.find(item => item.route === this.$route.path)
         this.title = item.title
       }
-    },
-    mounted () {
-      this.$store.dispatch('auth/authenticate').catch(error => {
-        if (!error.message.includes('Could not find stored JWT')) {
-          console.log('Authentication error', error)
-        }
-      })
     }
   }
 

@@ -29,13 +29,14 @@ export function createRouter () {
   })
 
   router.beforeEach((to, from, next) => {
-    let userAuthenticated = store.state.auth.user
-
-    if (to.meta.requiresAuth && !userAuthenticated) {
-      next('/inicio-sesion')
-    } else {
+    store.dispatch('auth/authenticate').then(response => {
       next()
-    }
+    }).catch(error => {
+      if (!error.message.includes('Could not find stored JWT')) {
+        console.log('Authentication error', error)
+      }
+      to.meta.requiresAuth ? next('/inicio-sesion') : next()
+    })
   })
 
   router.afterEach(route => {

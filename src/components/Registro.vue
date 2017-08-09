@@ -76,12 +76,12 @@
     },
     methods: {
       signUp (form) {
-        this.$validator.validateAll().then((response) => {
+        this.$validator.validateAll().then(response => {
           if (response) {
             // Automatically log the user in after successful signup.
             this.$store.dispatch('users/create', form).then(response => {
               let { cedula, contrasena } = form
-              this.$store.dispatch('auth/authenticate', { strategy: 'local', cedula, contrasena }).then((response) => {
+              this.$store.dispatch('auth/authenticate', { strategy: 'local', cedula, contrasena }).then(response => {
                 if (response) this.$router.push('perfil-creacion')
               })
             }).catch(error => {
