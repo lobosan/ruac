@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import store from '../store'
 
 const meta = require('./meta.json')
 
@@ -26,17 +25,6 @@ export function createRouter () {
       route('/perfil-creacion', 'PerfilCreacion'),
       { path: '*', redirect: '/' }
     ]
-  })
-
-  router.beforeEach((to, from, next) => {
-    store.dispatch('auth/authenticate').then(response => {
-      next()
-    }).catch(error => {
-      if (!error.message.includes('Could not find stored JWT')) {
-        console.log('Authentication error', error)
-      }
-      to.meta.requiresAuth ? next('/inicio-sesion') : next()
-    })
   })
 
   router.afterEach(route => {

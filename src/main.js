@@ -13,7 +13,6 @@ import VeeValidate, { Validator } from 'vee-validate'
 import Layout from './Layout'
 import store from './store'
 import { createRouter } from './router'
-import './api/feathers-client'
 
 Vue.use(Vuetify)
 

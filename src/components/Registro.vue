@@ -76,30 +76,14 @@
     },
     methods: {
       signUp (form) {
-        this.$validator.validateAll().then(response => {
-          if (response) {
-            // Automatically log the user in after successful signup.
-            this.$store.dispatch('users/create', form).then(response => {
-              let { cedula, contrasena } = form
-              this.$store.dispatch('auth/authenticate', { strategy: 'local', cedula, contrasena }).then(response => {
-                if (response) this.$router.push('perfil-creacion')
-              })
-            }).catch(error => {
-              // Convert the error to a plain object and add a message.
-              error = Object.assign({}, error)
-              if (error.errorType === 'uniqueViolated' && !error.key.includes('@') && error.key.length === 10) {
-                error.message = 'La cédula ingresada ya está registrada.'
-              } else if (error.errorType === 'uniqueViolated' && error.key.includes('@')) {
-                error.message = 'El email ingresado ya está registrado.'
-              } else {
-                error.message = 'Error en el servidor al crear cuenta de usuario.'
-              }
-              this.serverError = error.message
-              this.snackbar = true
-            })
+        this.$validator.validateAll().then(
+          response => {
+            if (response) {
+              // Check on server
+            }
           }
-        }).catch(() => {
-          console.log('Error en el cliente al validar el formulario.')
+        ).catch(error => {
+          console.log('Error en el cliente al validar el formulario', error)
         })
       }
     }

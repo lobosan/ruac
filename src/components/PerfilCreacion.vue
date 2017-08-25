@@ -5,13 +5,11 @@
         <span class="subheading deep-purple--text">DATOS GENERALES</span>
       </v-stepper-step>
       <!-- Datos Generales -->
-      <v-stepper-content step="1" v-if="user">
-        <v-text-field label="Número de cédula" v-model="user.cedula" disabled></v-text-field>
-        <v-text-field label="Nombre completo" v-model="user.apellidosNombres" disabled></v-text-field>
-        <v-text-field label="Fecha de nacimiento" v-model="user.fechaNacimiento"
-          disabled></v-text-field>
-        <v-text-field label="Lugar de nacimiento" v-model="perfil.lugarNacimiento"
-          disabled></v-text-field>
+      <v-stepper-content step="1">
+        <v-text-field label="Número de cédula" v-model="perfil.cedula" disabled></v-text-field>
+        <v-text-field label="Nombre completo" v-model="perfil.apellidosNombres" disabled></v-text-field>
+        <v-text-field label="Fecha de nacimiento" v-model="perfil.fechaNacimiento" disabled></v-text-field>
+        <v-text-field label="Lugar de nacimiento" v-model="perfil.lugarNacimiento" disabled></v-text-field>
         <v-text-field label="Nacionalidad" v-model="perfil.nacionalidad" disabled></v-text-field>
         <v-text-field label="Título registrado en la SENESCYT" v-model="perfil.tituloSenescyt"
           disabled></v-text-field>
@@ -33,8 +31,8 @@
         <v-select label="Tipo de actor cultural" :items="tipoActividad"></v-select>
         <v-select label="Actividad principal" :items="ambitoActividad"></v-select>
         <v-select label="Actividad secundaria" :items="ambitoActividad"></v-select>
-        <v-select label="Postulaciones a financiamiento" :items="mecanismosFomento"
-          multiple chips></v-select>
+        <v-select label="Postulaciones a financiamiento" :items="mecanismosFomento" multiple
+          chips></v-select>
         <v-text-field label="Otras entidades que lo han apoyado"></v-text-field>
         <v-select label="Obras registradas en el IEPI" :items="siNo"></v-select>
         <v-select label="Pertenece a una organización cultural" :items="siNo"></v-select>
@@ -80,6 +78,9 @@
     data: () => ({
       step: 1,
       perfil: {
+        cedula: '1718896880',
+        apellidosNombres: 'GALINDO HIDALGO SANTIAGO PAUL',
+        fechaNacimiento: '1983-03-06',
         lugarNacimiento: 'PICHINCHA/QUITO/SAN BLAS',
         nacionalidad: 'ECUATORIANA',
         tituloSenescyt: 'INGENIERO EN SISTEMAS INFORMATICOS Y DE COMPUTACION'
@@ -139,12 +140,7 @@
         'Sí',
         'No'
       ]
-    }),
-    computed: {
-      user () {
-        return this.$store.state.auth.user
-      }
-    }
+    })
   }
 
 </script>

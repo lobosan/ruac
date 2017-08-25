@@ -2,7 +2,7 @@
   <v-app toolbar footer>
     <v-navigation-drawer temporary v-model="sideNav">
       <v-list class="pt-0" dense>
-        <v-list-tile v-for="(item, i) in sideNavItems" :key="i" :to="item.route" ripple>
+        <v-list-tile v-for="(item, i) in sideNavItems" :key="i" :to="item.route">
           <v-list-tile-action>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-tile-action>
@@ -12,7 +12,7 @@
             </v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
-        <v-list-tile v-if="user" @click="cerrarSesion">
+        <v-list-tile>
           <v-list-tile-action>
             <v-icon>exit_to_app</v-icon>
           </v-list-tile-action>
@@ -31,9 +31,9 @@
       </v-slide-x-reverse-transition>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-xs-only">
-        <v-btn v-if="!user" flat to="/inicio-sesion">Inicia sesión</v-btn>
-        <v-btn v-if="!user" flat to="/registro">Regístrate</v-btn>
-        <v-btn v-if="user" flat @click="cerrarSesion">Cerrar sesión</v-btn>
+        <v-btn flat to="/inicio-sesion">Inicia sesión</v-btn>
+        <v-btn flat to="/registro">Regístrate</v-btn>
+        <v-btn flat>Cerrar sesión</v-btn>
       </v-toolbar-items>
     </v-toolbar>
     <main>
@@ -58,28 +58,14 @@
       title: ''
     }),
     computed: {
-      // The user is automatically set by the feathers-vuex auth module upon login
-      user () {
-        return this.$store.state.auth.user
-      },
       sideNavItems () {
-        let items = [{ title: 'RUAC', icon: 'home', route: '/' }]
-        if (this.user) {
-          items.push(
-            { title: 'Creación de perfil', icon: 'account_box', route: '/perfil-creacion' }
-          )
-        } else {
-          items.push(
-            { title: 'Inicio de sesión', icon: 'face', route: '/inicio-sesion' },
-            { title: 'Registro de cuenta', icon: 'fingerprint', route: '/registro' }
-          )
-        }
-        return items
-      }
-    },
-    methods: {
-      cerrarSesion () {
-        this.$store.dispatch('auth/logout').then(() => this.$router.push('inicio-sesion'))
+        let menuItems = [
+          { title: 'RUAC', icon: 'home', route: '/' },
+          { title: 'Creación de perfil', icon: 'account_box', route: '/perfil-creacion' },
+          { title: 'Inicio de sesión', icon: 'face', route: '/inicio-sesion' },
+          { title: 'Registro de cuenta', icon: 'fingerprint', route: '/registro' }
+        ]
+        return menuItems
       }
     },
     watch: {

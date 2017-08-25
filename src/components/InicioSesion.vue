@@ -42,21 +42,10 @@
       login ({ cedula, contrasena }) {
         this.$validator.validateAll().then(response => {
           if (response) {
-            this.$store.dispatch('auth/authenticate', { strategy: 'local', cedula, contrasena }).then(response => {
-              if (response) this.$router.push('perfil-creacion')
-            }).catch(error => {
-              // Convert the error to a plain object and add a message.
-              let type = error.className
-              error = Object.assign({}, error)
-              error.message = (type === 'not-authenticated')
-                ? 'Inicio de sesión no válido.'
-                : 'Error en el servidor al verificar usuario.'
-              this.serverError = error.message
-              this.snackbar = true
-            })
+            // Check on server
           }
-        }).catch(() => {
-          console.log('Error en el cliente al validar el formulario.')
+        }).catch(error => {
+          console.log('Error en el cliente al validar el formulario', error)
         })
       }
     }
