@@ -39,6 +39,5 @@ new Vue({
   el: '#app',
   router,
   store,
-  template: '<Layout/>',
-  components: { Layout }
+  ...Layout
 })

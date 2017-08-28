@@ -12,6 +12,7 @@
     "deploy": "git subtree push --prefix dist heroku master"
   },
   "dependencies": {
+    "apollo-client": "^1.9.1",
     "babel-polyfill": "^6.26.0",
     "event-source-polyfill": "^0.0.9",
     "vee-validate": "^2.0.0-rc.14",
