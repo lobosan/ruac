@@ -31,9 +31,9 @@
           <v-btn type="submit" outline class="deep-purple--text ml-0 mt-3">Registrar Cuenta</v-btn>
         </form>
       </v-card-text>
-      <v-snackbar :info="true" :timeout="3500" :top="true" :multi-line="true" v-model="snackbar">
+      <v-snackbar :info="true" :top="true" :multi-line="true" v-model="snackbar">
         {{ serverError }}
-        <v-icon class="close-icon white--text" @click="snackbar = false">close</v-icon>
+        <v-icon class="close-icon white--text" @click="closeSnackbar">close</v-icon>
       </v-snackbar>
     </v-card>
   </v-flex>
@@ -45,8 +45,6 @@
   export default {
     mixins: [validateForm],
     data: () => ({
-      snackbar: false,
-      serverError: '',
       viewPassword: false,
       pickerModal: false,
       picker: '',
@@ -58,11 +56,11 @@
         contrasena: []
       },
       form: {
-        cedula: '',
-        apellidosNombres: '',
-        email: '',
-        fechaNacimiento: '',
-        contrasena: ''
+        cedula: '1718896580',
+        apellidosNombres: 'GALINDO HIDALGO SANTIAGO PAUL',
+        email: 'sp.galindoh@gmail.com',
+        fechaNacimiento: '1983-06-03',
+        contrasena: '123123123'
       }
     }),
     watch: {
@@ -74,17 +72,37 @@
         }
       }
     },
+    computed: {
+      serverError () {
+        return this.$store.getters.error
+      },
+      loading () {
+        return this.$store.getters.loading
+      },
+      snackbar () {
+        return this.$store.getters.snackbar
+      }
+    },
     methods: {
       signUp (form) {
-        this.$validator.validateAll().then(
-          response => {
+        this.$validator.validateAll()
+          .then(response => {
             if (response) {
-              // Check on server
+              this.$store.dispatch('signUp', form)
+                .then(response => {
+                  if (response) this.$router.push('perfil-creacion')
+                })
+                .catch(error => {
+                  console.log(error)
+                })
             }
-          }
-        ).catch(error => {
-          console.log('Error en el cliente al validar el formulario', error)
-        })
+          })
+          .catch(error => {
+            console.log('Error en el cliente al validar el formulario', error)
+          })
+      },
+      closeSnackbar () {
+        this.$store.dispatch('clearSnackbar')
       }
     }
   }

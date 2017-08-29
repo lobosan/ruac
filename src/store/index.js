@@ -12,7 +12,8 @@ export default new Vuex.Store({
     user: null,
     perfil: null,
     loading: false,
-    error: null
+    error: null,
+    snackbar: false
   },
   mutations: {
     setAllPosts (state, payload) {
@@ -29,55 +30,89 @@ export default new Vuex.Store({
     },
     clearError (state) {
       state.error = null
+    },
+    setSnackbar (state, payload) {
+      state.snackbar = payload
+    },
+    clearSnackbar (state) {
+      state.snackbar = false
     }
   },
   actions: {
     loadAllPosts ({ commit }) {
       commit('setLoading', true)
       apolloClient.query({
-        query: gql`
-          {
-            allPosts {
-              _id
-              name
-            }
+        query: gql`{
+          allPosts {
+            _id
+            name
           }
-        `
+        }`
       }).then(result => {
         commit('setAllPosts', result.data.allPosts)
         commit('setLoading', result.loading)
       }).catch(error => {
         console.log(error)
+        commit('setError', error)
         commit('setLoading', false)
       })
     },
-    signUp ({ commit }, payload) {
+    signUp ({ commit, dispatch }, { cedula, apellidosNombres, email, fechaNacimiento, contrasena }) {
       commit('setLoading', true)
       commit('clearError')
-      apolloClient.query({
-        query: gql`
-          {
-            loggedInUser {
-              _id
-              username
-              email
-            }
+      apolloClient.mutate({
+        mutation: gql`mutation SignUp($cedula: String!, $apellidosNombres: String!, $email: String!, $fechaNacimiento: String!, $contrasena: String!) {
+          signUp(cedula: $cedula, apellidosNombres: $apellidosNombres, email: $email, fechaNacimiento: $fechaNacimiento, contrasena: $contrasena) {
+            _id
+            cedula
+            apellidosNombres
+            email
+            fechaNacimiento
           }
-        `
+        }`,
+        variables: {
+          cedula,
+          apellidosNombres,
+          email,
+          fechaNacimiento,
+          contrasena
+        }
       }).then(result => {
-        commit('setUser', result.data.loggedInUser)
+        commit('setLoading', false)
+        return { cedula, contrasena }
+      }).then(({ cedula, contrasena }) => {
+        dispatch('signIn', { cedula, contrasena })
+      }).then(response => {
+        return response
+      }).catch(error => {
+        const errorObj = Object.assign({}, error)
+        commit('setSnackbar', true)
+        commit('setError', errorObj.graphQLErrors[0].message)
+        commit('setLoading', false)
+      })
+    },
+    signIn ({ commit }, { cedula, contrasena }) {
+      commit('setLoading', true)
+      commit('clearError')
+      apolloClient.mutate({
+        mutation: gql`mutation SignIn($cedula: String!, $contrasena: String!) {
+          signIn(cedula: $cedula, contrasena: $contrasena)
+        }`,
+        variables: { cedula, contrasena }
+      }).then(result => {
+        localStorage.setItem('token', result.data.signIn)
         commit('setLoading', false)
       }).catch(error => {
         console.log(error)
+        commit('setError', error)
         commit('setLoading', false)
       })
     },
-    signIn ({ commit }, payload) {
-      commit('setLoading', true)
-      commit('clearError')
-    },
     clearError ({ commit }) {
       commit('clearError')
+    },
+    clearSnackbar ({ commit }) {
+      commit('clearSnackbar')
     }
   },
   getters: {
@@ -92,6 +127,9 @@ export default new Vuex.Store({
     },
     error (state) {
       return state.error
+    },
+    snackbar (state) {
+      return state.snackbar
     }
   }
 })
