@@ -17,12 +17,6 @@
           <v-card-text>
             <v-layout row wrap>
               <v-flex xs12 class="pa-2 grey--text text--darken-4">
-                <div v-if="loading">Loading...</div>
-                <ul>
-                  <li v-for="post of allPosts" :key="post._id">
-                    {{ post.name }}
-                  </li>
-                </ul>
                 {{secciones[0].text}}
               </v-flex>
               <v-flex xs12 pl-0 pt-2>
@@ -207,18 +201,7 @@
         center: { lat: -0.200840, lng: -78.489790 },
         position: { lat: -0.200840, lng: -78.489790 }
       }
-    }),
-    computed: {
-      allPosts () {
-        return this.$store.getters.allPosts
-      },
-      loading () {
-        return this.$store.getters.loading
-      }
-    },
-    created () {
-      this.$store.dispatch('loadAllPosts')
-    }
+    })
   }
 
 </script>

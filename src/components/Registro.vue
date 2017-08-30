@@ -84,22 +84,18 @@
       }
     },
     methods: {
-      signUp (form) {
-        this.$validator.validateAll()
-          .then(response => {
-            if (response) {
-              this.$store.dispatch('signUp', form)
-                .then(response => {
-                  if (response) this.$router.push('perfil-creacion')
-                })
-                .catch(error => {
-                  console.log(error)
-                })
+      async signUp (form) {
+        const validForm = await this.$validator.validateAll()
+        if (validForm) {
+          const newUser = await this.$store.dispatch('signUp', form)
+          if (newUser) {
+            const { cedula, contrasena } = form
+            const token = await this.$store.dispatch('signIn', { cedula, contrasena })
+            if (token) {
+              this.$router.push('perfil-creacion')
             }
-          })
-          .catch(error => {
-            console.log('Error en el cliente al validar el formulario', error)
-          })
+          }
+        }
       },
       closeSnackbar () {
         this.$store.dispatch('clearSnackbar')
