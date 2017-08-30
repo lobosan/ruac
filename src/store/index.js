@@ -34,7 +34,7 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    async signUp ({ commit, dispatch }, { cedula, apellidosNombres, email, fechaNacimiento, contrasena }) {
+    async signUp ({ commit }, { cedula, apellidosNombres, email, fechaNacimiento, contrasena }) {
       commit('setLoading', true)
       commit('clearError')
       try {
@@ -82,6 +82,33 @@ export default new Vuex.Store({
         commit('setError', errorObj.graphQLErrors[0].message)
         return false
       }
+    },
+    async loggedInUser ({ commit }) {
+      commit('setLoading', true)
+      commit('clearError')
+      try {
+        const user = await apolloClient.query({
+          query: gql`{
+            loggedInUser {
+              _id
+              cedula
+            }
+          }`
+        })
+        commit('setLoading', false)
+        commit('setUser', user.data.loggedInUser)
+        return user.data.loggedInUser
+      } catch (error) {
+        const errorObj = Object.assign({}, error)
+        commit('setLoading', false)
+        commit('setSnackbar', true)
+        commit('setError', errorObj.graphQLErrors[0].message)
+        return false
+      }
+    },
+    logout ({ commit }) {
+      localStorage.removeItem('token')
+      commit('setUser', null)
     },
     clearError ({ commit }) {
       commit('clearError')

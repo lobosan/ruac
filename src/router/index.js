@@ -1,14 +1,16 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-const meta = require('./meta.json')
+import meta from './meta.json'
+import AuthGuard from './auth-guard'
 
 // Route helper function for lazy loading
-function route (path, view) {
+function route (path, view, beforeEnter) {
   return {
-    path: path,
+    path,
     meta: meta[path],
-    component: () => import(`../components/${view}`)
+    component: () => import(`../components/${view}`),
+    beforeEnter
   }
 }
 
@@ -22,7 +24,7 @@ export function createRouter () {
       route('/', 'Home'),
       route('/inicio-sesion', 'InicioSesion'),
       route('/registro', 'Registro'),
-      route('/perfil-creacion', 'PerfilCreacion'),
+      route('/perfil-creacion', 'PerfilCreacion', AuthGuard),
       { path: '*', redirect: '/' }
     ]
   })

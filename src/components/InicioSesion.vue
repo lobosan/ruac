@@ -12,9 +12,9 @@
           <v-btn type="submit" outline class="deep-purple--text ml-0 mt-3">Ingresar</v-btn>
         </form>
       </v-card-text>
-      <v-snackbar :info="true" :timeout="3500" :top="true" :multi-line="true" v-model="snackbar">
+      <v-snackbar :info="true" :top="true" :multi-line="true" v-model="snackbar">
         {{ serverError }}
-        <v-icon class="close-icon white--text" @click="snackbar = false">close</v-icon>
+        <v-icon class="close-icon white--text" @click="closeSnackbar">close</v-icon>
       </v-snackbar>
     </v-card>
   </v-flex>
@@ -26,8 +26,6 @@
   export default {
     mixins: [validateForm],
     data: () => ({
-      snackbar: false,
-      serverError: '',
       viewPassword: false,
       rules: {
         cedula: [],
@@ -38,15 +36,32 @@
         contrasena: ''
       }
     }),
+    computed: {
+      serverError () {
+        return this.$store.getters.error
+      },
+      loading () {
+        return this.$store.getters.loading
+      },
+      snackbar () {
+        return this.$store.getters.snackbar
+      }
+    },
     methods: {
-      login ({ cedula, contrasena }) {
-        this.$validator.validateAll().then(response => {
-          if (response) {
-            // Check on server
+      async login ({ cedula, contrasena }) {
+        const validForm = await this.$validator.validateAll()
+        if (validForm) {
+          const token = await this.$store.dispatch('signIn', { cedula, contrasena })
+          if (token) {
+            const loggedInUser = await this.$store.dispatch('loggedInUser')
+            if (loggedInUser) {
+              this.$router.push('perfil-creacion')
+            }
           }
-        }).catch(error => {
-          console.log('Error en el cliente al validar el formulario', error)
-        })
+        }
+      },
+      closeSnackbar () {
+        this.$store.dispatch('clearSnackbar')
       }
     }
   }

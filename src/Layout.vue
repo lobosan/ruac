@@ -12,7 +12,7 @@
             </v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
-        <v-list-tile>
+        <v-list-tile v-if="userIsAuthenticated" @click="logout">
           <v-list-tile-action>
             <v-icon>exit_to_app</v-icon>
           </v-list-tile-action>
@@ -31,9 +31,9 @@
       </v-slide-x-reverse-transition>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-xs-only">
-        <v-btn flat to="/inicio-sesion">Inicia sesión</v-btn>
-        <v-btn flat to="/registro">Regístrate</v-btn>
-        <v-btn flat>Cerrar sesión</v-btn>
+        <v-btn v-if="!userIsAuthenticated" flat to="/inicio-sesion">Inicia sesión</v-btn>
+        <v-btn v-if="!userIsAuthenticated" flat to="/registro">Regístrate</v-btn>
+        <v-btn v-if="userIsAuthenticated" @click="logout" flat>Cerrar sesión</v-btn>
       </v-toolbar-items>
     </v-toolbar>
     <main>
@@ -58,14 +58,26 @@
       title: ''
     }),
     computed: {
+      userIsAuthenticated () {
+        return this.$store.getters.user
+      },
       sideNavItems () {
-        let menuItems = [
-          { title: 'RUAC', icon: 'home', route: '/' },
-          { title: 'Creación de perfil', icon: 'account_box', route: '/perfil-creacion' },
-          { title: 'Inicio de sesión', icon: 'face', route: '/inicio-sesion' },
-          { title: 'Registro de cuenta', icon: 'fingerprint', route: '/registro' }
-        ]
+        let menuItems = [{ title: 'RUAC', icon: 'home', route: '/' }]
+        if (this.userIsAuthenticated) {
+          menuItems.push({ title: 'Creación de perfil', icon: 'account_box', route: '/perfil-creacion' })
+        } else {
+          menuItems.push(
+            { title: 'Inicio de sesión', icon: 'face', route: '/inicio-sesion' },
+            { title: 'Registro de cuenta', icon: 'fingerprint', route: '/registro' }
+          )
+        }
         return menuItems
+      }
+    },
+    methods: {
+      logout () {
+        this.$store.dispatch('logout')
+        this.$router.push('inicio-sesion')
       }
     },
     watch: {

@@ -92,7 +92,10 @@
             const { cedula, contrasena } = form
             const token = await this.$store.dispatch('signIn', { cedula, contrasena })
             if (token) {
-              this.$router.push('perfil-creacion')
+              const loggedInUser = await this.$store.dispatch('loggedInUser')
+              if (loggedInUser) {
+                this.$router.push('perfil-creacion')
+              }
             }
           }
         }
