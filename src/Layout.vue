@@ -59,7 +59,7 @@
     }),
     computed: {
       userIsAuthenticated () {
-        return this.$store.getters.user
+        return this.$store.state.user
       },
       sideNavItems () {
         let menuItems = [{ title: 'RUAC', icon: 'home', route: '/' }]

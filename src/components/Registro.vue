@@ -74,13 +74,13 @@
     },
     computed: {
       serverError () {
-        return this.$store.getters.error
+        return this.$store.state.error
       },
       loading () {
-        return this.$store.getters.loading
+        return this.$store.state.loading
       },
       snackbar () {
-        return this.$store.getters.snackbar
+        return this.$store.state.snackbar
       }
     },
     methods: {

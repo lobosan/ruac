@@ -3,6 +3,7 @@ import Router from 'vue-router'
 
 import meta from './meta.json'
 import AuthGuard from './auth-guard'
+import store from '../store'
 
 // Route helper function for lazy loading
 function route (path, view, beforeEnter) {
@@ -27,6 +28,12 @@ export function createRouter () {
       route('/perfil-creacion', 'PerfilCreacion', AuthGuard),
       { path: '*', redirect: '/' }
     ]
+  })
+
+  router.beforeEach(async (to, from, next) => {
+    const token = localStorage.getItem('token')
+    if (token) await store.dispatch('loggedInUser')
+    next()
   })
 
   router.afterEach(route => {

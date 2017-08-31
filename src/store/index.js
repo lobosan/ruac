@@ -116,19 +116,5 @@ export default new Vuex.Store({
     clearSnackbar ({ commit }) {
       commit('clearSnackbar')
     }
-  },
-  getters: {
-    user (state) {
-      return state.user
-    },
-    loading (state) {
-      return state.loading
-    },
-    error (state) {
-      return state.error
-    },
-    snackbar (state) {
-      return state.snackbar
-    }
   }
 })
