@@ -32,8 +32,8 @@
         contrasena: []
       },
       form: {
-        cedula: '',
-        contrasena: ''
+        cedula: '1718896580',
+        contrasena: '123123123'
       }
     }),
     computed: {
