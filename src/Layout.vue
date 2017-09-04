@@ -31,8 +31,9 @@
       </v-slide-x-reverse-transition>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-xs-only">
-        <v-btn v-if="!userIsAuthenticated" flat to="/inicio-sesion">Inicia sesión</v-btn>
-        <v-btn v-if="!userIsAuthenticated" flat to="/registro">Regístrate</v-btn>
+        <v-btn flat v-for="(item, i) in toolbarItems" :key="i" :to="item.route">
+          {{ item.title }}
+        </v-btn>
         <v-btn v-if="userIsAuthenticated" @click="logout" flat>Cerrar sesión</v-btn>
       </v-toolbar-items>
     </v-toolbar>
@@ -54,36 +55,26 @@
 <script>
   export default {
     data: () => ({
-      sideNav: false,
-      title: ''
+      sideNav: false
     }),
     computed: {
+      title () {
+        return this.$store.state.title
+      },
       userIsAuthenticated () {
         return this.$store.state.user
       },
       sideNavItems () {
-        let menuItems = [{ title: 'RUAC', icon: 'home', route: '/' }]
-        if (this.userIsAuthenticated) {
-          menuItems.push({ title: 'Creación de perfil', icon: 'account_box', route: '/perfil-creacion' })
-        } else {
-          menuItems.push(
-            { title: 'Inicio de sesión', icon: 'face', route: '/inicio-sesion' },
-            { title: 'Registro de cuenta', icon: 'fingerprint', route: '/registro' }
-          )
-        }
-        return menuItems
+        return this.$store.state.sideNavItems
+      },
+      toolbarItems () {
+        return this.$store.state.toolbarItems
       }
     },
     methods: {
       logout () {
         this.$store.dispatch('logout')
         this.$router.push('inicio-sesion')
-      }
-    },
-    watch: {
-      '$route' (to, from) {
-        let item = this.sideNavItems.find(item => item.route === this.$route.path)
-        this.title = item.title
       }
     }
   }

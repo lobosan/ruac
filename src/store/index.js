@@ -8,14 +8,26 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    title: null,
     user: null,
+    sideNavItems: null,
+    toolbarItems: null,
     loading: false,
     error: null,
     snackbar: false
   },
   mutations: {
+    setTitle (state, payload) {
+      state.title = payload
+    },
     setUser (state, payload) {
       state.user = payload
+    },
+    setSideNavItems (state, payload) {
+      state.sideNavItems = payload
+    },
+    setToolbarItems (state, payload) {
+      state.toolbarItems = payload
     },
     setLoading (state, payload) {
       state.loading = payload
