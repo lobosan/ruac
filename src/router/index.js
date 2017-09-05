@@ -35,7 +35,8 @@ export function createRouter () {
     let sideNavItems = [{ title: 'RUAC', icon: 'home', route: '/' }]
     let toolbarItems = []
     if (token) {
-      await store.dispatch('loggedInUser')
+      const user = await store.dispatch('loggedInUser')
+      store.commit('setUser', user.data.loggedInUser)
       sideNavItems.push({ title: 'Creación de perfil', icon: 'account_box', route: '/perfil-creacion' })
     } else {
       sideNavItems.push(

@@ -73,7 +73,7 @@
     },
     methods: {
       logout () {
-        this.$store.dispatch('logout')
+        this.$store.commit('logout')
         this.$router.push('inicio-sesion')
       }
     }

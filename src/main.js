@@ -11,6 +11,7 @@ import es from 'vee-validate/dist/locale/es'
 import VeeValidate, { Validator } from 'vee-validate'
 
 import Layout from './Layout'
+import Alert from './components/shared/Alert'
 import store from './store'
 import { createRouter } from './router'
 
@@ -29,6 +30,8 @@ Vue.use(VueGoogleMaps, {
     key: 'AIzaSyBjkOESteDGfqatHkRHYXrTHlcMrMkjBL0'
   }
 })
+
+Vue.component('app-alert', Alert)
 
 Vue.config.productionTip = false
 
