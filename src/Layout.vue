@@ -1,31 +1,11 @@
 <template>
   <v-app toolbar footer>
-    <v-navigation-drawer temporary v-model="sideNav">
-      <v-list class="pt-0" dense>
-        <v-list-tile v-for="(item, i) in sideNavItems" :key="i" :to="item.route">
-          <v-list-tile-action>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>
-              {{ item.title }}
-            </v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-        <v-list-tile v-if="userIsAuthenticated" @click="logout">
-          <v-list-tile-action>
-            <v-icon>exit_to_app</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>
-              Cerrar sesión
-            </v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-      </v-list>
-    </v-navigation-drawer>
     <v-toolbar fixed dark class="deep-purple">
-      <v-toolbar-side-icon @click.stop="sideNav = !sideNav"></v-toolbar-side-icon>
+      <v-slide-x-reverse-transition mode="out-in">
+        <v-btn v-if="title != 'RUAC'" icon @click="redirectToHome" class="mr-0">
+          <v-icon>arrow_back</v-icon>
+        </v-btn>
+      </v-slide-x-reverse-transition>
       <v-slide-x-reverse-transition mode="out-in">
         <v-toolbar-title :key="title">{{title}}</v-toolbar-title>
       </v-slide-x-reverse-transition>
@@ -36,6 +16,27 @@
         </v-btn>
         <v-btn v-if="userIsAuthenticated" @click="logout" flat>Cerrar sesión</v-btn>
       </v-toolbar-items>
+      <v-menu bottom left class="hidden-sm-and-up">
+        <v-btn icon slot="activator" dark class="mr-0">
+          <v-icon>more_vert</v-icon>
+        </v-btn>
+        <v-list>
+          <v-list-tile v-for="(item, i) in sideNavItems" :key="i" :to="item.route">
+            <v-list-tile-title>
+              <v-icon>{{ item.icon }}</v-icon>
+              {{ item.title }}
+            </v-list-tile-title>
+          </v-list-tile>
+        </v-list>
+        <v-list v-if="userIsAuthenticated">
+          <v-list-tile @click="logout">
+            <v-list-tile-title>
+              <v-icon>exit_to_app</v-icon>
+              Cerrar sesión
+            </v-list-tile-title>
+          </v-list-tile>
+        </v-list>
+      </v-menu>
     </v-toolbar>
     <main>
       <v-container fluid>
@@ -72,6 +73,9 @@
       }
     },
     methods: {
+      redirectToHome () {
+        this.$router.push('/')
+      },
       logout () {
         this.$store.commit('logout')
         this.$router.push('inicio-sesion')

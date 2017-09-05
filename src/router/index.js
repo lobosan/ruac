@@ -32,12 +32,13 @@ export function createRouter () {
 
   router.beforeEach(async (to, from, next) => {
     const token = localStorage.getItem('token')
-    let sideNavItems = [{ title: 'RUAC', icon: 'home', route: '/' }]
+    let sideNavItems = []
     let toolbarItems = []
     if (token) {
       const user = await store.dispatch('loggedInUser')
       store.commit('setUser', user.data.loggedInUser)
       sideNavItems.push({ title: 'Creación de perfil', icon: 'account_box', route: '/perfil-creacion' })
+      toolbarItems.push({ title: 'Perfil', route: '/perfil-creacion' })
     } else {
       sideNavItems.push(
         { title: 'Inicio de sesión', icon: 'face', route: '/inicio-sesion' },
