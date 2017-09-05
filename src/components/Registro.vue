@@ -91,6 +91,7 @@
         if (validForm) {
           try {
             this.$store.commit('setLoading', true)
+            this.$store.commit('showAlert', false)
             this.$store.commit('setErrorMessage', null)
             await this.$store.dispatch('signUp', form)
             const { cedula, contrasena } = form
@@ -105,9 +106,6 @@
             this.$store.commit('setErrorMessage', JSON.parse(JSON.stringify(error)).graphQLErrors[0].message)
             this.$store.commit('showAlert', true)
           }
-        } else {
-          this.$store.commit('setErrorMessage', validForm)
-          this.$store.commit('showAlert', true)
         }
       },
       dismissAlert () {

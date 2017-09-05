@@ -55,6 +55,7 @@
         if (validForm) {
           try {
             this.$store.commit('setLoading', true)
+            this.$store.commit('showAlert', false)
             this.$store.commit('setErrorMessage', null)
             const token = await this.$store.dispatch('signIn', { cedula, contrasena })
             localStorage.setItem('token', token.data.signIn)
@@ -67,9 +68,6 @@
             this.$store.commit('setErrorMessage', JSON.parse(JSON.stringify(error)).graphQLErrors[0].message)
             this.$store.commit('showAlert', true)
           }
-        } else {
-          this.$store.commit('setErrorMessage', validForm)
-          this.$store.commit('showAlert', true)
         }
       },
       dismissAlert () {
