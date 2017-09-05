@@ -18,9 +18,9 @@
     "keywords": "registro cuenta"
   },
   "/perfil-creacion": {
-    "h1": "Creación de perfil",
-    "title": "Creación de perfil",
-    "description": "Cree su perfil en el RUAC",
-    "keywords": "creacion perfil"
+    "h1": "Perfil",
+    "title": "Perfil",
+    "description": "Actualice su perfil en el RUAC",
+    "keywords": "perfil"
   }
 }

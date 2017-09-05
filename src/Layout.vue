@@ -10,28 +10,20 @@
         <v-toolbar-title :key="title">{{title}}</v-toolbar-title>
       </v-slide-x-reverse-transition>
       <v-spacer></v-spacer>
-      <v-toolbar-items class="hidden-xs-only">
-        <v-btn flat v-for="(item, i) in toolbarItems" :key="i" :to="item.route">
-          {{ item.title }}
-        </v-btn>
-        <v-btn v-if="userIsAuthenticated" @click="logout" flat>Cerrar sesión</v-btn>
-      </v-toolbar-items>
-      <v-menu bottom left class="hidden-sm-and-up">
-        <v-btn icon slot="activator" dark class="mr-0">
+      <v-menu bottom left>
+        <v-btn icon slot="activator" dark>
           <v-icon>more_vert</v-icon>
         </v-btn>
         <v-list>
-          <v-list-tile v-for="(item, i) in sideNavItems" :key="i" :to="item.route">
+          <v-list-tile v-for="(item, i) in menuItems" :key="i" :to="item.route">
             <v-list-tile-title>
-              <v-icon>{{ item.icon }}</v-icon>
+              <v-icon class="mr-1">{{ item.icon }}</v-icon>
               {{ item.title }}
             </v-list-tile-title>
           </v-list-tile>
-        </v-list>
-        <v-list v-if="userIsAuthenticated">
-          <v-list-tile @click="logout">
+          <v-list-tile @click="logout" v-if="userIsAuthenticated">
             <v-list-tile-title>
-              <v-icon>exit_to_app</v-icon>
+              <v-icon class="mr-1">exit_to_app</v-icon>
               Cerrar sesión
             </v-list-tile-title>
           </v-list-tile>
@@ -65,11 +57,8 @@
       userIsAuthenticated () {
         return this.$store.state.user
       },
-      sideNavItems () {
-        return this.$store.state.sideNavItems
-      },
-      toolbarItems () {
-        return this.$store.state.toolbarItems
+      menuItems () {
+        return this.$store.state.menuItems
       }
     },
     methods: {

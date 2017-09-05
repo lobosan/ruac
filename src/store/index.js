@@ -9,8 +9,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     title: null,
-    toolbarItems: null,
-    sideNavItems: null,
+    menuItems: null,
     user: null,
     loading: false,
     errorMessage: null,
@@ -20,11 +19,8 @@ export default new Vuex.Store({
     setTitle (state, payload) {
       state.title = payload
     },
-    setToolbarItems (state, payload) {
-      state.toolbarItems = payload
-    },
-    setSideNavItems (state, payload) {
-      state.sideNavItems = payload
+    setMenuItems (state, payload) {
+      state.menuItems = payload
     },
     setUser (state, payload) {
       state.user = payload
