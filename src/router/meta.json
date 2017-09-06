@@ -9,18 +9,18 @@
     "h1": "Inicio de sesión",
     "title": "Inicio de sesión",
     "description": "Inicie sesión en el RUAC",
-    "keywords": "inicio sesion"
+    "keywords": "inicio sesion, ruac, mcyp"
   },
   "/registro": {
     "h1": "Registro de cuenta",
     "title": "Registro de cuenta",
     "description": "Registre su cuenta en el RUAC",
-    "keywords": "registro cuenta"
+    "keywords": "registro cuenta, ruac, mcyp"
   },
-  "/perfil-creacion": {
+  "/perfil": {
     "h1": "Perfil",
     "title": "Perfil",
     "description": "Actualice su perfil en el RUAC",
-    "keywords": "perfil"
+    "keywords": "perfil, ruac, mcyp"
   }
 }

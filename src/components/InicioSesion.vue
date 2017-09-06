@@ -62,7 +62,7 @@
             const user = await this.$store.dispatch('loggedInUser')
             this.$store.commit('setUser', user.data.loggedInUser)
             this.$store.commit('setLoading', false)
-            this.$router.push('perfil-creacion')
+            this.$router.push('perfil')
           } catch (error) {
             this.$store.commit('setLoading', false)
             this.$store.commit('setErrorMessage', JSON.parse(JSON.stringify(error)).graphQLErrors[0].message)
