@@ -11,8 +11,7 @@
         <v-text-field label="Fecha de nacimiento" v-model="perfil.fechaNacimiento" disabled></v-text-field>
         <v-text-field label="Lugar de nacimiento" v-model="perfil.lugarNacimiento" disabled></v-text-field>
         <v-text-field label="Nacionalidad" v-model="perfil.nacionalidad" disabled></v-text-field>
-        <v-text-field label="Título registrado en la SENESCYT" v-model="perfil.tituloSenescyt"
-          disabled></v-text-field>
+        <v-text-field label="Título registrado en la SENESCYT" v-model="perfil.tituloSenescyt" disabled></v-text-field>
         <v-text-field label="Nombre artístico"></v-text-field>
         <v-select label="País de domicilio" :items="paises"></v-select>
         <v-select label="Provincia de domicilio" :items="provincias"></v-select>
@@ -31,8 +30,7 @@
         <v-select label="Tipo de actor cultural" :items="tipoActividad"></v-select>
         <v-select label="Actividad principal" :items="ambitoActividad"></v-select>
         <v-select label="Actividad secundaria" :items="ambitoActividad"></v-select>
-        <v-select label="Postulaciones a financiamiento" :items="mecanismosFomento" multiple
-          chips></v-select>
+        <v-select label="Postulaciones a financiamiento" :items="mecanismosFomento" multiple chips></v-select>
         <v-text-field label="Otras entidades que lo han apoyado"></v-text-field>
         <v-select label="Obras registradas en el IEPI" :items="siNo"></v-select>
         <v-select label="Pertenece a una organización cultural" :items="siNo"></v-select>
@@ -48,12 +46,9 @@
         <span class="subheading deep-purple--text">PORTAFOLIO / TRAYECTORIA</span>
       </v-stepper-step>
       <v-stepper-content step="3">
-        <v-text-field label="Logros alcanzados" hint="Publicaciones, galardones, reconocimientos, conciertos, grabaciones, festivales, entre otros."
-          :persistent-hint="true" multi-line rows="3"></v-text-field>
-        <v-text-field label="Proyectos culturales" hint="Describir su vinculación con proyectos culturales."
-          :persistent-hint="true" multi-line rows="3"></v-text-field>
-        <v-text-field label="Formación y capacitación" hint="Talleres, cursos, diplomados, entre otros espacios que no generen título reconocido por la SENESCYT"
-          :persistent-hint="true" multi-line rows="3"></v-text-field>
+        <v-text-field label="Logros alcanzados" hint="Publicaciones, galardones, reconocimientos, conciertos, grabaciones, festivales, entre otros." :persistent-hint="true" multi-line rows="3"></v-text-field>
+        <v-text-field label="Proyectos culturales" hint="Describir su vinculación con proyectos culturales." :persistent-hint="true" multi-line rows="3"></v-text-field>
+        <v-text-field label="Formación y capacitación" hint="Talleres, cursos, diplomados, entre otros espacios que no generen título reconocido por la SENESCYT" :persistent-hint="true" multi-line rows="3"></v-text-field>
         <v-text-field label="Página web o blog"></v-text-field>
         <v-text-field label="YouTube"></v-text-field>
         <v-text-field label="Facebook"></v-text-field>
@@ -74,104 +69,103 @@
 </template>
 
 <script>
-  export default {
-    data: () => ({
-      step: 1,
-      perfil: {
-        cedula: '1718896880',
-        apellidosNombres: 'GALINDO HIDALGO SANTIAGO PAUL',
-        fechaNacimiento: '1983-03-06',
-        lugarNacimiento: 'PICHINCHA/QUITO/SAN BLAS',
-        nacionalidad: 'ECUATORIANA',
-        tituloSenescyt: 'INGENIERO EN SISTEMAS INFORMATICOS Y DE COMPUTACION'
-      },
-      paises: [
-        'ECUADOR', 'COLOMBIA', 'PERU', 'BRASIL', 'ARGENTINA', 'CHILE', 'PANAMA', 'MEXICO', 'CUBA', 'BOLIVIA',
-        'PARAGUAY', 'URUGUAY', 'HONDURAS', 'COSTA RICA', 'GUATEMALA', 'EL SALVADOR', 'NICARAGUA', 'EGIPTO',
-        'REPUBLICA DOMINICANA', 'CANADA', 'ESTADOS UNIDOS DE AMERICA', 'FRANCIA', 'PAISES BAJOS (HOLANDA)',
-        'FEDERACION DE RUSIA', 'ESPAÑA', 'INDONESIA', 'MALASIA', 'PORTUGAL', 'COREA DEL SUR', 'AUSTRIA',
-        'ALEMANIA', 'SUECIA', 'BELGICA', 'ITALIA', 'AUSTRALIA', 'CHINA', 'JAPON', 'SUIZA', 'POLONIA',
-        'ISRAEL', 'REINO UNIDO', 'HUNGRIA', 'INDIA', 'VENEZUELA', 'OTROS'
-      ],
-      provincias: [
-        'PICHINCHA',
-        'GUAYAS'
-      ],
-      cantones: [
-        'QUITO',
-        'GUAYAQUIL'
-      ],
-      tipoActividad: [
-        'Creador',
-        'Productor',
-        'Gestor cultural',
-        'Técnico',
-        'Otro trabajador de la cultura'
-      ],
-      ambitoActividad: [
-        'Artes vivas y escénicas',
-        'Artes plásticas y visuales',
-        'Artes literarias, narrativas y producción editorial',
-        'Artes cinematográficas y audiovisuales',
-        'Artes musicales y sonoras',
-        'Diseño y artes aplicadas',
-        'Producción y gestión cultural',
-        'Investigación, promoción y difusión',
-        'Memoria social',
-        'Patrimonio cultural',
-        'Otras'
-      ],
-      mecanismosFomento: [
-        'Fondos concursables del MCYP',
-        'Auspicios del MCYP',
-        'Fondo de fomento CNCine',
-        'Financiamiento Foncultura'
-      ],
-      siNo: [
-        'Si',
-        'No'
-      ],
-      tipoSeguridadSocial: [
-        'Voluntario',
-        'Dependiente'
-      ],
-      declaracion: 'No',
-      declaracionSiNo: [
-        'Sí',
-        'No'
-      ]
-    })
-  }
-
+export default {
+  data: () => ({
+    step: 1,
+    perfil: {
+      cedula: '1718896880',
+      apellidosNombres: 'GALINDO HIDALGO SANTIAGO PAUL',
+      fechaNacimiento: '1983-03-06',
+      lugarNacimiento: 'PICHINCHA/QUITO/SAN BLAS',
+      nacionalidad: 'ECUATORIANA',
+      tituloSenescyt: 'INGENIERO EN SISTEMAS INFORMATICOS Y DE COMPUTACION'
+    },
+    paises: [
+      'ECUADOR', 'COLOMBIA', 'PERU', 'BRASIL', 'ARGENTINA', 'CHILE', 'PANAMA', 'MEXICO', 'CUBA', 'BOLIVIA',
+      'PARAGUAY', 'URUGUAY', 'HONDURAS', 'COSTA RICA', 'GUATEMALA', 'EL SALVADOR', 'NICARAGUA', 'EGIPTO',
+      'REPUBLICA DOMINICANA', 'CANADA', 'ESTADOS UNIDOS DE AMERICA', 'FRANCIA', 'PAISES BAJOS (HOLANDA)',
+      'FEDERACION DE RUSIA', 'ESPAÑA', 'INDONESIA', 'MALASIA', 'PORTUGAL', 'COREA DEL SUR', 'AUSTRIA',
+      'ALEMANIA', 'SUECIA', 'BELGICA', 'ITALIA', 'AUSTRALIA', 'CHINA', 'JAPON', 'SUIZA', 'POLONIA',
+      'ISRAEL', 'REINO UNIDO', 'HUNGRIA', 'INDIA', 'VENEZUELA', 'OTROS'
+    ],
+    provincias: [
+      'PICHINCHA',
+      'GUAYAS'
+    ],
+    cantones: [
+      'QUITO',
+      'GUAYAQUIL'
+    ],
+    tipoActividad: [
+      'Creador',
+      'Productor',
+      'Gestor cultural',
+      'Técnico',
+      'Otro trabajador de la cultura'
+    ],
+    ambitoActividad: [
+      'Artes vivas y escénicas',
+      'Artes plásticas y visuales',
+      'Artes literarias, narrativas y producción editorial',
+      'Artes cinematográficas y audiovisuales',
+      'Artes musicales y sonoras',
+      'Diseño y artes aplicadas',
+      'Producción y gestión cultural',
+      'Investigación, promoción y difusión',
+      'Memoria social',
+      'Patrimonio cultural',
+      'Otras'
+    ],
+    mecanismosFomento: [
+      'Fondos concursables del MCYP',
+      'Auspicios del MCYP',
+      'Fondo de fomento CNCine',
+      'Financiamiento Foncultura'
+    ],
+    siNo: [
+      'Si',
+      'No'
+    ],
+    tipoSeguridadSocial: [
+      'Voluntario',
+      'Dependiente'
+    ],
+    declaracion: 'No',
+    declaracionSiNo: [
+      'Sí',
+      'No'
+    ]
+  })
+}
 </script>
 
 <style>
-  .application--light .stepper .stepper__step--editable:hover .stepper__label,
-  .application--light .stepper .stepper__step--active .stepper__label {
-    text-shadow: 0px 0px 0px #7c4dff;
-  }
+.application--light .stepper .stepper__step--editable:hover .stepper__label,
+.application--light .stepper .stepper__step--active .stepper__label {
+  text-shadow: 0px 0px 0px #7c4dff;
+}
 
+.custom-select {
+  width: 50px;
+  display: inline-flex;
+  margin: 0 0 0 10px;
+  padding-top: 0;
+  font-weight: 500;
+}
+
+@media only screen and (max-width: 386px) {
   .custom-select {
-    width: 50px;
-    display: inline-flex;
-    margin: 0 0 0 10px;
-    padding-top: 0;
-    font-weight: 500;
+    margin: 0;
   }
+}
 
-  @media only screen and (max-width: 386px) {
-    .custom-select {
-      margin: 0;
-    }
+@media only screen and (max-width: 700px) {
+  .application--light .stepper--vertical .stepper__content:not(:last-child) {
+    border-left: none;
   }
-
-  @media only screen and (max-width: 700px) {
-    .application--light .stepper--vertical .stepper__content:not(:last-child) {
-      border-left: none;
-    }
-    .application--light .stepper--vertical .stepper__content {
-      margin: 0;
-      padding: 5px 24px;
-    }
+  .application--light .stepper--vertical .stepper__content {
+    margin: 0;
+    padding: 5px 24px;
   }
+}
 </style>

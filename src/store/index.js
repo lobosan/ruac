@@ -12,8 +12,9 @@ export default new Vuex.Store({
     menuItems: null,
     user: null,
     loading: false,
-    errorMessage: null,
-    showAlert: false
+    alertMessage: null,
+    alertDisplay: false,
+    alertType: null
   },
   mutations: {
     setTitle (state, payload) {
@@ -28,11 +29,10 @@ export default new Vuex.Store({
     setLoading (state, payload) {
       state.loading = payload
     },
-    setErrorMessage (state, payload) {
-      state.errorMessage = payload
-    },
-    showAlert (state, payload) {
-      state.showAlert = payload
+    setAlert (state, { alertMessage, alertDisplay, alertType }) {
+      state.alertMessage = alertMessage
+      state.alertDisplay = alertDisplay
+      state.alertType = alertType
     },
     logout (state) {
       localStorage.removeItem('token')
@@ -43,23 +43,45 @@ export default new Vuex.Store({
     async signUp ({ commit }, { cedula, apellidosNombres, email, fechaNacimiento, contrasena }) {
       return await apolloClient.mutate({
         mutation: gql`
-            mutation SignUp($cedula: String!, $apellidosNombres: String!, $email: String!, $fechaNacimiento: String!, $contrasena: String!) {
-            signUp(cedula: $cedula, apellidosNombres: $apellidosNombres, email: $email, fechaNacimiento: $fechaNacimiento, contrasena: $contrasena) {
+          mutation SignUp ($cedula: String!, $apellidosNombres: String!, $email: String!, $fechaNacimiento: String!, $contrasena: String!) {
+            signUp (cedula: $cedula, apellidosNombres: $apellidosNombres, email: $email, fechaNacimiento: $fechaNacimiento, contrasena: $contrasena) {
               _id
               cedula
               apellidosNombres
               email
               fechaNacimiento
             }
-          }`,
+          }
+        `,
         variables: { cedula, apellidosNombres, email, fechaNacimiento, contrasena }
+      })
+    },
+    async dinardap ({ commit }, { cedula }) {
+      return await apolloClient.query({
+        query: gql`
+          query Dinardap ($cedula: String!) {
+            dinardap (cedula: $cedula) {
+              nombre
+              fechaNacimiento
+              provincia
+              canton
+              parroquia
+              nacionalidad
+              sexo
+              tercerNivel
+              cuartoNivel
+              estadoAfiliado
+            }
+          }
+        `,
+        variables: { cedula }
       })
     },
     async signIn ({ commit }, { cedula, contrasena }) {
       return await apolloClient.mutate({
         mutation: gql`
-          mutation SignIn($cedula: String!, $contrasena: String!) {
-          signIn(cedula: $cedula, contrasena: $contrasena)
+          mutation SignIn ($cedula: String!, $contrasena: String!) {
+          signIn (cedula: $cedula, contrasena: $contrasena)
         }`,
         variables: { cedula, contrasena }
       })
@@ -67,11 +89,11 @@ export default new Vuex.Store({
     async loggedInUser ({ commit }) {
       return await apolloClient.query({
         query: gql`{
-            loggedInUser {
-              _id
-              cedula
-            }
-          }`
+          loggedInUser {
+            _id
+            cedula
+          }
+        }`
       })
     }
   }

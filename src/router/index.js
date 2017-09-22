@@ -36,7 +36,7 @@ export function createRouter () {
     if (token) {
       const user = await store.dispatch('loggedInUser')
       store.commit('setUser', user.data.loggedInUser)
-      menuItems.push({ title: 'Perfil', icon: 'account_box', route: '/perfil' })
+      menuItems.push({ title: 'Mi Perfil', icon: 'account_circle', route: '/perfil' })
     } else {
       menuItems.push(
         { title: 'Inicio de sesión', icon: 'face', route: '/inicio-sesion' },
