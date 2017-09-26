@@ -46,31 +46,28 @@
 </template>
 
 <script>
-  export default {
-    data: () => ({
-      sideNav: false
-    }),
-    computed: {
-      title () {
-        return this.$store.state.title
-      },
-      userIsAuthenticated () {
-        return this.$store.state.user
-      },
-      menuItems () {
-        return this.$store.state.menuItems
-      }
+export default {
+  computed: {
+    title () {
+      return this.$store.state.title
     },
-    methods: {
-      redirectToHome () {
-        this.$router.push('/')
-      },
-      logout () {
-        this.$store.commit('logout')
-        this.$router.push('inicio-sesion')
-      }
+    userIsAuthenticated () {
+      return this.$store.state.user
+    },
+    menuItems () {
+      return this.$store.state.menuItems
+    }
+  },
+  methods: {
+    redirectToHome () {
+      this.$router.push('/')
+    },
+    logout () {
+      this.$store.commit('logout')
+      this.$router.push('inicio-sesion')
     }
   }
+}
 
 </script>
 

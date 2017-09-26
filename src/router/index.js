@@ -49,11 +49,9 @@ export function createRouter () {
   })
 
   router.afterEach(route => {
-    if (route.meta.title !== 'RUAC') {
-      document.title = `${route.meta.title} | RUAC`
-      document.querySelector('meta[name="description"]').setAttribute('content', route.meta.description)
-      document.querySelector('meta[name="keywords"]').setAttribute('content', route.meta.keywords)
-    }
+    document.title = route.meta.title
+    document.querySelector('meta[name="description"]').setAttribute('content', route.meta.description)
+    document.querySelector('meta[name="keywords"]').setAttribute('content', route.meta.keywords)
   })
 
   return router
