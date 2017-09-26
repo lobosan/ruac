@@ -6,7 +6,8 @@
         <form method="post" @submit.prevent="signUp(form)" autocomplete="off">
           <v-text-field label="Cédula" name="cedula" maxlength="10" v-model="form.cedula" :rules="rules.cedula" data-vv-as="Cédula" v-validate="'required|digits:10'"></v-text-field>
           <v-text-field label="Email" name="email" maxlength="35" v-model="form.email" :rules="rules.email" data-vv-as="Email" v-validate="'required|email'"></v-text-field>
-          <v-text-field label="Contraseña" name="contrasena" maxlength="15" v-model="form.contrasena" :rules="rules.contrasena" data-vv-as="Contraseña" v-validate="'required|min:8'" :append-icon="viewPassword ? 'visibility' : 'visibility_off'" :append-icon-cb="() => (viewPassword = !viewPassword)" :type="viewPassword ? 'text' : 'password'"></v-text-field>
+          <v-text-field label="Contraseña" name="contrasena" maxlength="15" v-model="form.contrasena" :rules="rules.contrasena" data-vv-as="Contraseña" v-validate="'required|min:9'" :append-icon="viewPassword ? 'visibility' : 'visibility_off'" :append-icon-cb="() => (viewPassword = !viewPassword)" :type="viewPassword ? 'text' : 'password'"></v-text-field>
+          <v-text-field label="Confirmar Contraseña" name="confirmarContrasena" maxlength="15" v-model="form.confirmarContrasena" :rules="rules.confirmarContrasena" data-vv-as="Confirmar Contraseña" v-validate="'required|min:9|confirmed:contrasena'" :append-icon="viewPassword ? 'visibility' : 'visibility_off'" :append-icon-cb="() => (viewPassword = !viewPassword)" :type="viewPassword ? 'text' : 'password'"></v-text-field>
           <v-btn type="submit" :disabled="loading" :loading="loading" outline class="deep-purple--text ml-0 mt-3">
             Registrar Cuenta
             <span slot="loader" class="custom-loader">
@@ -29,12 +30,14 @@ export default {
     rules: {
       cedula: [],
       email: [],
-      contrasena: []
+      contrasena: [],
+      confirmarContrasena: []
     },
     form: {
-      cedula: '1718896580',
-      email: 'sp.galindoh@gmail.com',
-      contrasena: '123123123'
+      cedula: null,
+      email: null,
+      contrasena: null,
+      confirmarContrasena: null
     }
   }),
   computed: {
@@ -58,8 +61,9 @@ export default {
         try {
           this.$store.commit('setLoading', true)
           this.dismissAlert()
-          await this.$store.dispatch('dinardap', form)
-          await this.$store.dispatch('signUp', form)
+          const { data } = await this.$store.dispatch('dinardap', form)
+          const user = { ...form, ...data.dinardap }
+          await this.$store.dispatch('signUp', user)
           this.$store.commit('setLoading', false)
           this.$store.commit('setAlert', {
             alertType: 'success',

@@ -7,11 +7,11 @@
       <!-- Datos Generales -->
       <v-stepper-content step="1">
         <v-text-field label="Número de cédula" v-model="perfil.cedula" disabled></v-text-field>
-        <v-text-field label="Nombre completo" v-model="perfil.apellidosNombres" disabled></v-text-field>
+        <v-text-field label="Nombre completo" v-model="perfil.nombre" disabled></v-text-field>
         <v-text-field label="Fecha de nacimiento" v-model="perfil.fechaNacimiento" disabled></v-text-field>
         <v-text-field label="Lugar de nacimiento" v-model="perfil.lugarNacimiento" disabled></v-text-field>
         <v-text-field label="Nacionalidad" v-model="perfil.nacionalidad" disabled></v-text-field>
-        <v-text-field label="Título registrado en la SENESCYT" v-model="perfil.tituloSenescyt" disabled></v-text-field>
+        <v-text-field label="Título registrado en la SENESCYT" v-model="perfil.tercerNivel" disabled></v-text-field>
         <v-text-field label="Nombre artístico"></v-text-field>
         <v-select label="País de domicilio" :items="paises"></v-select>
         <v-select label="Provincia de domicilio" :items="provincias"></v-select>
@@ -72,14 +72,6 @@
 export default {
   data: () => ({
     step: 1,
-    perfil: {
-      cedula: '1718896880',
-      apellidosNombres: 'GALINDO HIDALGO SANTIAGO PAUL',
-      fechaNacimiento: '1983-03-06',
-      lugarNacimiento: 'PICHINCHA/QUITO/SAN BLAS',
-      nacionalidad: 'ECUATORIANA',
-      tituloSenescyt: 'INGENIERO EN SISTEMAS INFORMATICOS Y DE COMPUTACION'
-    },
     paises: [
       'ECUADOR', 'COLOMBIA', 'PERU', 'BRASIL', 'ARGENTINA', 'CHILE', 'PANAMA', 'MEXICO', 'CUBA', 'BOLIVIA',
       'PARAGUAY', 'URUGUAY', 'HONDURAS', 'COSTA RICA', 'GUATEMALA', 'EL SALVADOR', 'NICARAGUA', 'EGIPTO',
@@ -135,7 +127,12 @@ export default {
       'Sí',
       'No'
     ]
-  })
+  }),
+  computed: {
+    perfil () {
+      return this.$store.state.user
+    }
+  }
 }
 </script>
 

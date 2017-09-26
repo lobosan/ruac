@@ -30,8 +30,8 @@ export default {
       contrasena: []
     },
     form: {
-      cedula: '1718896580',
-      contrasena: '123123123'
+      cedula: null,
+      contrasena: null
     }
   }),
   computed: {

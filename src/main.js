@@ -22,7 +22,14 @@ Validator.addLocale(es)
 Vue.use(VeeValidate, {
   errorBagName: 'veeErrors',
   locale: 'es',
-  events: 'input|blur'
+  events: 'input|blur',
+  dictionary: {
+    es: {
+      attributes: {
+        contrasena: 'Contraseña'
+      }
+    }
+  }
 })
 
 Vue.use(VueGoogleMaps, {
