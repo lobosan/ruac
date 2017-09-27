@@ -4,8 +4,8 @@
       <app-alert :alertType="alertType" :alertMessage="alertMessage" :alertDisplay="alertDisplay" @dismissed="dismissAlert"></app-alert>
       <v-card-text>
         <form method="post" @submit.prevent="login(form)" autocomplete="off">
-          <v-text-field label="Cédula" name="cedula" maxlength="10" v-model="form.cedula" :rules="rules.cedula" data-vv-as="Cédula" v-validate="'required|digits:10'"></v-text-field>
-          <v-text-field label="Contraseña" name="contrasena" maxlength="15" v-model="form.contrasena" :rules="rules.contrasena" data-vv-as="Contraseña" v-validate="'required'" :append-icon="viewPassword ? 'visibility' : 'visibility_off'" :append-icon-cb="() => (viewPassword = !viewPassword)" :type="viewPassword ? 'text' : 'password'"></v-text-field>
+          <v-text-field label="Cédula" name="cedula" maxlength="10" v-model="form.cedula" :error-messages="errors.collect('cedula')" v-validate="'required|digits:10'" data-vv-as="Cédula"></v-text-field>
+          <v-text-field label="Contraseña" name="contrasena" maxlength="15" v-model="form.contrasena" :error-messages="errors.collect('contrasena')" v-validate="'required|min:9'" data-vv-as="Contraseña" :append-icon="viewPassword ? 'visibility' : 'visibility_off'" :append-icon-cb="() => (viewPassword = !viewPassword)" :type="viewPassword ? 'text' : 'password'"></v-text-field>
           <v-btn type="submit" :disabled="loading" :loading="loading" outline class="deep-purple--text ml-0 mt-3">
             Ingresar
             <span slot="loader" class="custom-loader">
@@ -19,21 +19,17 @@
 </template>
 
 <script>
-import { validateForm } from '@/mixins/validateForm'
-
 export default {
-  mixins: [validateForm],
-  data: () => ({
-    viewPassword: false,
-    rules: {
-      cedula: [],
-      contrasena: []
-    },
-    form: {
-      cedula: null,
-      contrasena: null
+  $validates: true,
+  data () {
+    return {
+      viewPassword: false,
+      form: {
+        cedula: null,
+        contrasena: null
+      }
     }
-  }),
+  },
   computed: {
     loading () {
       return this.$store.state.loading
@@ -92,5 +88,4 @@ export default {
     }
   }
 }
-
 </script>

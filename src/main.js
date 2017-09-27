@@ -1,16 +1,11 @@
-// Polyfills for IE Support
-import 'babel-polyfill'
-import 'event-source-polyfill'
-
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 import * as VueGoogleMaps from 'vue2-google-maps'
-import es from 'vee-validate/dist/locale/es'
 import VeeValidate, { Validator } from 'vee-validate'
+import es from 'vee-validate/dist/locale/es'
 
-import Layout from './Layout'
+import './stylus/main.styl'
+import App from './App'
 import Alert from './components/shared/Alert'
 import store from './store'
 import { createRouter } from './router'
@@ -20,7 +15,6 @@ Vue.use(Vuetify)
 Validator.addLocale(es)
 
 Vue.use(VeeValidate, {
-  errorBagName: 'veeErrors',
   locale: 'es',
   events: 'input|blur',
   dictionary: {
@@ -49,5 +43,5 @@ new Vue({
   el: '#app',
   router,
   store,
-  ...Layout
+  render: h => h(App)
 })
