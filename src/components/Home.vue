@@ -1,6 +1,6 @@
 <template>
-  <v-flex xs12 sm11 md11 lg9 xl8>
-    <!-- Qué es el RUAC -->
+  <v-flex xs12 sm12 md11 lg11 xl10>
+    <!-- Bienvenido al RUAC -->
     <v-card class="mb-5">
       <v-layout row wrap>
         <v-flex xs12 md6>
@@ -117,12 +117,12 @@ export default {
     return {
       secciones: [
         {
-          src: '/static/website/3.jpg',
+          src: '/static/website/home1.jpg',
           title: 'Bienvenido al RUAC',
           text: 'El Registro Único de Artistas y Gestores Culturales es la plataforma virtual que sirve para empoderar a los ecuatorianos cuya actividad económica u oficio se desarrolla en el campo de la cultura y las artes.'
         },
         {
-          src: '/static/website/5.jpg',
+          src: '/static/website/home2.jpg',
           title: 'Beneficios',
           text: [
             'Permite incluir a los artistas y gestores culturales en el régimen de seguridad social.',
@@ -132,7 +132,7 @@ export default {
           ]
         },
         {
-          src: '/static/website/4.jpg',
+          src: '/static/website/home3.jpg',
           title: 'Base Legal',
           text: 'La Ley Orgánica de Cultura establece que el Sistema Integral de Información Cultural (SIIC) recopilará, sintetizará, difundirá y pondrá en valor la información del ámbito cultural y patrimonial, generada por las entidades públicas, privadas o comunitarias, la comunidad artística y la ciudadanía en general.'
         }

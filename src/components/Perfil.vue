@@ -141,3 +141,34 @@ export default {
   }
 }
 </script>
+
+<style>
+.application--light .stepper .stepper__step--editable:hover .stepper__label,
+.application--light .stepper .stepper__step--active .stepper__label {
+  text-shadow: 0px 0px 0px #7c4dff;
+}
+
+.custom-select {
+  width: 50px;
+  display: inline-flex;
+  margin: 0 0 0 10px;
+  padding-top: 0;
+  font-weight: 500;
+}
+
+@media only screen and (max-width: 386px) {
+  .custom-select {
+    margin: 0;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .application--light .stepper--vertical .stepper__content:not(:last-child) {
+    border-left: none;
+  }
+  .application--light .stepper--vertical .stepper__content {
+    margin: 0;
+    padding: 5px 24px;
+  }
+}
+</style>
