@@ -1,78 +1,91 @@
-/** Stylus Styles */
+/** Vuetify Styles */
 @import '../../node_modules/vuetify/src/stylus/settings/_colors'
 $theme := {
   primary: $deep-purple.accent-2
   accent: $purple.accent-2
-  secondary: $grey.lighten-1
+  secondary: #DA8722
   info: $teal.base
   warning: $amber.darken-2
-  error: $purple.accent-4
+  error: $red.base
   success: $green.lighten-2
 }
-
-/** Stylus Styles */
 @import '../../node_modules/vuetify/src/stylus/main'
-html {
-  font-size: 15px;
-}
-.display-1 {
-  font-size: 32px !important;
-}
-.display-2 {
-  font-size: 40px !important;
-}
-.container.fluid {
-  padding-top: 16px;
-}
-.toolbar--fixed+main {
-  padding-top: 64px;
-}
-.application--light {
-  background: #f2f2f2;
-}
-.toolbar__title, .btn {
-  font-weight: 400;
-}
-.toolbar__content {
-  height: 56px;
-}
-.footer span {
-  font-size: 13.5px;
-}
 
-.custom-loader {
-  animation: loader 1s infinite;
-  display: flex;
-}
-@-moz-keyframes loader {
-  from {
-    transform: rotate(0);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-@-webkit-keyframes loader {
-  from {
-    transform: rotate(0);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-@-o-keyframes loader {
-  from {
-    transform: rotate(0);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-@keyframes loader {
-  from {
-    transform: rotate(0);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+/** Global Styles */
+html
+  font-size: 15px
+
+body
+  line-height: 1.6 !important
+
+.display-1
+  font-size: 32px !important
+
+.display-2
+  font-size: 40px !important
+
+ul, ol
+  padding-left: 18px
+
+.container.fluid
+  padding-top: 16px
+
+.toolbar--fixed+main
+  padding-top: 64px
+
+.application--light
+  background: #F2F2F2
+
+.toolbar__title, .btn
+  font-weight: 400
+
+.toolbar__content
+  height: 56px
+
+.footer span
+  font-size: 13.5px
+
+/** Stepper */
+div.stepper__step.stepper__step--editable.stepper__step--complete > div.stepper__label > span.subheading,
+div.stepper__step.stepper__step--active.stepper__step--editable > div.stepper__label > span.subheading
+  color: $theme.primary
+
+.application--light .stepper .stepper__step--editable:hover .stepper__label,
+.application--light .stepper .stepper__step--active .stepper__label
+  text-shadow: 0px 0px 0px $theme.primary
+
+@media only screen and (max-width: 700px)
+  .application--light .stepper--vertical .stepper__content:not(:last-child)
+    border-left: none
+  .application--light .stepper--vertical .stepper__content
+    margin: 0
+    padding: 5px 24px
+
+/** Animation */
+.custom-loader
+  animation: loader 1s infinite
+  display: flex
+
+@-moz-keyframes loader
+  from
+    transform: rotate(0)
+  to
+    transform: rotate(360deg)
+
+@-webkit-keyframes loader
+  from
+    transform: rotate(0)
+  to
+    transform: rotate(360deg)
+
+@-o-keyframes loader
+  from
+    transform: rotate(0)
+  to
+    transform: rotate(360deg)
+
+@keyframes loader
+  from
+    transform: rotate(0)
+  to
+    transform: rotate(360deg)

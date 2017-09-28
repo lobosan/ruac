@@ -39,7 +39,7 @@
         </v-layout>
       </v-container>
     </main>
-    <v-footer class="grey lighten-2 justify-center pa-4 mt-3">
+    <v-footer class="grey lighten-2 justify-center">
       <span class="grey--text text--darken-3">&copy; {{ new Date().getFullYear() }} Ministerio de Cultura y Patrimonio</span>
     </v-footer>
   </v-app>

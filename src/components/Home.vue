@@ -16,12 +16,12 @@
               <v-flex xs12 class="pa-2 grey--text text--darken-4">
                 {{secciones[0].text}}
               </v-flex>
-              <v-flex xs12 pl-0 pt-2>
-                <v-btn to="/inicio-sesion" primary>
-                  <v-icon dark class="mr-1">face</v-icon> Inicia sesión
+              <v-flex v-if="!userIsAuthenticated" xs12 py-2 class="text-xs-center">
+                <v-btn to="/inicio-sesion" secondary>
+                  <v-icon dark class="mr-2">face</v-icon> Inicia sesión
                 </v-btn>
-                <v-btn to="/registro" primary>
-                  <v-icon dark class="mr-1">fingerprint</v-icon> Regístrate
+                <v-btn to="/registro" secondary>
+                  <v-icon dark class="mr-2">fingerprint</v-icon> Regístrate
                 </v-btn>
               </v-flex>
             </v-layout>
@@ -68,12 +68,12 @@
               <v-flex xs12 class="pa-2 grey--text text--darken-4">
                 {{secciones[2].text}}
               </v-flex>
-              <v-flex xs12 pl-0 pt-2>
+              <v-flex xs12 py-2 class="text-xs-center">
                 <v-btn href="/static/docs/acuerdo_ministerial.pdf" target="_blank" outline class="deep-purple--text">
-                  Acuerdo Ministerial
+                  <v-icon class="mr-2">description</v-icon> Acuerdo Ministerial
                 </v-btn>
                 <v-btn href="/static/docs/norma_tecnica.pdf" target="_blank" outline class="deep-purple--text">
-                  Norma Técnica
+                  <v-icon class="mr-2">description</v-icon> Norma Técnica
                 </v-btn>
               </v-flex>
             </v-layout>
@@ -83,17 +83,17 @@
     </v-card>
     <!-- Preguntas Frecuentes -->
     <h2 class="mb-3 headline grey--text text--darken-4">Preguntas Frecuentes</h2>
-    <v-expansion-panel class="white mb-5">
+    <v-expansion-panel class="mb-5">
       <v-expansion-panel-content v-for="(pregunta, i) in preguntas" :key="i">
-        <div slot="header" class="ml-2 mr-5 grey--text text--darken-4">{{i+1}}. {{pregunta.title}}</div>
+        <div slot="header" class="ml-1 grey--text text--darken-4">{{i+1}}. {{pregunta.title}}</div>
         <v-card>
           <v-card-text class="px-4 grey lighten-3 grey--text text--darken-3">{{pregunta.response}}</v-card-text>
         </v-card>
       </v-expansion-panel-content>
     </v-expansion-panel>
     <!-- Dirección y contactos -->
-    <h2 class="mb-3 headline grey--text text--darken-4">Dirección y contactos</h2>
-    <v-card class="mb-5">
+    <h2 class="mb-3 headline grey--text text--darken-4">Dirección y Contactos</h2>
+    <v-card class="mb-4">
       <v-layout row wrap>
         <v-flex xs12 md5 pa-4 class="pa-2 grey--text text--darken-4" order-xs2 order-md1>
           <p>Dirección: Av. Colón E5-34 y Juan León Mera</p>
@@ -199,6 +199,11 @@ export default {
         center: { lat: -0.200840, lng: -78.489790 },
         position: { lat: -0.200840, lng: -78.489790 }
       }
+    }
+  },
+  computed: {
+    userIsAuthenticated () {
+      return this.$store.state.user
     }
   }
 }

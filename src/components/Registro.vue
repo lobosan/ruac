@@ -8,12 +8,14 @@
           <v-text-field label="Email" name="email" maxlength="35" v-model="form.email" :error-messages="errors.collect('email')" v-validate="'required|email'" data-vv-as="Email"></v-text-field>
           <v-text-field label="Contraseña" name="contrasena" maxlength="15" v-model="form.contrasena" :error-messages="errors.collect('contrasena')" v-validate="'required|min:9'" data-vv-as="Contraseña" :append-icon="viewPassword ? 'visibility' : 'visibility_off'" :append-icon-cb="() => (viewPassword = !viewPassword)" :type="viewPassword ? 'text' : 'password'"></v-text-field>
           <v-text-field label="Confirmar Contraseña" name="confirmarContrasena" maxlength="15" v-model="form.confirmarContrasena" :error-messages="errors.collect('confirmarContrasena')" v-validate="'required|min:9|confirmed:contrasena'" data-vv-as="Confirmar Contraseña" :append-icon="viewPassword ? 'visibility' : 'visibility_off'" :append-icon-cb="() => (viewPassword = !viewPassword)" :type="viewPassword ? 'text' : 'password'"></v-text-field>
-          <v-btn type="submit" :disabled="loading" :loading="loading" outline class="deep-purple--text ml-0 mt-3">
-            Registrar Cuenta
-            <span slot="loader" class="custom-loader">
-              <v-icon light>cached</v-icon>
-            </span>
-          </v-btn>
+          <v-flex class="text-xs-center">
+            <v-btn type="submit" :disabled="loading" :loading="loading" outline class="deep-purple--text mt-4">
+              Registrar Cuenta
+              <span slot="loader" class="custom-loader">
+                <v-icon light>cached</v-icon>
+              </span>
+            </v-btn>
+          </v-flex>
         </form>
       </v-card-text>
     </v-card>
