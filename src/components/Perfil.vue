@@ -14,8 +14,8 @@
         <v-select label="Títulos registrados en la SENESCYT" v-model="titulosSenescyt" chips tags readonly disabled></v-select>
         <v-text-field label="Nombre artístico"></v-text-field>
         <v-select label="País de domicilio" :items="paises"></v-select>
-        <v-select label="Provincia de domicilio" :items="provincias"></v-select>
-        <v-select label="Cantón de domicilio" :items="cantones"></v-select>
+        <v-select label="Provincia de domicilio" :items="provincias" item-text="provincia" item-value="codigoProvincia" return-object @change="onChangeProvincia($event.codigoProvincia)"></v-select>
+        <v-select label="Cantón de domicilio" v-model="clearSelect" :items="cantones" item-text="canton" item-value="codigoCanton" return-object></v-select>
         <v-text-field label="Teléfono de contacto"></v-text-field>
         <v-flex class="text-xs-center">
           <v-btn outline class="deep-purple--text mt-2 mx-0" @click="step = 2">
@@ -80,6 +80,7 @@ export default {
         this.$store.state.user.tercerNivel,
         this.$store.state.user.cuartoNivel
       ],
+      clearSelect: [],
       paises: [
         'ECUADOR', 'COLOMBIA', 'PERU', 'BRASIL', 'ARGENTINA', 'CHILE', 'PANAMA', 'MEXICO', 'CUBA', 'BOLIVIA',
         'PARAGUAY', 'URUGUAY', 'HONDURAS', 'COSTA RICA', 'GUATEMALA', 'EL SALVADOR', 'NICARAGUA', 'EGIPTO',
@@ -87,14 +88,6 @@ export default {
         'FEDERACION DE RUSIA', 'ESPAÑA', 'INDONESIA', 'MALASIA', 'PORTUGAL', 'COREA DEL SUR', 'AUSTRIA',
         'ALEMANIA', 'SUECIA', 'BELGICA', 'ITALIA', 'AUSTRALIA', 'CHINA', 'JAPON', 'SUIZA', 'POLONIA',
         'ISRAEL', 'REINO UNIDO', 'HUNGRIA', 'INDIA', 'VENEZUELA', 'OTROS'
-      ],
-      provincias: [
-        'PICHINCHA',
-        'GUAYAS'
-      ],
-      cantones: [
-        'QUITO',
-        'GUAYAQUIL'
       ],
       tipoActividad: [
         'Creador',
@@ -140,6 +133,21 @@ export default {
   computed: {
     perfil () {
       return this.$store.state.user
+    },
+    provincias () {
+      return this.$store.state.provincias
+    },
+    cantones () {
+      return this.$store.state.cantones
+    }
+  },
+  created () {
+    this.$store.dispatch('provincias')
+  },
+  methods: {
+    onChangeProvincia (codigoProvincia) {
+      this.clearSelect = []
+      this.$store.dispatch('cantones', codigoProvincia)
     }
   }
 }

@@ -11,6 +11,8 @@ export default new Vuex.Store({
     title: null,
     menuItems: null,
     user: null,
+    provincias: [],
+    cantones: [],
     loading: false,
     alertMessage: null,
     alertDisplay: false,
@@ -26,6 +28,12 @@ export default new Vuex.Store({
     setUser (state, payload) {
       state.user = payload
     },
+    setProvincias (state, payload) {
+      state.provincias = payload
+    },
+    setCantones (state, payload) {
+      state.cantones = payload
+    },
     setLoading (state, payload) {
       state.loading = payload
     },
@@ -40,7 +48,7 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    async dinardap ({ commit }, { cedula }) {
+    async dinardap (_, { cedula }) {
       return await apolloClient.query({
         variables: { cedula },
         query: gql`
@@ -58,7 +66,7 @@ export default new Vuex.Store({
           }`
       })
     },
-    async signUp ({ commit }, { cedula, email, contrasena, nombre, fechaNacimiento, lugarNacimiento, nacionalidad, sexo, tercerNivel, cuartoNivel, estadoAfiliado }) {
+    async signUp (_, { cedula, email, contrasena, nombre, fechaNacimiento, lugarNacimiento, nacionalidad, sexo, tercerNivel, cuartoNivel, estadoAfiliado }) {
       return await apolloClient.mutate({
         variables: { cedula, email, contrasena, nombre, fechaNacimiento, lugarNacimiento, nacionalidad, sexo, tercerNivel, cuartoNivel, estadoAfiliado },
         mutation: gql`
@@ -69,7 +77,7 @@ export default new Vuex.Store({
           }`
       })
     },
-    async signIn ({ commit }, { cedula, contrasena }) {
+    async signIn (_, { cedula, contrasena }) {
       return await apolloClient.mutate({
         variables: { cedula, contrasena },
         mutation: gql`
@@ -78,7 +86,7 @@ export default new Vuex.Store({
           }`
       })
     },
-    async loggedInUser ({ commit }) {
+    async loggedInUser () {
       return await apolloClient.query({
         query: gql`{
           loggedInUser {
@@ -94,6 +102,30 @@ export default new Vuex.Store({
           }
         }`
       })
+    },
+    async provincias ({ commit }) {
+      const { data } = await apolloClient.query({
+        query: gql`{
+          provincias {
+            codigoProvincia
+            provincia
+          }
+        }`
+      })
+      commit('setProvincias', data.provincias)
+    },
+    async cantones ({ commit }, codigoProvincia) {
+      const { data } = await apolloClient.query({
+        variables: { codigoProvincia },
+        query: gql`
+          query Cantones ($codigoProvincia: String!) {
+            cantones (codigoProvincia: $codigoProvincia) {
+              codigoCanton
+              canton
+            }
+          }`
+      })
+      commit('setCantones', data.cantones)
     }
   }
 })
