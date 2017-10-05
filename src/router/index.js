@@ -31,11 +31,12 @@ export function createRouter () {
   })
 
   router.beforeEach(async (to, from, next) => {
+    store.commit('setAlert', { alertType: null, alertMessage: null, alertDisplay: false })
     const token = localStorage.getItem('token')
     let menuItems = []
     if (token) {
-      const user = await store.dispatch('loggedInUser')
-      store.commit('setUser', user.data.loggedInUser)
+      const { data } = await store.dispatch('loggedInUser')
+      store.commit('setUser', data.loggedInUser)
       menuItems.push({ title: 'Mi Perfil', icon: 'account_circle', route: '/perfil' })
     } else {
       menuItems.push(

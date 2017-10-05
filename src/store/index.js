@@ -11,6 +11,7 @@ export default new Vuex.Store({
     title: null,
     menuItems: null,
     user: null,
+    paises: [],
     provincias: [],
     cantones: [],
     loading: false,
@@ -27,6 +28,9 @@ export default new Vuex.Store({
     },
     setUser (state, payload) {
       state.user = payload
+    },
+    setPaises (state, payload) {
+      state.paises = payload
     },
     setProvincias (state, payload) {
       state.provincias = payload
@@ -59,20 +63,19 @@ export default new Vuex.Store({
               lugarNacimiento
               nacionalidad
               sexo
-              tercerNivel
-              cuartoNivel
+              titulosSenescyt
               estadoAfiliado
             }
           }`
       })
     },
-    async signUp (_, { cedula, email, contrasena, nombre, fechaNacimiento, lugarNacimiento, nacionalidad, sexo, tercerNivel, cuartoNivel, estadoAfiliado }) {
+    async signUp (_, { cedula, contrasena, nombre, fechaNacimiento, lugarNacimiento, nacionalidad, sexo, estadoAfiliado, titulosSenescyt, email }) {
       return await apolloClient.mutate({
-        variables: { cedula, email, contrasena, nombre, fechaNacimiento, lugarNacimiento, nacionalidad, sexo, tercerNivel, cuartoNivel, estadoAfiliado },
+        variables: { cedula, contrasena, nombre, fechaNacimiento, lugarNacimiento, nacionalidad, sexo, estadoAfiliado, titulosSenescyt, email },
         mutation: gql`
-          mutation SignUp ($cedula: String!, $email: String!, $contrasena: String!, $nombre: String!, $fechaNacimiento: String!, $lugarNacimiento: String!, $nacionalidad: String!, $sexo: String!, $tercerNivel: String, $cuartoNivel: String, $estadoAfiliado: String) {
-            signUp (cedula: $cedula, email: $email, contrasena: $contrasena, nombre: $nombre, fechaNacimiento: $fechaNacimiento, lugarNacimiento: $lugarNacimiento, nacionalidad: $nacionalidad, sexo: $sexo, tercerNivel: $tercerNivel, cuartoNivel: $cuartoNivel, estadoAfiliado: $estadoAfiliado) {
-              _id
+          mutation SignUp ($cedula: String!, $contrasena: String!, $nombre: String!, $fechaNacimiento: String!, $lugarNacimiento: String!, $nacionalidad: String!, $sexo: String!, $estadoAfiliado: String, $titulosSenescyt: [String]!, $email: String!) {
+            signUp (cedula: $cedula, contrasena: $contrasena, nombre: $nombre, fechaNacimiento: $fechaNacimiento, lugarNacimiento: $lugarNacimiento, nacionalidad: $nacionalidad, sexo: $sexo, estadoAfiliado: $estadoAfiliado, titulosSenescyt: $titulosSenescyt, email: $email) {
+              cedula
             }
           }`
       })
@@ -91,17 +94,48 @@ export default new Vuex.Store({
         query: gql`{
           loggedInUser {
             cedula
-            email
             nombre
             fechaNacimiento
             lugarNacimiento
             nacionalidad
-            tercerNivel
-            cuartoNivel
             estadoAfiliado
+            tipoAfiliado
+            titulosSenescyt
+            email
+            telefonoFijo
+            telefonoCelular
+            paisDomicilio
+            provinciaDomicilio
+            cantonDomicilio
+            nombreArtistico
+            tipoActividad
+            actividadPrincipal
+            actividadSecundaria
+            postulacionesFinanciamiento
+            otrasEntidadesApoyo
+            obrasRegistradasIEPI
+            perteneceOrgCultural
+            logrosAlcanzados
+            proyectosCulturales
+            formacionCapacitacion
+            webBlog
+            youtube
+            facebook
+            twitter
+            declaracion
           }
         }`
       })
+    },
+    async paises ({ commit }) {
+      const { data } = await apolloClient.query({
+        query: gql`{
+          paises {
+            pais
+          }
+        }`
+      })
+      commit('setPaises', data.paises)
     },
     async provincias ({ commit }) {
       const { data } = await apolloClient.query({
@@ -126,6 +160,48 @@ export default new Vuex.Store({
           }`
       })
       commit('setCantones', data.cantones)
+    },
+    async updateProfile (_, { cedula, tipoAfiliado, email, telefonoFijo, telefonoCelular, paisDomicilio, provinciaDomicilioObj, cantonDomicilioObj, nombreArtistico, tipoActividad, actividadPrincipal, actividadSecundaria, postulacionesFinanciamiento, otrasEntidadesApoyo, obrasRegistradasIEPI, perteneceOrgCultural, logrosAlcanzados, proyectosCulturales, formacionCapacitacion, webBlog, youtube, facebook, twitter, declaracion }) {
+      const provinciaDomicilio = provinciaDomicilioObj.provincia
+      const cantonDomicilio = cantonDomicilioObj.canton
+      return await apolloClient.mutate({
+        variables: { cedula, tipoAfiliado, email, telefonoFijo, telefonoCelular, paisDomicilio, provinciaDomicilio, cantonDomicilio, nombreArtistico, tipoActividad, actividadPrincipal, actividadSecundaria, postulacionesFinanciamiento, otrasEntidadesApoyo, obrasRegistradasIEPI, perteneceOrgCultural, logrosAlcanzados, proyectosCulturales, formacionCapacitacion, webBlog, youtube, facebook, twitter, declaracion },
+        mutation: gql`
+          mutation UpdateProfile ($cedula: String!, $tipoAfiliado: String!, $email: String!, $telefonoFijo: String, $telefonoCelular: String, $paisDomicilio: String!, $provinciaDomicilio: String, $cantonDomicilio: String, $nombreArtistico: String, $tipoActividad: String!, $actividadPrincipal: String!, $actividadSecundaria: String, $postulacionesFinanciamiento: [String], $otrasEntidadesApoyo: String, $obrasRegistradasIEPI: String!, $perteneceOrgCultural: String!, $logrosAlcanzados: String, $proyectosCulturales: String, $formacionCapacitacion: String, $webBlog: String, $youtube: String, $facebook: String, $twitter: String, $declaracion: String!) {
+            updateProfile (cedula: $cedula, tipoAfiliado: $tipoAfiliado, email: $email, telefonoFijo: $telefonoFijo, telefonoCelular: $telefonoCelular, paisDomicilio: $paisDomicilio, provinciaDomicilio: $provinciaDomicilio, cantonDomicilio:$cantonDomicilio, nombreArtistico: $nombreArtistico, tipoActividad: $tipoActividad, actividadPrincipal: $actividadPrincipal, actividadSecundaria: $actividadSecundaria, postulacionesFinanciamiento: $postulacionesFinanciamiento, otrasEntidadesApoyo: $otrasEntidadesApoyo, obrasRegistradasIEPI: $obrasRegistradasIEPI, perteneceOrgCultural: $perteneceOrgCultural, logrosAlcanzados: $logrosAlcanzados, proyectosCulturales: $proyectosCulturales, formacionCapacitacion: $formacionCapacitacion, webBlog: $webBlog, youtube: $youtube, facebook: $facebook, twitter: $twitter, declaracion: $declaracion) {
+              cedula
+              nombre
+              fechaNacimiento
+              lugarNacimiento
+              nacionalidad
+              estadoAfiliado
+              tipoAfiliado
+              titulosSenescyt
+              email
+              telefonoFijo
+              telefonoCelular
+              paisDomicilio
+              provinciaDomicilio
+              cantonDomicilio
+              nombreArtistico
+              tipoActividad
+              actividadPrincipal
+              actividadSecundaria
+              postulacionesFinanciamiento
+              otrasEntidadesApoyo
+              obrasRegistradasIEPI
+              perteneceOrgCultural
+              logrosAlcanzados
+              proyectosCulturales
+              formacionCapacitacion
+              webBlog
+              youtube
+              facebook
+              twitter
+              declaracion
+            }
+          }`
+      })
     }
   }
 })
