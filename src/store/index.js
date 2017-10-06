@@ -107,7 +107,9 @@ export default new Vuex.Store({
             telefonoCelular
             paisDomicilio
             provinciaDomicilio
+            codigoProvinciaDomicilio
             cantonDomicilio
+            codigoCantonDomicilio
             nombreArtistico
             tipoActividad
             actividadPrincipal
@@ -162,14 +164,122 @@ export default new Vuex.Store({
       })
       commit('setCantones', data.cantones)
     },
-    async updateProfile (_, { cedula, tipoAfiliado, email, telefonoFijo, telefonoCelular, paisDomicilio, provinciaDomicilioObj, cantonDomicilioObj, nombreArtistico, tipoActividad, actividadPrincipal, actividadSecundaria, postulacionesFinanciamiento, otrasEntidadesApoyo, obrasRegistradasIEPI, perteneceOrgCultural, logrosAlcanzados, proyectosCulturales, formacionCapacitacion, webBlog, youtube, facebook, twitter, declaracion }) {
+    async updateProfile (_, {
+      cedula,
+      tipoAfiliado,
+      email,
+      telefonoFijo,
+      telefonoCelular,
+      paisDomicilio,
+      provinciaDomicilioObj,
+      cantonDomicilioObj,
+      nombreArtistico,
+      tipoActividad,
+      actividadPrincipal,
+      actividadSecundaria,
+      postulacionesFinanciamiento,
+      otrasEntidadesApoyo,
+      obrasRegistradasIEPI,
+      perteneceOrgCultural,
+      logrosAlcanzados,
+      proyectosCulturales,
+      formacionCapacitacion,
+      webBlog,
+      youtube,
+      facebook,
+      twitter,
+      declaracion
+    }) {
       const provinciaDomicilio = provinciaDomicilioObj.provincia
+      const codigoProvinciaDomicilio = provinciaDomicilioObj.codigoProvincia
       const cantonDomicilio = cantonDomicilioObj.canton
+      const codigoCantonDomicilio = cantonDomicilioObj.codigoCanton
       return await apolloClient.mutate({
-        variables: { cedula, tipoAfiliado, email, telefonoFijo, telefonoCelular, paisDomicilio, provinciaDomicilio, cantonDomicilio, nombreArtistico, tipoActividad, actividadPrincipal, actividadSecundaria, postulacionesFinanciamiento, otrasEntidadesApoyo, obrasRegistradasIEPI, perteneceOrgCultural, logrosAlcanzados, proyectosCulturales, formacionCapacitacion, webBlog, youtube, facebook, twitter, declaracion },
+        variables: {
+          cedula,
+          tipoAfiliado,
+          email,
+          telefonoFijo,
+          telefonoCelular,
+          paisDomicilio,
+          provinciaDomicilio,
+          codigoProvinciaDomicilio,
+          cantonDomicilio,
+          codigoCantonDomicilio,
+          nombreArtistico,
+          tipoActividad,
+          actividadPrincipal,
+          actividadSecundaria,
+          postulacionesFinanciamiento,
+          otrasEntidadesApoyo,
+          obrasRegistradasIEPI,
+          perteneceOrgCultural,
+          logrosAlcanzados,
+          proyectosCulturales,
+          formacionCapacitacion,
+          webBlog,
+          youtube,
+          facebook,
+          twitter,
+          declaracion
+        },
         mutation: gql`
-          mutation UpdateProfile ($cedula: String!, $tipoAfiliado: String!, $email: String!, $telefonoFijo: String, $telefonoCelular: String, $paisDomicilio: String!, $provinciaDomicilio: String, $cantonDomicilio: String, $nombreArtistico: String, $tipoActividad: String!, $actividadPrincipal: String!, $actividadSecundaria: String, $postulacionesFinanciamiento: [String], $otrasEntidadesApoyo: String, $obrasRegistradasIEPI: String!, $perteneceOrgCultural: String!, $logrosAlcanzados: String, $proyectosCulturales: String, $formacionCapacitacion: String, $webBlog: String, $youtube: String, $facebook: String, $twitter: String, $declaracion: String!) {
-            updateProfile (cedula: $cedula, tipoAfiliado: $tipoAfiliado, email: $email, telefonoFijo: $telefonoFijo, telefonoCelular: $telefonoCelular, paisDomicilio: $paisDomicilio, provinciaDomicilio: $provinciaDomicilio, cantonDomicilio:$cantonDomicilio, nombreArtistico: $nombreArtistico, tipoActividad: $tipoActividad, actividadPrincipal: $actividadPrincipal, actividadSecundaria: $actividadSecundaria, postulacionesFinanciamiento: $postulacionesFinanciamiento, otrasEntidadesApoyo: $otrasEntidadesApoyo, obrasRegistradasIEPI: $obrasRegistradasIEPI, perteneceOrgCultural: $perteneceOrgCultural, logrosAlcanzados: $logrosAlcanzados, proyectosCulturales: $proyectosCulturales, formacionCapacitacion: $formacionCapacitacion, webBlog: $webBlog, youtube: $youtube, facebook: $facebook, twitter: $twitter, declaracion: $declaracion) {
+          mutation UpdateProfile (
+            $cedula: String!,
+            $tipoAfiliado: String!,
+            $email: String!,
+            $telefonoFijo: String,
+            $telefonoCelular: String,
+            $paisDomicilio: String!,
+            $provinciaDomicilio: String,
+            $codigoProvinciaDomicilio: String,
+            $cantonDomicilio: String,
+            $codigoCantonDomicilio: String,
+            $nombreArtistico: String,
+            $tipoActividad: String!,
+            $actividadPrincipal: String!,
+            $actividadSecundaria: String,
+            $postulacionesFinanciamiento: [String],
+            $otrasEntidadesApoyo: String,
+            $obrasRegistradasIEPI: String!,
+            $perteneceOrgCultural: String!,
+            $logrosAlcanzados: String,
+            $proyectosCulturales: String,
+            $formacionCapacitacion: String,
+            $webBlog: String,
+            $youtube: String,
+            $facebook: String,
+            $twitter: String,
+            $declaracion: String!
+          ) {
+            updateProfile (
+              cedula: $cedula,
+              tipoAfiliado: $tipoAfiliado,
+              email: $email,
+              telefonoFijo: $telefonoFijo,
+              telefonoCelular: $telefonoCelular,
+              paisDomicilio: $paisDomicilio,
+              provinciaDomicilio: $provinciaDomicilio,
+              codigoProvinciaDomicilio: $codigoProvinciaDomicilio
+              cantonDomicilio:$cantonDomicilio,
+              codigoCantonDomicilio: $codigoCantonDomicilio
+              nombreArtistico: $nombreArtistico,
+              tipoActividad: $tipoActividad,
+              actividadPrincipal: $actividadPrincipal,
+              actividadSecundaria: $actividadSecundaria,
+              postulacionesFinanciamiento: $postulacionesFinanciamiento,
+              otrasEntidadesApoyo: $otrasEntidadesApoyo,
+              obrasRegistradasIEPI: $obrasRegistradasIEPI,
+              perteneceOrgCultural: $perteneceOrgCultural,
+              logrosAlcanzados: $logrosAlcanzados,
+              proyectosCulturales: $proyectosCulturales,
+              formacionCapacitacion: $formacionCapacitacion,
+              webBlog: $webBlog,
+              youtube: $youtube,
+              facebook: $facebook,
+              twitter: $twitter,
+              declaracion: $declaracion
+            ) {
               cedula
               nombre
               fechaNacimiento
@@ -183,7 +293,9 @@ export default new Vuex.Store({
               telefonoCelular
               paisDomicilio
               provinciaDomicilio
+              codigoProvinciaDomicilio
               cantonDomicilio
+              codigoCantonDomicilio
               nombreArtistico
               tipoActividad
               actividadPrincipal

@@ -155,7 +155,18 @@ export default {
   created () {
     this.$store.dispatch('paises')
     this.$store.dispatch('provincias')
-    this.showProvinciaCanton = this.form.paisDomicilio === 'Ecuador'
+    if (this.form.paisDomicilio === 'Ecuador') {
+      this.$store.dispatch('cantones', this.form.codigoProvinciaDomicilio)
+      this.showProvinciaCanton = true
+      this.form.provinciaDomicilioObj = {
+        codigoProvincia: this.form.codigoProvinciaDomicilio,
+        provincia: this.form.provinciaDomicilio
+      }
+      this.form.cantonDomicilioObj = {
+        codigoCanton: this.form.codigoCantonDomicilio,
+        canton: this.form.cantonDomicilio
+      }
+    }
   },
   methods: {
     onChangePaisDomicilio (pais) {
