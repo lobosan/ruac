@@ -91,6 +91,7 @@ export default new Vuex.Store({
     },
     async loggedInUser () {
       return await apolloClient.query({
+        fetchPolicy: 'network-only',
         query: gql`{
           loggedInUser {
             cedula

@@ -84,39 +84,11 @@ export default {
   $validates: true,
   data () {
     return {
+      form: {
+        ...this.$store.state.user
+      },
       step: 1,
       showProvinciaCanton: false,
-      form: {
-        ...this.$store.state.user,
-        tipoAfiliado: 'Dependiente',
-        telefonoFijo: '022297156',
-        telefonoCelular: '0987605942',
-        paisDomicilio: 'Ecuador',
-        provinciaDomicilioObj: {
-          provincia: 'PICHINCHA',
-          codigoProvincia: '17'
-        },
-        cantonDomicilioObj: {
-          canton: 'DISTRITO METROPOLITANO DE QUITO',
-          codigoCanton: '1701'
-        },
-        nombreArtistico: 'Lobosan',
-        tipoActividad: 'Creador',
-        actividadPrincipal: 'Artes vivas y escénicas',
-        actividadSecundaria: 'Artes plásticas y visuales',
-        postulacionesFinanciamiento: ['Fondos concursables del MCYP', 'Auspicios del MCYP'],
-        otrasEntidadesApoyo: 'MIES',
-        obrasRegistradasIEPI: 'Si',
-        perteneceOrgCultural: 'No',
-        logrosAlcanzados: 'Logros..',
-        proyectosCulturales: 'Proyectos..',
-        formacionCapacitacion: 'Formación..',
-        webBlog: 'Web',
-        youtube: 'Youtube',
-        facebook: 'Facebook',
-        twitter: 'Twitter',
-        declaracion: 'Sí'
-      },
       tipoAfiliado: [
         'Voluntario',
         'Dependiente'
@@ -158,11 +130,8 @@ export default {
     }
   },
   computed: {
-    // form () {
-    //   return this.$store.state.user
-    // },
     paises () {
-      return this.$store.state.paises.map((obj) => obj.pais)
+      return this.$store.state.paises.map(obj => obj.pais)
     },
     provincias () {
       return this.$store.state.provincias
@@ -186,6 +155,7 @@ export default {
   created () {
     this.$store.dispatch('paises')
     this.$store.dispatch('provincias')
+    this.showProvinciaCanton = this.form.paisDomicilio === 'Ecuador'
   },
   methods: {
     onChangePaisDomicilio (pais) {
@@ -203,10 +173,8 @@ export default {
         try {
           this.$store.commit('setLoading', true)
           this.dismissAlert()
-          const { data } = await this.$store.dispatch('updateProfile', form)
-          this.$store.commit('setUser', data.updateProfile)
-          // const { data } = await this.$store.dispatch('loggedInUser')
-          // this.$store.commit('setUser', data.loggedInUser)
+          await this.$store.dispatch('updateProfile', form)
+          this.$store.commit('setUser', form)
           this.$store.commit('setLoading', false)
           this.$store.commit('setAlert', {
             alertType: 'success',
