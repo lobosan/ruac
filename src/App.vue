@@ -1,6 +1,6 @@
 <template>
-  <v-app toolbar footer>
-    <v-toolbar fixed dark class="deep-purple">
+  <v-app>
+    <v-toolbar app fixed dark class="deep-purple">
       <v-slide-x-reverse-transition mode="out-in">
         <v-btn v-if="title != 'RUAC'" icon @click="redirectToHome" class="mr-0">
           <v-icon>arrow_back</v-icon>
@@ -31,15 +31,17 @@
       </v-menu>
     </v-toolbar>
     <main>
-      <v-container fluid>
-        <v-layout justify-center>
-          <v-slide-x-reverse-transition mode="out-in">
-            <router-view></router-view>
-          </v-slide-x-reverse-transition>
-        </v-layout>
-      </v-container>
+      <v-content>
+        <v-container fluid>
+          <v-layout justify-center>
+            <v-slide-x-reverse-transition mode="out-in">
+              <router-view></router-view>
+            </v-slide-x-reverse-transition>
+          </v-layout>
+        </v-container>
+      </v-content>
     </main>
-    <v-footer class="grey lighten-2 justify-center">
+    <v-footer app class="grey lighten-2 justify-center">
       <span class="grey--text text--darken-3">&copy; {{ new Date().getFullYear() }} Ministerio de Cultura y Patrimonio</span>
     </v-footer>
   </v-app>

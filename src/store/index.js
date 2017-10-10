@@ -15,9 +15,10 @@ export default new Vuex.Store({
     provincias: [],
     cantones: [],
     loading: false,
+    alertColor: null,
+    alertIcon: null,
     alertMessage: null,
-    alertDisplay: false,
-    alertType: null
+    alertDisplay: false
   },
   mutations: {
     setTitle (state, payload) {
@@ -41,10 +42,11 @@ export default new Vuex.Store({
     setLoading (state, payload) {
       state.loading = payload
     },
-    setAlert (state, { alertMessage, alertDisplay, alertType }) {
+    setAlert (state, { alertColor, alertIcon, alertMessage, alertDisplay }) {
+      state.alertColor = alertColor
+      state.alertIcon = alertIcon
       state.alertMessage = alertMessage
       state.alertDisplay = alertDisplay
-      state.alertType = alertType
     },
     logout (state) {
       localStorage.removeItem('token')

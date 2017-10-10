@@ -17,10 +17,10 @@
                 {{secciones[0].text}}
               </v-flex>
               <v-flex v-if="!userIsAuthenticated" xs12 py-2 class="text-xs-center">
-                <v-btn to="/inicio-sesion" secondary>
+                <v-btn to="/inicio-sesion" color="secondary">
                   <v-icon dark class="mr-2">face</v-icon> Inicia sesión
                 </v-btn>
-                <v-btn to="/registro" secondary>
+                <v-btn to="/registro" color="secondary">
                   <v-icon dark class="mr-2">fingerprint</v-icon> Regístrate
                 </v-btn>
               </v-flex>

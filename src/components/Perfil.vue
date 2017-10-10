@@ -18,9 +18,9 @@
           <v-text-field label="Email de Contacto" v-model="form.email"></v-text-field>
           <v-text-field label="Teléfono Fijo de Contacto" v-model="form.telefonoFijo"></v-text-field>
           <v-text-field label="Teléfono Celular de Contacto" v-model="form.telefonoCelular"></v-text-field>
-          <v-select label="País de domicilio" v-model="form.paisDomicilio" :items="paises" @change="onChangePaisDomicilio($event)"></v-select>
-          <v-select v-show="showProvinciaCanton" label="Provincia de domicilio" v-model="form.provinciaDomicilioObj" :items="provincias" item-text="provincia" item-value="codigoProvincia" return-object @change="onChangeProvincia($event.codigoProvincia)"></v-select>
-          <v-select v-show="showProvinciaCanton" label="Cantón de domicilio" v-model="form.cantonDomicilioObj" :items="cantones" item-text="canton" item-value="codigoCanton" return-object></v-select>
+          <v-select label="País de domicilio" v-model="form.paisDomicilio" :items="paises" @change="onChangePaisDomicilio($event)" autocomplete></v-select>
+          <v-select v-show="showProvinciaCanton" label="Provincia de domicilio" v-model="form.provinciaDomicilioObj" :items="provincias" item-text="provincia" item-value="codigoProvincia" return-object @change="onChangeProvincia($event.codigoProvincia)" autocomplete></v-select>
+          <v-select v-show="showProvinciaCanton" label="Cantón de domicilio" v-model="form.cantonDomicilioObj" :items="cantones" item-text="canton" item-value="codigoCanton" return-object autocomplete></v-select>
           <v-flex class="text-xs-center">
             <v-btn outline class="deep-purple--text mt-2 mx-0" @click="step = 2">
               Continuar
@@ -65,8 +65,8 @@
           </p>
           <v-flex pl-0 class="text-xs-center">
             <v-select class="custom-select pt-0" v-model="form.declaracion" :items="declaracionSiNo"></v-select>
-            <app-alert :alertType="alertType" :alertMessage="alertMessage" :alertDisplay="alertDisplay" @dismissed="dismissAlert"></app-alert>
-            <v-btn type="submit" :disabled="loading || form.declaracion === 'No' ? true : false" :loading="loading" secondary class="mt-3 mx-0">
+            <app-alert :alertColor="alertColor" :alertIcon="alertIcon" :alertMessage="alertMessage" :alertDisplay="alertDisplay" @dismissed="dismissAlert"></app-alert>
+            <v-btn type="submit" color="secondary" :disabled="loading || form.declaracion === 'No' ? true : false" :loading="loading" class="mt-3 mx-0">
               Guardar perfil
               <span slot="loader" class="custom-loader">
                 <v-icon light>cached</v-icon>
@@ -142,14 +142,17 @@ export default {
     loading () {
       return this.$store.state.loading
     },
+    alertColor () {
+      return this.$store.state.alertColor
+    },
+    alertIcon () {
+      return this.$store.state.alertIcon
+    },
     alertMessage () {
       return this.$store.state.alertMessage
     },
     alertDisplay () {
       return this.$store.state.alertDisplay
-    },
-    alertType () {
-      return this.$store.state.alertType
     }
   },
   created () {
@@ -170,13 +173,17 @@ export default {
   },
   methods: {
     onChangePaisDomicilio (pais) {
-      this.form.provinciaDomicilioObj = null
-      this.form.cantonDomicilioObj = null
-      this.showProvinciaCanton = pais === 'Ecuador'
+      if (pais) {
+        this.form.provinciaDomicilioObj = null
+        this.form.cantonDomicilioObj = null
+        this.showProvinciaCanton = pais === 'Ecuador'
+      }
     },
     onChangeProvincia (codigoProvincia) {
       this.form.cantonDomicilioObj = null
-      this.$store.dispatch('cantones', codigoProvincia)
+      if (codigoProvincia) {
+        this.$store.dispatch('cantones', codigoProvincia)
+      }
     },
     async updateProfile (form) {
       const validForm = await this.$validator.validateAll()
@@ -188,14 +195,16 @@ export default {
           this.$store.commit('setUser', form)
           this.$store.commit('setLoading', false)
           this.$store.commit('setAlert', {
-            alertType: 'success',
+            alertColor: 'success',
+            alertIcon: 'check_circle',
             alertMessage: 'Perfil guardado exitosamente',
             alertDisplay: true
           })
         } catch (error) {
           this.$store.commit('setLoading', false)
           this.$store.commit('setAlert', {
-            alertType: 'error',
+            alertColor: 'error',
+            alertIcon: 'warning',
             alertMessage: JSON.parse(JSON.stringify(error)).graphQLErrors[0].message,
             alertDisplay: true
           })
@@ -203,7 +212,7 @@ export default {
       }
     },
     dismissAlert () {
-      this.$store.commit('setAlert', { alertType: null, alertMessage: null, alertDisplay: false })
+      this.$store.commit('setAlert', { alertColor: null, alertIcon: null, alertMessage: null, alertDisplay: false })
     }
   }
 }

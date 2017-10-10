@@ -1,7 +1,7 @@
 <template>
   <v-flex xs12 sm7 md5 lg4 xl3>
     <v-card class="pa-3">
-      <app-alert :alertType="alertType" :alertMessage="alertMessage" :alertDisplay="alertDisplay" @dismissed="dismissAlert"></app-alert>
+      <app-alert :alertColor="alertColor" :alertIcon="alertIcon" :alertMessage="alertMessage" :alertDisplay="alertDisplay" @dismissed="dismissAlert"></app-alert>
       <v-card-text>
         <form method="post" @submit.prevent="signUp(form)" autocomplete="off">
           <v-text-field label="Cédula" name="cedula" maxlength="10" v-model="form.cedula" :error-messages="errors.collect('cedula')" v-validate="'required|digits:10'" data-vv-as="Cédula"></v-text-field>
@@ -40,14 +40,17 @@ export default {
     loading () {
       return this.$store.state.loading
     },
+    alertColor () {
+      return this.$store.state.alertColor
+    },
+    alertIcon () {
+      return this.$store.state.alertIcon
+    },
     alertMessage () {
       return this.$store.state.alertMessage
     },
     alertDisplay () {
       return this.$store.state.alertDisplay
-    },
-    alertType () {
-      return this.$store.state.alertType
     }
   },
   methods: {
@@ -62,14 +65,16 @@ export default {
           await this.$store.dispatch('signUp', user)
           this.$store.commit('setLoading', false)
           this.$store.commit('setAlert', {
-            alertType: 'success',
+            alertColor: 'success',
+            alertIcon: 'check_circle',
             alertMessage: 'Hemos enviado un correo para confirmar su registro. Por favor revise su bandeja de entrada y siga las instrucciones.',
             alertDisplay: true
           })
         } catch (error) {
           this.$store.commit('setLoading', false)
           this.$store.commit('setAlert', {
-            alertType: 'error',
+            alertColor: 'error',
+            alertIcon: 'warning',
             alertMessage: JSON.parse(JSON.stringify(error)).graphQLErrors[0].message,
             alertDisplay: true
           })
@@ -77,7 +82,7 @@ export default {
       }
     },
     dismissAlert () {
-      this.$store.commit('setAlert', { alertType: null, alertMessage: null, alertDisplay: false })
+      this.$store.commit('setAlert', { alertColor: null, alertIcon: null, alertMessage: null, alertDisplay: false })
     }
   }
 }

@@ -1,13 +1,13 @@
 <template>
   <v-flex xs12 sm7 md5 lg4 xl3>
     <v-card class="pa-3">
-      <app-alert :alertType="alertType" :alertMessage="alertMessage" :alertDisplay="alertDisplay" @dismissed="dismissAlert"></app-alert>
+      <app-alert :alertColor="alertColor" :alertIcon="alertIcon" :alertMessage="alertMessage" :alertDisplay="alertDisplay" @dismissed="dismissAlert"></app-alert>
       <v-card-text>
         <form method="post" @submit.prevent="login(form)" autocomplete="off">
           <v-text-field label="Cédula" name="cedula" maxlength="10" v-model="form.cedula" :error-messages="errors.collect('cedula')" v-validate="'required|digits:10'" data-vv-as="Cédula"></v-text-field>
           <v-text-field label="Contraseña" name="contrasena" maxlength="15" v-model="form.contrasena" :error-messages="errors.collect('contrasena')" v-validate="'required|min:9'" data-vv-as="Contraseña" :append-icon="viewPassword ? 'visibility' : 'visibility_off'" :append-icon-cb="() => (viewPassword = !viewPassword)" :type="viewPassword ? 'text' : 'password'"></v-text-field>
           <v-flex class="text-xs-center">
-            <v-btn type="submit" secondary :disabled="loading" :loading="loading" outline class="deep-purple--text mt-4">
+            <v-btn type="submit" color="secondary" :disabled="loading" :loading="loading" outline class="deep-purple--text mt-4">
               Ingresar
               <span slot="loader" class="custom-loader">
                 <v-icon light>cached</v-icon>
@@ -36,27 +36,32 @@ export default {
     loading () {
       return this.$store.state.loading
     },
+    alertColor () {
+      return this.$store.state.alertColor
+    },
+    alertIcon () {
+      return this.$store.state.alertIcon
+    },
     alertMessage () {
       return this.$store.state.alertMessage
     },
     alertDisplay () {
       return this.$store.state.alertDisplay
-    },
-    alertType () {
-      return this.$store.state.alertType
     }
   },
   mounted () {
     const validEmail = this.$route.query.verificado
     if (validEmail === 'true') {
       this.$store.commit('setAlert', {
-        alertType: 'success',
+        alertColor: 'success',
+        alertIcon: 'check_circle',
         alertMessage: 'Su email ha sido verificado exitosamente. Ya puede iniciar sesión.',
         alertDisplay: true
       })
     } else if (validEmail === 'false') {
       this.$store.commit('setAlert', {
-        alertType: 'error',
+        alertColor: 'error',
+        alertIcon: 'warning',
         alertMessage: 'Hubo un error al validar su email. Por favor envie un correo explicando su problema a ruac@culturaypatrimonio.gob.ec',
         alertDisplay: true
       })
@@ -76,7 +81,8 @@ export default {
         } catch (error) {
           this.$store.commit('setLoading', false)
           this.$store.commit('setAlert', {
-            alertType: 'error',
+            alertColor: 'error',
+            alertIcon: 'warning',
             alertMessage: JSON.parse(JSON.stringify(error)).graphQLErrors[0].message,
             alertDisplay: true
           })
@@ -84,7 +90,7 @@ export default {
       }
     },
     dismissAlert () {
-      this.$store.commit('setAlert', { alertType: null, alertMessage: null, alertDisplay: false })
+      this.$store.commit('setAlert', { alertColor: null, alertIcon: null, alertMessage: null, alertDisplay: false })
     }
   }
 }

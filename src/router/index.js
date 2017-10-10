@@ -31,7 +31,7 @@ export function createRouter () {
   })
 
   router.beforeEach(async (to, from, next) => {
-    store.commit('setAlert', { alertType: null, alertMessage: null, alertDisplay: false })
+    store.commit('setAlert', { alertColor: null, alertIcon: null, alertMessage: null, alertDisplay: false })
     const token = localStorage.getItem('token')
     let menuItems = []
     if (token) {

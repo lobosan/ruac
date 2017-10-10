@@ -1,12 +1,12 @@
 <template>
-  <v-alert :error="alertType === 'error' ? true : false" :success="alertType === 'success' ? true : false" :value="alertDisplay" @input="onClose" transition="scale-transition" dismissible>
+  <v-alert :color="alertColor" :icon="alertIcon" :value="alertDisplay" @input="onClose" transition="scale-transition" dismissible>
     {{ alertMessage }}
   </v-alert>
 </template>
 
 <script>
 export default {
-  props: ['alertMessage', 'alertDisplay', 'alertType'],
+  props: ['alertColor', 'alertIcon', 'alertMessage', 'alertDisplay'],
   methods: {
     onClose () {
       this.$emit('dismissed')
