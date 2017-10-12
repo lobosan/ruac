@@ -6,8 +6,9 @@ import AuthGuard from './auth-guard'
 import store from '../store'
 
 // Route helper function for lazy loading
-function route (path, view, beforeEnter) {
+function route (name, path, view, beforeEnter) {
   return {
+    name,
     path,
     meta: meta[path],
     component: () => import(`../components/${view}`),
@@ -22,10 +23,10 @@ export function createRouter () {
     mode: 'history',
     scrollBehavior: () => ({ y: 0 }),
     routes: [
-      route('/', 'Home'),
-      route('/inicio-sesion', 'InicioSesion'),
-      route('/registro', 'Registro'),
-      route('/perfil', 'Perfil', AuthGuard),
+      route('home', '/', 'Home'),
+      route('inicioSesion', '/inicio-sesion', 'InicioSesion'),
+      route('registro', '/registro', 'Registro'),
+      route('perfil', '/perfil', 'Perfil', AuthGuard),
       { path: '*', redirect: '/' }
     ]
   })
@@ -35,10 +36,10 @@ export function createRouter () {
     const token = localStorage.getItem('token')
     let menuItems = []
     if (token) {
-      const { data } = await store.dispatch('loggedInUser')
-      store.commit('setUser', data.loggedInUser)
+      store.commit('setUserIsAuthenticated', true)
       menuItems.push({ title: 'Mi Perfil', icon: 'account_circle', route: '/perfil' })
     } else {
+      store.commit('setUserIsAuthenticated', false)
       menuItems.push(
         { title: 'Inicio de sesión', icon: 'face', route: '/inicio-sesion' },
         { title: 'Registro de cuenta', icon: 'fingerprint', route: '/registro' }

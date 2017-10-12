@@ -13,10 +13,10 @@
           <v-text-field label="Lugar de Nacimiento" v-model="form.lugarNacimiento" disabled></v-text-field>
           <v-text-field label="Nacionalidad" v-model="form.nacionalidad" disabled></v-text-field>
           <v-text-field label="Estado de Afiliación al IESS" v-model="form.estadoAfiliado" disabled></v-text-field>
-          <v-select label="Tipo de Afiliación al IESS" v-model="form.tipoAfiliado" :items="tipoAfiliado" autocomplete name="tipoAfiliado" :error-messages="errors.collect('tipoAfiliado')" v-validate="'required'" data-vv-as="Tipo de Afiliación al IESS"></v-select>
+          <v-select label="Tipo de Afiliación al IESS" v-model="form.tipoAfiliado" :items="items.tipoAfiliado" autocomplete name="tipoAfiliado" :error-messages="errors.collect('tipoAfiliado')" v-validate="'required'" data-vv-as="Tipo de Afiliación al IESS"></v-select>
           <v-select label="Títulos Registrados en la SENESCYT" v-model="form.titulosSenescyt" chips tags readonly disabled></v-select>
           <v-text-field label="Email de Contacto" v-model="form.email" name="email" :error-messages="errors.collect('email')" v-validate="'required|email'" data-vv-as="Email"></v-text-field>
-          <v-text-field label="Teléfono Fijo de Contacto" v-model="form.telefonoFijo" name="telefonoFijo" maxlength="20" :error-messages="errors.collect('telefonoFijo')" v-validate="{ regex: /^0[2-7]{1}\d{7}(\sext\s\d{3,6})?$/ }" data-vv-as="Teléfono Fijo de Contacto" hint="Código de provincio, número y extensión opcional. Ej. 022585623 ext 123456"></v-text-field>
+          <v-text-field label="Teléfono Fijo de Contacto" v-model="form.telefonoFijo" name="telefonoFijo" maxlength="20" :error-messages="errors.collect('telefonoFijo')" v-validate="{ regex: /^0[2-7]{1}\d{7}(\sext\s\d{3,6})?$/ }" data-vv-as="Teléfono Fijo de Contacto" hint="Código de provincia, número y extensión opcional. Ej. 022585623 ext 123456"></v-text-field>
           <v-text-field label="Teléfono Celular de Contacto" v-model="form.telefonoCelular" name="telefonoCelular" maxlength="10" :error-messages="errors.collect('telefonoCelular')" v-validate="{ regex: /^0[8-9]{1}\d{8}$/ }" hint="Ej. 0983507946" data-vv-as="Teléfono Celular de Contacto"></v-text-field>
           <v-select label="País de Domicilio" v-model="form.paisDomicilio" :items="paises" @change="onChangePaisDomicilio($event)" autocomplete name="paisDomicilio" :error-messages="errors.collect('paisDomicilio')" v-validate="'required'" data-vv-as="País de Domicilio"></v-select>
           <v-select v-show="showProvinciaCanton" label="Provincia de Domicilio" v-model="form.provinciaDomicilioObj" :items="provincias" item-text="provincia" item-value="codigoProvincia" return-object @change="onChangeProvincia($event.codigoProvincia)" autocomplete></v-select>
@@ -34,13 +34,13 @@
         </v-stepper-step>
         <v-stepper-content step="2">
           <v-text-field label="Nombre Artístico" v-model="form.nombreArtistico"></v-text-field>
-          <v-select label="Tipo de Actor Cultural" v-model="form.tipoActividad" :items="tipoActividad" autocomplete name="tipoActividad" :error-messages="errors.collect('tipoActividad')" v-validate="'required'" data-vv-as="Tipo de Actor Cultural"></v-select>
-          <v-select label="Actividad Principal" v-model="form.actividadPrincipal" :items="ambitoActividad" autocomplete name="actividadPrincipal" :error-messages="errors.collect('actividadPrincipal')" v-validate="'required'" data-vv-as="Actividad Principal"></v-select>
-          <v-select label="Actividad Secundaria" v-model="form.actividadSecundaria" :items="ambitoActividad" autocomplete></v-select>
-          <v-select label="Postulaciones a Financiamiento" v-model="form.postulacionesFinanciamiento" :items="postulacionesFinanciamiento" multiple chips autocomplete></v-select>
+          <v-select label="Tipo de Actor Cultural" v-model="form.tipoActorCultural" :items="items.tipoActorCultural" autocomplete name="tipoActorCultural" :error-messages="errors.collect('tipoActorCultural')" v-validate="'required'" data-vv-as="Tipo de Actor Cultural"></v-select>
+          <v-select label="Actividad Principal" v-model="form.actividadPrincipal" :items="items.ambitoActividad" autocomplete name="actividadPrincipal" :error-messages="errors.collect('actividadPrincipal')" v-validate="'required'" data-vv-as="Actividad Principal"></v-select>
+          <v-select label="Actividad Secundaria" v-model="form.actividadSecundaria" :items="items.ambitoActividad" autocomplete></v-select>
+          <v-select label="Postulaciones a Financiamiento" v-model="form.postulacionesFinanciamiento" :items="items.postulacionesFinanciamiento" multiple chips autocomplete></v-select>
           <v-text-field label="Otras Entidades que lo han Apoyado" v-model="form.otrasEntidadesApoyo"></v-text-field>
-          <v-select label="Obras Registradas en el IEPI" v-model="form.obrasRegistradasIEPI" :items="siNo" autocomplete name="obrasRegistradasIEPI" :error-messages="errors.collect('obrasRegistradasIEPI')" v-validate="'required'" data-vv-as="Obras Registradas en el IEPI"></v-select>
-          <v-select label="Pertenece a una Organización Cultural" v-model="form.perteneceOrgCultural" :items="siNo" autocomplete name="perteneceOrgCultural" :error-messages="errors.collect('perteneceOrgCultural')" v-validate="'required'" data-vv-as="Pertenece a una Organización Cultural"></v-select>
+          <v-select label="Obras Registradas en el IEPI" v-model="form.obrasRegistradasIEPI" :items="items.siNo" autocomplete name="obrasRegistradasIEPI" :error-messages="errors.collect('obrasRegistradasIEPI')" v-validate="'required'" data-vv-as="Obras Registradas en el IEPI"></v-select>
+          <v-select label="Pertenece a una Organización Cultural" v-model="form.perteneceOrgCultural" :items="items.siNo" autocomplete name="perteneceOrgCultural" :error-messages="errors.collect('perteneceOrgCultural')" v-validate="'required'" data-vv-as="Pertenece a una Organización Cultural"></v-select>
           <v-flex class="text-xs-center">
             <v-btn outline color="primary" class="mt-2 mx-0" @click="step = 3">
               Continuar
@@ -53,9 +53,9 @@
           <span class="subheading">PORTAFOLIO / TRAYECTORIA</span>
         </v-stepper-step>
         <v-stepper-content step="3">
-          <v-text-field label="Logros Alcanzados" v-model="form.logrosAlcanzados" hint="Publicaciones, galardones, reconocimientos, conciertos, grabaciones, festivales, entre otros." :persistent-hint="true" multi-line rows="3"></v-text-field>
-          <v-text-field label="Proyectos Culturales" v-model="form.proyectosCulturales" hint="Describir su vinculación con proyectos culturales." :persistent-hint="true" multi-line rows="3"></v-text-field>
-          <v-text-field label="Formación y Capacitación" v-model="form.formacionCapacitacion" hint="Talleres, cursos, diplomados, entre otros espacios que no generen título reconocido por la SENESCYT" :persistent-hint="true" multi-line rows="3"></v-text-field>
+          <v-text-field label="Logros Alcanzados" v-model="form.logrosAlcanzados" hint="Publicaciones, galardones, reconocimientos, conciertos, grabaciones, festivales, entre otros." multi-line rows="3"></v-text-field>
+          <v-text-field label="Proyectos Culturales" v-model="form.proyectosCulturales" hint="Describir su vinculación con proyectos culturales." multi-line rows="3"></v-text-field>
+          <v-text-field label="Formación y Capacitación" v-model="form.formacionCapacitacion" hint="Talleres, cursos, diplomados, entre otros espacios que no generen título reconocido por la SENESCYT" multi-line rows="3"></v-text-field>
           <v-text-field label="Página Web o Blog" v-model="form.webBlog" name="webBlog" :error-messages="errors.collect('webBlog')" v-validate="'url'" data-vv-as="Página Web o Blog"></v-text-field>
           <v-text-field label="YouTube" v-model="form.youtube" name="youtube" :error-messages="errors.collect('youtube')" v-validate="'url'" data-vv-as="YouTube"></v-text-field>
           <v-text-field label="Facebook" v-model="form.facebook" name="facebook" :error-messages="errors.collect('facebook')" v-validate="'url'" data-vv-as="Facebook"></v-text-field>
@@ -94,6 +94,8 @@ export default {
   $validates: true,
   data () {
     return {
+      step: 1,
+      showProvinciaCanton: false,
       dialog: false,
       snackbar: {
         display: false,
@@ -105,42 +107,42 @@ export default {
       form: {
         ...this.$store.state.user
       },
-      step: 1,
-      showProvinciaCanton: false,
-      tipoAfiliado: [
-        'Voluntario',
-        'Dependiente'
-      ],
-      tipoActividad: [
-        'Creador',
-        'Productor',
-        'Gestor cultural',
-        'Técnico',
-        'Otro trabajador de la cultura'
-      ],
-      ambitoActividad: [
-        'Artes vivas y escénicas',
-        'Artes plásticas y visuales',
-        'Artes literarias, narrativas y producción editorial',
-        'Artes cinematográficas y audiovisuales',
-        'Artes musicales y sonoras',
-        'Diseño y artes aplicadas',
-        'Producción y gestión cultural',
-        'Investigación, promoción y difusión',
-        'Memoria social',
-        'Patrimonio cultural',
-        'Otras'
-      ],
-      postulacionesFinanciamiento: [
-        'Fondos concursables del MCYP',
-        'Auspicios del MCYP',
-        'Fondo de fomento CNCine',
-        'Financiamiento Foncultura'
-      ],
-      siNo: [
-        'Si',
-        'No'
-      ]
+      items: {
+        tipoAfiliado: [
+          'Voluntario',
+          'Dependiente'
+        ],
+        tipoActorCultural: [
+          'Creador',
+          'Productor',
+          'Gestor cultural',
+          'Técnico',
+          'Otro trabajador de la cultura'
+        ],
+        ambitoActividad: [
+          'Artes vivas y escénicas',
+          'Artes plásticas y visuales',
+          'Artes literarias, narrativas y producción editorial',
+          'Artes cinematográficas y audiovisuales',
+          'Artes musicales y sonoras',
+          'Diseño y artes aplicadas',
+          'Producción y gestión cultural',
+          'Investigación, promoción y difusión',
+          'Memoria social',
+          'Patrimonio cultural',
+          'Otras'
+        ],
+        postulacionesFinanciamiento: [
+          'Fondos concursables del MCYP',
+          'Auspicios del MCYP',
+          'Fondo de fomento CNCine',
+          'Financiamiento Foncultura'
+        ],
+        siNo: [
+          'Si',
+          'No'
+        ]
+      }
     }
   },
   computed: {
@@ -226,7 +228,7 @@ export default {
           display: true,
           color: 'success',
           icon: 'check_circle',
-          timeout: 3500,
+          timeout: 3000,
           message: 'Datos Guardados Exitosamente.'
         }
       } catch (error) {

@@ -11,6 +11,7 @@ export default new Vuex.Store({
     title: null,
     menuItems: null,
     user: null,
+    userIsAuthenticated: false,
     paises: [],
     provincias: [],
     cantones: [],
@@ -29,6 +30,9 @@ export default new Vuex.Store({
     },
     setUser (state, payload) {
       state.user = payload
+    },
+    setUserIsAuthenticated (state, payload) {
+      state.userIsAuthenticated = payload
     },
     setPaises (state, payload) {
       state.paises = payload
@@ -50,7 +54,7 @@ export default new Vuex.Store({
     },
     logout (state) {
       localStorage.removeItem('token')
-      state.user = null
+      state.userIsAuthenticated = false
     }
   },
   actions: {
@@ -113,7 +117,7 @@ export default new Vuex.Store({
             cantonDomicilio
             codigoCantonDomicilio
             nombreArtistico
-            tipoActividad
+            tipoActorCultural
             actividadPrincipal
             actividadSecundaria
             postulacionesFinanciamiento
@@ -127,7 +131,6 @@ export default new Vuex.Store({
             youtube
             facebook
             twitter
-            declaracion
           }
         }`
       })
@@ -176,7 +179,7 @@ export default new Vuex.Store({
       provinciaDomicilioObj,
       cantonDomicilioObj,
       nombreArtistico,
-      tipoActividad,
+      tipoActorCultural,
       actividadPrincipal,
       actividadSecundaria,
       postulacionesFinanciamiento,
@@ -189,8 +192,7 @@ export default new Vuex.Store({
       webBlog,
       youtube,
       facebook,
-      twitter,
-      declaracion
+      twitter
     }) {
       const provinciaDomicilio = provinciaDomicilioObj.provincia
       const codigoProvinciaDomicilio = provinciaDomicilioObj.codigoProvincia
@@ -209,7 +211,7 @@ export default new Vuex.Store({
           cantonDomicilio,
           codigoCantonDomicilio,
           nombreArtistico,
-          tipoActividad,
+          tipoActorCultural,
           actividadPrincipal,
           actividadSecundaria,
           postulacionesFinanciamiento,
@@ -222,8 +224,7 @@ export default new Vuex.Store({
           webBlog,
           youtube,
           facebook,
-          twitter,
-          declaracion
+          twitter
         },
         mutation: gql`
           mutation UpdateProfile (
@@ -238,7 +239,7 @@ export default new Vuex.Store({
             $cantonDomicilio: String,
             $codigoCantonDomicilio: String,
             $nombreArtistico: String,
-            $tipoActividad: String!,
+            $tipoActorCultural: String!,
             $actividadPrincipal: String!,
             $actividadSecundaria: String,
             $postulacionesFinanciamiento: [String],
@@ -251,8 +252,7 @@ export default new Vuex.Store({
             $webBlog: String,
             $youtube: String,
             $facebook: String,
-            $twitter: String,
-            $declaracion: String!
+            $twitter: String
           ) {
             updateProfile (
               cedula: $cedula,
@@ -266,7 +266,7 @@ export default new Vuex.Store({
               cantonDomicilio:$cantonDomicilio,
               codigoCantonDomicilio: $codigoCantonDomicilio
               nombreArtistico: $nombreArtistico,
-              tipoActividad: $tipoActividad,
+              tipoActorCultural: $tipoActorCultural,
               actividadPrincipal: $actividadPrincipal,
               actividadSecundaria: $actividadSecundaria,
               postulacionesFinanciamiento: $postulacionesFinanciamiento,
@@ -279,8 +279,7 @@ export default new Vuex.Store({
               webBlog: $webBlog,
               youtube: $youtube,
               facebook: $facebook,
-              twitter: $twitter,
-              declaracion: $declaracion
+              twitter: $twitter
             ) {
               cedula
               nombre
@@ -299,7 +298,7 @@ export default new Vuex.Store({
               cantonDomicilio
               codigoCantonDomicilio
               nombreArtistico
-              tipoActividad
+              tipoActorCultural
               actividadPrincipal
               actividadSecundaria
               postulacionesFinanciamiento
@@ -313,7 +312,6 @@ export default new Vuex.Store({
               youtube
               facebook
               twitter
-              declaracion
             }
           }`
       })

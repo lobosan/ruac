@@ -14,6 +14,9 @@
         </form>
       </v-card-text>
     </v-card>
+    <v-flex class="pt-2 text-xs-center">
+      <v-btn flat small class="grey--text text--darken-2">Recuperar contraseña</v-btn>
+    </v-flex>
   </v-flex>
 </template>
 
@@ -73,6 +76,8 @@ export default {
           this.dismissAlert()
           const token = await this.$store.dispatch('signIn', { cedula, contrasena })
           localStorage.setItem('token', token.data.signIn)
+          const { data } = await this.$store.dispatch('loggedInUser')
+          this.$store.commit('setUser', data.loggedInUser)
           this.$store.commit('setLoading', false)
           this.$router.push('perfil')
         } catch (error) {

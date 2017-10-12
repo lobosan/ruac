@@ -54,7 +54,7 @@ export default {
       return this.$store.state.title
     },
     userIsAuthenticated () {
-      return this.$store.state.user
+      return this.$store.state.userIsAuthenticated
     },
     menuItems () {
       return this.$store.state.menuItems
