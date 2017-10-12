@@ -17,10 +17,10 @@
                 {{secciones[0].text}}
               </v-flex>
               <v-flex v-if="!userIsAuthenticated" xs12 py-2 class="text-xs-center">
-                <v-btn to="/inicio-sesion" color="secondary">
+                <v-btn to="/inicio-sesion" dark color="accent">
                   <v-icon dark class="mr-2">face</v-icon> Inicia sesión
                 </v-btn>
-                <v-btn to="/registro" color="secondary">
+                <v-btn to="/registro" dark color="accent">
                   <v-icon dark class="mr-2">fingerprint</v-icon> Regístrate
                 </v-btn>
               </v-flex>
@@ -69,10 +69,10 @@
                 {{secciones[2].text}}
               </v-flex>
               <v-flex xs12 py-2 class="text-xs-center">
-                <v-btn href="/static/docs/acuerdo_ministerial.pdf" target="_blank" outline class="deep-purple--text">
+                <v-btn href="/static/docs/acuerdo_ministerial.pdf" target="_blank" outline color="primary">
                   <v-icon class="mr-2">description</v-icon> Acuerdo Ministerial
                 </v-btn>
-                <v-btn href="/static/docs/norma_tecnica.pdf" target="_blank" outline class="deep-purple--text">
+                <v-btn href="/static/docs/norma_tecnica.pdf" target="_blank" outline color="primary">
                   <v-icon class="mr-2">description</v-icon> Norma Técnica
                 </v-btn>
               </v-flex>

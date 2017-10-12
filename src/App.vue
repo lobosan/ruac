@@ -1,8 +1,8 @@
 <template>
   <v-app>
-    <v-toolbar app fixed dark class="deep-purple">
+    <v-toolbar app fixed dark color="primary">
       <v-slide-x-reverse-transition mode="out-in">
-        <v-btn v-if="title != 'RUAC'" icon @click="redirectToHome" class="mr-0">
+        <v-btn v-if="title !== 'RUAC'" icon @click="redirectToHome" class="mr-0">
           <v-icon>arrow_back</v-icon>
         </v-btn>
       </v-slide-x-reverse-transition>

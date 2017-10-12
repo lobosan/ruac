@@ -9,11 +9,8 @@
           <v-text-field label="Contraseña" name="contrasena" maxlength="15" v-model="form.contrasena" :error-messages="errors.collect('contrasena')" v-validate="'required|min:9'" data-vv-as="Contraseña" :append-icon="viewPassword ? 'visibility' : 'visibility_off'" :append-icon-cb="() => (viewPassword = !viewPassword)" :type="viewPassword ? 'text' : 'password'"></v-text-field>
           <v-text-field label="Confirmar Contraseña" name="confirmarContrasena" maxlength="15" v-model="form.confirmarContrasena" :error-messages="errors.collect('confirmarContrasena')" v-validate="'required|min:9|confirmed:contrasena'" data-vv-as="Confirmar Contraseña" :append-icon="viewPassword ? 'visibility' : 'visibility_off'" :append-icon-cb="() => (viewPassword = !viewPassword)" :type="viewPassword ? 'text' : 'password'"></v-text-field>
           <v-flex class="text-xs-center">
-            <v-btn type="submit" :disabled="loading" :loading="loading" outline class="deep-purple--text mt-4">
+            <v-btn type="submit" :disabled="loading" :loading="loading" outline color="primary" class="mt-4">
               Registrar Cuenta
-              <span slot="loader" class="custom-loader">
-                <v-icon light>cached</v-icon>
-              </span>
             </v-btn>
           </v-flex>
         </form>
