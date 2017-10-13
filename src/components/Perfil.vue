@@ -91,7 +91,9 @@
 
 <script>
 export default {
-  $validates: true,
+  $_veeValidate: {
+    validator: 'new'
+  },
   data () {
     return {
       step: 1,
