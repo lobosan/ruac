@@ -4743,9 +4743,9 @@ vue@^2.4.4:
   version "2.4.4"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.4.4.tgz#ea9550b96a71465fd2b8b17b61673b3561861789"
 
-vuetify@^0.16.5:
-  version "0.16.5"
-  resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-0.16.5.tgz#7fdb55d480b17391a19288fe1fb684018cab6bdd"
+vuetify@^0.16.6:
+  version "0.16.6"
+  resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-0.16.6.tgz#76f3f6eb507116935469261c021f3e50055214cf"
 
 vuex@^2.4.0:
   version "2.4.0"

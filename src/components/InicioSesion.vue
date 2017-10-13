@@ -76,8 +76,6 @@ export default {
           this.dismissAlert()
           const token = await this.$store.dispatch('signIn', { cedula, contrasena })
           localStorage.setItem('token', token.data.signIn)
-          const { data } = await this.$store.dispatch('loggedInUser')
-          this.$store.commit('setUser', data.loggedInUser)
           this.$store.commit('setLoading', false)
           this.$router.push('perfil')
         } catch (error) {

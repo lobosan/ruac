@@ -21,6 +21,14 @@ Vue.use(VeeValidate, {
     es: {
       attributes: {
         contrasena: 'Contraseña'
+      },
+      custom: {
+        telefonoFijo: {
+          regex: 'El formato no corresponde al Ej. 022585623 ext 123456'
+        },
+        telefonoCelular: {
+          regex: 'El formato no corresponde al Ej. 0983507946'
+        }
       }
     }
   }
