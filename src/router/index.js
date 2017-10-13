@@ -38,10 +38,6 @@ export function createRouter () {
     if (token) {
       store.commit('setUserIsAuthenticated', true)
       menuItems.push({ title: 'Mi Perfil', icon: 'account_circle', route: '/perfil' })
-      if (to.name === 'perfil') {
-        const { data } = await store.dispatch('loggedInUser')
-        store.commit('setUser', data.loggedInUser)
-      }
     } else {
       store.commit('setUserIsAuthenticated', false)
       menuItems.push(

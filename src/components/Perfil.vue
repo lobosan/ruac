@@ -1,5 +1,7 @@
 <template>
-  <v-flex xs12 sm11 md11 lg10 xl10>
+  <v-progress-circular v-if="initialLoading" size="70" indeterminate color="primary">
+  </v-progress-circular>
+  <v-flex v-else xs12 sm11 md11 lg10 xl10>
     <form method="post" autocomplete="off">
       <v-stepper v-model="step" vertical class="mb-4">
         <v-stepper-step step="1" editable :complete="step > 1">
@@ -17,7 +19,7 @@
           <v-select label="Títulos Registrados en la SENESCYT" v-model="form.titulosSenescyt" chips tags readonly disabled></v-select>
           <v-text-field label="Email de Contacto" v-model="form.email" name="email" :error-messages="errors.collect('email')" v-validate="'required|email'" data-vv-as="Email"></v-text-field>
           <v-text-field label="Teléfono Fijo de Contacto" v-model="form.telefonoFijo" name="telefonoFijo" maxlength="20" :error-messages="errors.collect('telefonoFijo')" v-validate="{ regex: /^0[2-7]{1}\d{7}(\sext\s\d{3,6})?$/ }" data-vv-as="Teléfono Fijo de Contacto" hint="Ej. 022585623 ext 123456"></v-text-field>
-          <v-text-field label="Teléfono Celular de Contacto" v-model="form.telefonoCelular" name="telefonoCelular" maxlength="10" :error-messages="errors.collect('telefonoCelular')" v-validate="{ regex: /^0[8-9]{1}\d{8}$/ }" hint="Ej. 0983507946" data-vv-as="Teléfono Celular de Contacto"></v-text-field>
+          <v-text-field label="Teléfono Celular de Contacto" v-model="form.telefonoCelular" name="telefonoCelular" maxlength="10" mask="##########" :error-messages="errors.collect('telefonoCelular')" v-validate="{ regex: /^0[8-9]{1}\d{8}$/ }" hint="Ej. 0983507946" data-vv-as="Teléfono Celular de Contacto"></v-text-field>
           <v-select label="País de Domicilio" v-model="form.paisDomicilio" :items="paises" @change="onChangePaisDomicilio($event)" autocomplete name="paisDomicilio" :error-messages="errors.collect('paisDomicilio')" v-validate="'required'" data-vv-as="País de Domicilio"></v-select>
           <v-select v-show="showProvinciaCanton" label="Provincia de Domicilio" v-model="form.provinciaDomicilioObj" :items="provincias" item-text="provincia" item-value="codigoProvincia" return-object @change="onChangeProvincia($event.codigoProvincia)" autocomplete></v-select>
           <v-select v-show="showProvinciaCanton" label="Cantón de Domicilio" v-model="form.cantonDomicilioObj" :items="cantones" item-text="canton" item-value="codigoCanton" return-object autocomplete></v-select>
@@ -96,6 +98,8 @@ export default {
   },
   data () {
     return {
+      initialLoading: false,
+      form: null,
       step: 1,
       showProvinciaCanton: false,
       dialog: false,
@@ -105,9 +109,6 @@ export default {
         icon: null,
         timeout: null,
         message: null
-      },
-      form: {
-        ...this.$store.state.user
       },
       items: {
         tipoAfiliado: [
@@ -147,37 +148,19 @@ export default {
       }
     }
   },
-  computed: {
-    paises () {
-      return this.$store.state.paises.map(obj => obj.pais)
-    },
-    provincias () {
-      return this.$store.state.provincias
-    },
-    cantones () {
-      return this.$store.state.cantones
-    },
-    loading () {
-      return this.$store.state.loading
-    },
-    alertColor () {
-      return this.$store.state.alertColor
-    },
-    alertIcon () {
-      return this.$store.state.alertIcon
-    },
-    alertMessage () {
-      return this.$store.state.alertMessage
-    },
-    alertDisplay () {
-      return this.$store.state.alertDisplay
+  async created () {
+    this.initialLoading = true
+    const { data } = await this.$store.dispatch('loggedInUser')
+    const user = data.loggedInUser
+    this.$store.commit('setUser', user)
+    await this.$store.dispatch('paises')
+    await this.$store.dispatch('provincias')
+    if (user.provinciaDomicilio) {
+      this.$store.dispatch('cantones', user.codigoProvinciaDomicilio)
     }
-  },
-  created () {
-    this.$store.dispatch('paises')
-    this.$store.dispatch('provincias')
+    this.form = { ...this.$store.state.user }
+    this.initialLoading = false
     if (this.form.paisDomicilio === 'Ecuador') {
-      this.$store.dispatch('cantones', this.form.codigoProvinciaDomicilio)
       this.showProvinciaCanton = true
       this.form.provinciaDomicilioObj = {
         codigoProvincia: this.form.codigoProvinciaDomicilio,
@@ -187,6 +170,20 @@ export default {
         codigoCanton: this.form.codigoCantonDomicilio,
         canton: this.form.cantonDomicilio
       }
+    }
+  },
+  computed: {
+    loading () {
+      return this.$store.state.loading
+    },
+    paises () {
+      return this.$store.state.paises.map(obj => obj.pais)
+    },
+    provincias () {
+      return this.$store.state.provincias
+    },
+    cantones () {
+      return this.$store.state.cantones
     }
   },
   methods: {
