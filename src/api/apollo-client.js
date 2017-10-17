@@ -1,19 +1,11 @@
 import ApolloClient, { createNetworkInterface } from 'apollo-client'
 
 const networkInterface = createNetworkInterface({
-  uri: 'http://172.17.6.74:3000/graphql'
-})
-
-networkInterface.use([{
-  applyMiddleware (req, next) {
-    if (!req.options.headers) {
-      req.options.headers = {}
-    }
-    const token = localStorage.getItem('token')
-    if (token) req.options.headers['token'] = token
-    next()
+  uri: 'http://172.17.6.74:3000/graphql',
+  opts: {
+    credentials: 'include'
   }
-}])
+})
 
 const apolloClient = new ApolloClient({
   networkInterface

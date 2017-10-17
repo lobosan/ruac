@@ -8,8 +8,11 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    menuItems: [
+      { title: 'Inicio de sesión', icon: 'face', route: '/inicio-sesion' },
+      { title: 'Registro de cuenta', icon: 'fingerprint', route: '/registro' }
+    ],
     title: null,
-    menuItems: null,
     user: null,
     userIsAuthenticated: false,
     paises: [],
@@ -53,7 +56,10 @@ export default new Vuex.Store({
       state.alertDisplay = alertDisplay
     },
     logout (state) {
-      localStorage.removeItem('token')
+      state.menuItems = [
+        { title: 'Inicio de sesión', icon: 'face', route: '/inicio-sesion' },
+        { title: 'Registro de cuenta', icon: 'fingerprint', route: '/registro' }
+      ]
       state.userIsAuthenticated = false
     }
   },
@@ -134,6 +140,14 @@ export default new Vuex.Store({
           }
         }`
       })
+    },
+    async logout ({ commit }) {
+      await apolloClient.query({
+        query: gql`{
+          logout
+        }`
+      })
+      commit('logout')
     },
     async paises ({ commit }) {
       const { data } = await apolloClient.query({

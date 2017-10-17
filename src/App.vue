@@ -64,8 +64,8 @@ export default {
     redirectToHome () {
       this.$router.push('/')
     },
-    logout () {
-      this.$store.commit('logout')
+    async logout () {
+      await this.$store.dispatch('logout')
       this.$router.push('inicio-sesion')
     }
   }

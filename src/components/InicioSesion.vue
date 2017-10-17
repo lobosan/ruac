@@ -3,7 +3,7 @@
     <v-card class="pa-3">
       <app-alert :alertColor="alertColor" :alertIcon="alertIcon" :alertMessage="alertMessage" :alertDisplay="alertDisplay" @dismissed="dismissAlert"></app-alert>
       <v-card-text>
-        <form method="post" @submit.prevent="login(form)" autocomplete="off">
+        <form method="post" @submit.prevent="signIn(form)" autocomplete="off">
           <v-text-field label="Cédula" name="cedula" maxlength="10" mask="##########" v-model="form.cedula" :error-messages="errors.collect('cedula')" v-validate="'required|digits:10'" data-vv-as="Cédula"></v-text-field>
           <v-text-field label="Contraseña" name="contrasena" maxlength="15" v-model="form.contrasena" :error-messages="errors.collect('contrasena')" v-validate="'required|min:9'" data-vv-as="Contraseña" :append-icon="viewPassword ? 'visibility' : 'visibility_off'" :append-icon-cb="() => (viewPassword = !viewPassword)" :type="viewPassword ? 'text' : 'password'"></v-text-field>
           <v-flex class="text-xs-center">
@@ -70,14 +70,13 @@ export default {
     }
   },
   methods: {
-    async login ({ cedula, contrasena }) {
+    async signIn ({ cedula, contrasena }) {
       const validForm = await this.$validator.validateAll()
       if (validForm) {
         try {
           this.$store.commit('setLoading', true)
           this.dismissAlert()
-          const token = await this.$store.dispatch('signIn', { cedula, contrasena })
-          localStorage.setItem('token', token.data.signIn)
+          await this.$store.dispatch('signIn', { cedula, contrasena })
           this.$store.commit('setLoading', false)
           this.$router.push('perfil')
         } catch (error) {

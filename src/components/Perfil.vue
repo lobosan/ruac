@@ -150,13 +150,11 @@ export default {
   },
   async created () {
     this.initialLoading = true
-    const { data } = await this.$store.dispatch('loggedInUser')
-    const user = data.loggedInUser
-    this.$store.commit('setUser', user)
     await this.$store.dispatch('paises')
     await this.$store.dispatch('provincias')
+    const user = this.$store.state.user
     if (user.provinciaDomicilio) {
-      this.$store.dispatch('cantones', user.codigoProvinciaDomicilio)
+      await this.$store.dispatch('cantones', user.codigoProvinciaDomicilio)
     }
     this.form = { ...this.$store.state.user }
     this.initialLoading = false

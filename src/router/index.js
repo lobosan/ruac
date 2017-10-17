@@ -11,8 +11,8 @@ function route (name, path, view, beforeEnter) {
     name,
     path,
     meta: meta[path],
-    component: () => import(`../components/${view}`),
-    beforeEnter
+    beforeEnter,
+    component: () => import(`../components/${view}`)
   }
 }
 
@@ -32,21 +32,7 @@ export function createRouter () {
   })
 
   router.beforeEach(async (to, from, next) => {
-    store.commit('setAlert', { alertColor: null, alertIcon: null, alertMessage: null, alertDisplay: false })
-    const token = localStorage.getItem('token')
-    let menuItems = []
-    if (token) {
-      store.commit('setUserIsAuthenticated', true)
-      menuItems.push({ title: 'Mi Perfil', icon: 'account_circle', route: '/perfil' })
-    } else {
-      store.commit('setUserIsAuthenticated', false)
-      menuItems.push(
-        { title: 'Inicio de sesión', icon: 'face', route: '/inicio-sesion' },
-        { title: 'Registro de cuenta', icon: 'fingerprint', route: '/registro' }
-      )
-    }
     store.commit('setTitle', to.meta.title)
-    store.commit('setMenuItems', menuItems)
     next()
   })
 
