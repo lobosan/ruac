@@ -76,7 +76,10 @@ export default {
         try {
           this.$store.commit('setLoading', true)
           this.dismissAlert()
-          await this.$store.dispatch('signIn', { cedula, contrasena })
+          const { data: { signIn } } = await this.$store.dispatch('signIn', { cedula, contrasena })
+          const { token, refreshToken } = signIn
+          localStorage.setItem('token', token)
+          localStorage.setItem('refresh-token', refreshToken)
           this.$store.commit('setLoading', false)
           this.$router.push('perfil')
         } catch (error) {

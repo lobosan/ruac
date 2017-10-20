@@ -97,7 +97,10 @@ export default new Vuex.Store({
         variables: { cedula, contrasena },
         mutation: gql`
           mutation SignIn ($cedula: String!, $contrasena: String!) {
-            signIn (cedula: $cedula, contrasena: $contrasena)
+            signIn (cedula: $cedula, contrasena: $contrasena) {
+              token
+              refreshToken
+            }
           }`
       })
     },

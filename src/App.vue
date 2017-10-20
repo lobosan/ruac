@@ -65,8 +65,14 @@ export default {
       this.$router.push('/')
     },
     async logout () {
-      await this.$store.dispatch('logout')
-      this.$router.push('inicio-sesion')
+      try {
+        localStorage.removeItem('token')
+        localStorage.removeItem('refresh-token')
+        await this.$store.dispatch('logout')
+        this.$router.push('inicio-sesion')
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 }

@@ -1,7 +1,7 @@
 <template>
   <v-flex xs12 sm12 md11 lg11 xl10>
     <!-- Bienvenido al RUAC -->
-    <v-card class="mb-5">
+    <v-card class="mt-3 mb-5">
       <v-layout row wrap>
         <v-flex xs12 md6>
           <v-card-media :src="secciones[0].src" height="270">
