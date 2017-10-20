@@ -150,17 +150,17 @@ export default new Vuex.Store({
       commit('logout')
     },
     async paises ({ commit }) {
-      const { data } = await apolloClient.query({
+      const { data: { paises } } = await apolloClient.query({
         query: gql`{
           paises {
             pais
           }
         }`
       })
-      commit('setPaises', data.paises)
+      commit('setPaises', paises)
     },
     async provincias ({ commit }) {
-      const { data } = await apolloClient.query({
+      const { data: { provincias } } = await apolloClient.query({
         query: gql`{
           provincias {
             codigoProvincia
@@ -168,10 +168,10 @@ export default new Vuex.Store({
           }
         }`
       })
-      commit('setProvincias', data.provincias)
+      commit('setProvincias', provincias)
     },
     async cantones ({ commit }, codigoProvincia) {
-      const { data } = await apolloClient.query({
+      const { data: { cantones } } = await apolloClient.query({
         variables: { codigoProvincia },
         query: gql`
           query Cantones ($codigoProvincia: String!) {
@@ -181,7 +181,7 @@ export default new Vuex.Store({
             }
           }`
       })
-      commit('setCantones', data.cantones)
+      commit('setCantones', cantones)
     },
     async updateProfile (_, {
       cedula,
@@ -208,10 +208,16 @@ export default new Vuex.Store({
       facebook,
       twitter
     }) {
-      const provinciaDomicilio = provinciaDomicilioObj.provincia
-      const codigoProvinciaDomicilio = provinciaDomicilioObj.codigoProvincia
-      const cantonDomicilio = cantonDomicilioObj.canton
-      const codigoCantonDomicilio = cantonDomicilioObj.codigoCanton
+      let provinciaDomicilio = null
+      let codigoProvinciaDomicilio = null
+      let cantonDomicilio = null
+      let codigoCantonDomicilio = null
+      if (provinciaDomicilioObj && cantonDomicilioObj) {
+        provinciaDomicilio = provinciaDomicilioObj.provincia
+        codigoProvinciaDomicilio = provinciaDomicilioObj.codigoProvincia
+        cantonDomicilio = cantonDomicilioObj.canton
+        codigoCantonDomicilio = cantonDomicilioObj.codigoCanton
+      }
       return await apolloClient.mutate({
         variables: {
           cedula,

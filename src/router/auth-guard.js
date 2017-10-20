@@ -2,9 +2,8 @@ import store from '../store'
 
 export default async (to, from, next) => {
   try {
-    const { data } = await store.dispatch('loggedInUser')
-    const user = data.loggedInUser
-    store.commit('setUser', user)
+    const { data: { loggedInUser } } = await store.dispatch('loggedInUser')
+    store.commit('setUser', loggedInUser)
     store.commit('setMenuItems', [
       { title: 'Mi Perfil', icon: 'account_circle', route: '/perfil' }
     ])

@@ -59,8 +59,8 @@ export default {
         try {
           this.$store.commit('setLoading', true)
           this.dismissAlert()
-          const { data } = await this.$store.dispatch('dinardap', form)
-          const user = { ...form, ...data.dinardap }
+          const { data: { dinardap } } = await this.$store.dispatch('dinardap', form)
+          const user = { ...form, ...dinardap }
           await this.$store.dispatch('signUp', user)
           this.$store.commit('setLoading', false)
           this.$store.commit('setAlert', {
