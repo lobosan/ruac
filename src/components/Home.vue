@@ -117,12 +117,12 @@ export default {
     return {
       secciones: [
         {
-          src: '/static/website/home1.jpg',
+          src: '/static/images/home1.jpg',
           title: 'Bienvenido al RUAC',
           text: 'El Registro Único de Artistas y Gestores Culturales es la plataforma virtual que sirve para empoderar a los ecuatorianos cuya actividad económica u oficio se desarrolla en el campo de la cultura y las artes.'
         },
         {
-          src: '/static/website/home2.jpg',
+          src: '/static/images/home2.jpg',
           title: 'Beneficios',
           text: [
             'Permite incluir a los artistas y gestores culturales en el régimen de seguridad social.',
@@ -132,7 +132,7 @@ export default {
           ]
         },
         {
-          src: '/static/website/home3.jpg',
+          src: '/static/images/home3.jpg',
           title: 'Base Legal',
           text: 'La Ley Orgánica de Cultura establece que el Sistema Integral de Información Cultural (SIIC) recopilará, sintetizará, difundirá y pondrá en valor la información del ámbito cultural y patrimonial, generada por las entidades públicas, privadas o comunitarias, la comunidad artística y la ciudadanía en general.'
         }

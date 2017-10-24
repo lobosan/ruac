@@ -75,7 +75,7 @@ module.exports = {
     loaders: [
       {
         test: /\.styl$/,
-        loader: ['css-loader', 'stylus-loader'],
+        loader: ['css-loader', 'stylus-loader']
       }
     ]
   }
