@@ -63,7 +63,7 @@ app.use(hotMiddleware)
 var staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
 app.use(staticPath, express.static('./static'))
 
-var uri = 'http://172.17.6.74:' + port
+var uri = 'http://ruac2.culturaypatrimonio.gob.ec:' + port
 
 var _resolve
 var readyPromise = new Promise(resolve => {

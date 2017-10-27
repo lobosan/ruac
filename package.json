@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "apollo-client": "^1.9.3",
+    "lodash": "^4.17.4",
     "vue": "^2.5.2",
     "vue-router": "^2.8.1",
     "vue2-google-maps": "^0.8.4",

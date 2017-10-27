@@ -16,8 +16,7 @@ export default new Vuex.Store({
     user: null,
     userIsAuthenticated: false,
     paises: [],
-    provincias: [],
-    cantones: [],
+    dpa: [],
     loading: false,
     alertColor: null,
     alertIcon: null,
@@ -40,11 +39,8 @@ export default new Vuex.Store({
     setPaises (state, payload) {
       state.paises = payload
     },
-    setProvincias (state, payload) {
-      state.provincias = payload
-    },
-    setCantones (state, payload) {
-      state.cantones = payload
+    setDpa (state, payload) {
+      state.dpa = payload
     },
     setLoading (state, payload) {
       state.loading = payload
@@ -65,7 +61,7 @@ export default new Vuex.Store({
   },
   actions: {
     async dinardap (_, { cedula }) {
-      return await apolloClient.query({
+      return apolloClient.query({
         variables: { cedula },
         query: gql`
           query Dinardap ($cedula: String!) {
@@ -82,7 +78,7 @@ export default new Vuex.Store({
       })
     },
     async signUp (_, { cedula, contrasena, nombre, fechaNacimiento, lugarNacimiento, nacionalidad, sexo, estadoAfiliado, titulosSenescyt, email }) {
-      return await apolloClient.mutate({
+      return apolloClient.mutate({
         variables: { cedula, contrasena, nombre, fechaNacimiento, lugarNacimiento, nacionalidad, sexo, estadoAfiliado, titulosSenescyt, email },
         mutation: gql`
           mutation SignUp ($cedula: String!, $contrasena: String!, $nombre: String!, $fechaNacimiento: String!, $lugarNacimiento: String!, $nacionalidad: String!, $sexo: String!, $estadoAfiliado: String, $titulosSenescyt: [String]!, $email: String!) {
@@ -93,7 +89,7 @@ export default new Vuex.Store({
       })
     },
     async signIn (_, { cedula, contrasena }) {
-      return await apolloClient.mutate({
+      return apolloClient.mutate({
         variables: { cedula, contrasena },
         mutation: gql`
           mutation SignIn ($cedula: String!, $contrasena: String!) {
@@ -105,7 +101,7 @@ export default new Vuex.Store({
       })
     },
     async loggedInUser () {
-      return await apolloClient.query({
+      return apolloClient.query({
         fetchPolicy: 'network-only',
         query: gql`{
           loggedInUser {
@@ -160,31 +156,20 @@ export default new Vuex.Store({
           }
         }`
       })
-      commit('setPaises', paises)
+      commit('setPaises', paises.map(obj => obj.pais))
     },
-    async provincias ({ commit }) {
-      const { data: { provincias } } = await apolloClient.query({
+    async dpa ({ commit }) {
+      const { data: { dpa } } = await apolloClient.query({
         query: gql`{
-          provincias {
+          dpa {
             codigoProvincia
             provincia
+            codigoCanton
+            canton
           }
         }`
       })
-      commit('setProvincias', provincias)
-    },
-    async cantones ({ commit }, codigoProvincia) {
-      const { data: { cantones } } = await apolloClient.query({
-        variables: { codigoProvincia },
-        query: gql`
-          query Cantones ($codigoProvincia: String!) {
-            cantones (codigoProvincia: $codigoProvincia) {
-              codigoCanton
-              canton
-            }
-          }`
-      })
-      commit('setCantones', cantones)
+      commit('setDpa', dpa)
     },
     async updateProfile (_, {
       cedula,
@@ -221,7 +206,7 @@ export default new Vuex.Store({
         cantonDomicilio = cantonDomicilioObj.canton
         codigoCantonDomicilio = cantonDomicilioObj.codigoCanton
       }
-      return await apolloClient.mutate({
+      return apolloClient.mutate({
         variables: {
           cedula,
           tipoAfiliado,

@@ -20,6 +20,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   $_veeValidate: {
     validator: 'new'
@@ -35,23 +37,13 @@ export default {
       }
     }
   },
-  computed: {
-    loading () {
-      return this.$store.state.loading
-    },
-    alertColor () {
-      return this.$store.state.alertColor
-    },
-    alertIcon () {
-      return this.$store.state.alertIcon
-    },
-    alertMessage () {
-      return this.$store.state.alertMessage
-    },
-    alertDisplay () {
-      return this.$store.state.alertDisplay
-    }
-  },
+  computed: mapState([
+    'loading',
+    'alertColor',
+    'alertIcon',
+    'alertMessage',
+    'alertDisplay'
+  ]),
   methods: {
     async signUp (form) {
       const validForm = await this.$validator.validateAll()

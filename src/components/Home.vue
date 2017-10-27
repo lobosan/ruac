@@ -112,6 +112,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   data () {
     return {
@@ -201,10 +203,8 @@ export default {
       }
     }
   },
-  computed: {
-    userIsAuthenticated () {
-      return this.$store.state.userIsAuthenticated
-    }
-  }
+  computed: mapState([
+    'userIsAuthenticated'
+  ])
 }
 </script>

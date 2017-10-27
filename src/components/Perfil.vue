@@ -20,9 +20,9 @@
           <v-text-field label="Email de Contacto" v-model="form.email" name="email" :error-messages="errors.collect('email')" v-validate="'required|email'" data-vv-as="Email de Contacto"></v-text-field>
           <v-text-field label="Teléfono Fijo de Contacto" v-model="form.telefonoFijo" name="telefonoFijo" maxlength="20" :error-messages="errors.collect('telefonoFijo')" v-validate="{ regex: /^0[2-7]{1}\d{7}(\sext\s\d{3,6})?$/ }" data-vv-as="Teléfono Fijo de Contacto" hint="Ej. 022585623 ext 123456"></v-text-field>
           <v-text-field label="Teléfono Celular de Contacto" v-model="form.telefonoCelular" name="telefonoCelular" maxlength="10" mask="##########" :error-messages="errors.collect('telefonoCelular')" v-validate="{ regex: /^0[9]{1}\d{8}$/ }" hint="Ej. 0983507946" data-vv-as="Teléfono Celular de Contacto"></v-text-field>
-          <v-select label="País de Domicilio" v-model="form.paisDomicilio" :items="paises" @change="onChangePaisDomicilio($event)" autocomplete name="paisDomicilio" :error-messages="errors.collect('paisDomicilio')" v-validate="'required'" data-vv-as="País de Domicilio"></v-select>
-          <v-select v-show="showProvinciaCanton" label="Provincia de Domicilio" v-model="form.provinciaDomicilioObj" :items="provincias" item-text="provincia" item-value="codigoProvincia" return-object @change="onChangeProvincia($event.codigoProvincia)" autocomplete></v-select>
-          <v-select v-show="showProvinciaCanton" label="Cantón de Domicilio" v-model="form.cantonDomicilioObj" :items="cantones" item-text="canton" item-value="codigoCanton" return-object autocomplete></v-select>
+          <v-select label="País de Domicilio" v-model="form.paisDomicilio" :items="paises" @change="onChangePaisDomicilio" autocomplete name="paisDomicilio" :error-messages="errors.collect('paisDomicilio')" v-validate="'required'" data-vv-as="País de Domicilio"></v-select>
+          <v-select v-show="showProvinciaCanton" label="Provincia de Domicilio" v-model="form.provinciaDomicilioObj" :items="items.provincias" item-text="provincia" item-value="codigoProvincia" return-object @change="onChangeProvincia" autocomplete></v-select>
+          <v-select v-show="showProvinciaCanton" label="Cantón de Domicilio" v-model="form.cantonDomicilioObj" :items="items.cantones" item-text="canton" item-value="codigoCanton" return-object autocomplete></v-select>
           <v-flex class="text-xs-center">
             <v-btn outline color="primary" class="mt-2 mx-0" @click="step = 2">
               Continuar
@@ -92,6 +92,9 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+import _ from 'lodash'
+
 export default {
   $_veeValidate: {
     validator: 'new'
@@ -111,6 +114,8 @@ export default {
         message: null
       },
       items: {
+        provincias: [],
+        cantones: [],
         tipoAfiliado: [
           'Voluntario',
           'Dependiente'
@@ -151,14 +156,17 @@ export default {
   async created () {
     this.initialLoading = true
     await this.$store.dispatch('paises')
-    await this.$store.dispatch('provincias')
-    const user = this.$store.state.user
-    if (user.provinciaDomicilio) {
-      await this.$store.dispatch('cantones', user.codigoProvinciaDomicilio)
+    await this.$store.dispatch('dpa')
+    this.items.provincias = _.uniqBy(this.$store.state.dpa, 'codigoProvincia')
+    this.items.cantones = _.uniqBy(this.$store.state.dpa, 'codigoCanton')
+    // console.log(this.form)
+    this.form = {
+      ...this.$store.state.user,
+      provinciaDomicilioObj: null,
+      cantonDomicilioObj: null
     }
-    this.form = { ...this.$store.state.user }
-    this.initialLoading = false
-    if (this.form.paisDomicilio === 'Ecuador') {
+    // console.log(this.form)
+    if (this.$store.state.user.paisDomicilio === 'Ecuador') {
       this.showProvinciaCanton = true
       this.form.provinciaDomicilioObj = {
         codigoProvincia: this.form.codigoProvinciaDomicilio,
@@ -169,33 +177,26 @@ export default {
         canton: this.form.cantonDomicilio
       }
     }
+    // console.log(this.form)
+    this.initialLoading = false
   },
-  computed: {
-    loading () {
-      return this.$store.state.loading
-    },
-    paises () {
-      return this.$store.state.paises.map(obj => obj.pais)
-    },
-    provincias () {
-      return this.$store.state.provincias
-    },
-    cantones () {
-      return this.$store.state.cantones
-    }
-  },
+  computed: mapState([
+    'loading',
+    'paises',
+    'dpa'
+  ]),
   methods: {
     onChangePaisDomicilio (pais) {
       if (pais) {
+        this.showProvinciaCanton = pais === 'Ecuador'
         this.form.provinciaDomicilioObj = null
         this.form.cantonDomicilioObj = null
-        this.showProvinciaCanton = pais === 'Ecuador'
       }
     },
-    onChangeProvincia (codigoProvincia) {
-      this.form.cantonDomicilioObj = null
+    onChangeProvincia ({codigoProvincia}) {
       if (codigoProvincia) {
-        this.$store.dispatch('cantones', codigoProvincia)
+        this.form.cantonDomicilioObj = null
+        this.items.cantones = _.filter(_.uniqBy(this.$store.state.dpa, 'codigoCanton'), ['codigoProvincia', codigoProvincia])
       }
     },
     async validateForm () {

@@ -18,4 +18,10 @@ yarn build
 yarn build --report
 ```
 
+## Allow Node to use privileged ports
+
+``` bash
+sudo setcap 'cap_net_bind_service=+ep' $(which node)
+```
+
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
