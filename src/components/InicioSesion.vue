@@ -15,7 +15,7 @@
       </v-card-text>
     </v-card>
     <v-flex class="pt-2 text-xs-center">
-      <v-btn flat small class="grey--text text--darken-2">Recuperar contraseña</v-btn>
+      <v-btn to="/solicitar-cambio-contrasena" flat small class="grey--text text--darken-2">Recuperar Contraseña</v-btn>
     </v-flex>
   </v-flex>
 </template>
@@ -57,6 +57,15 @@ export default {
         alertColor: 'error',
         alertIcon: 'warning',
         alertMessage: 'Hubo un error al validar su email. Por favor envie un correo explicando su problema a ruac@culturaypatrimonio.gob.ec',
+        alertDisplay: true
+      })
+    }
+    const contrasenaValida = this.$route.query.contrasenaValida
+    if (contrasenaValida === 'true') {
+      this.$store.commit('setAlert', {
+        alertColor: 'success',
+        alertIcon: 'check_circle',
+        alertMessage: 'Su contraseña ha sido actualizada exitosamente. Ya puede iniciar sesión.',
         alertDisplay: true
       })
     }

@@ -17,6 +17,18 @@
     "description": "Registre su cuenta en el RUAC",
     "keywords": "registro cuenta, ruac, mcyp"
   },
+  "/solicitar-cambio-contrasena": {
+    "h1": "Solicitar Cambio de Contraseña",
+    "title": "Solicitar Cambio de Contraseña",
+    "description": "Solicite un cambio de contraseña de su cuenta del RUAC",
+    "keywords": "cambio contraseña cuenta, ruac, mcyp"
+  },
+  "/cambiar-contrasena": {
+    "h1": "Cambiar Contraseña",
+    "title": "Cambiar Contraseña",
+    "description": "Cambie la contraseña de su cuenta del RUAC",
+    "keywords": "cambio contraseña cuenta, ruac, mcyp"
+  },
   "/perfil": {
     "h1": "Perfil",
     "title": "Mi Perfil",

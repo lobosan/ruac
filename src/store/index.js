@@ -82,9 +82,7 @@ export default new Vuex.Store({
         variables: { cedula, contrasena, nombre, fechaNacimiento, lugarNacimiento, nacionalidad, sexo, estadoAfiliado, titulosSenescyt, email },
         mutation: gql`
           mutation SignUp ($cedula: String!, $contrasena: String!, $nombre: String!, $fechaNacimiento: String!, $lugarNacimiento: String!, $nacionalidad: String!, $sexo: String!, $estadoAfiliado: String, $titulosSenescyt: [String]!, $email: String!) {
-            signUp (cedula: $cedula, contrasena: $contrasena, nombre: $nombre, fechaNacimiento: $fechaNacimiento, lugarNacimiento: $lugarNacimiento, nacionalidad: $nacionalidad, sexo: $sexo, estadoAfiliado: $estadoAfiliado, titulosSenescyt: $titulosSenescyt, email: $email) {
-              cedula
-            }
+            signUp (cedula: $cedula, contrasena: $contrasena, nombre: $nombre, fechaNacimiento: $fechaNacimiento, lugarNacimiento: $lugarNacimiento, nacionalidad: $nacionalidad, sexo: $sexo, estadoAfiliado: $estadoAfiliado, titulosSenescyt: $titulosSenescyt, email: $email)
           }`
       })
     },
@@ -97,6 +95,24 @@ export default new Vuex.Store({
               token
               refreshToken
             }
+          }`
+      })
+    },
+    async requestPasswordChange (_, { cedula, email }) {
+      return apolloClient.mutate({
+        variables: { cedula, email },
+        mutation: gql`
+          mutation RequestPasswordChange ($cedula: String!, $email: String!) {
+            requestPasswordChange (cedula: $cedula, email: $email)
+          }`
+      })
+    },
+    async updatePassword (_, { token, contrasena }) {
+      return apolloClient.mutate({
+        variables: { token, contrasena },
+        mutation: gql`
+          mutation UpdatePassword ($token: String!, $contrasena: String!) {
+            updatePassword (token: $token, contrasena: $contrasena)
           }`
       })
     },

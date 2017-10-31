@@ -26,6 +26,8 @@ export function createRouter () {
       route('home', '/', 'Home'),
       route('inicioSesion', '/inicio-sesion', 'InicioSesion'),
       route('registro', '/registro', 'Registro'),
+      route('solitarCambioContrasena', '/solicitar-cambio-contrasena', 'SolicitarCambioContrasena'),
+      route('cambiarContrasena', '/cambiar-contrasena', 'CambiarContrasena'),
       route('perfil', '/perfil', 'Perfil', AuthGuard),
       { path: '*', redirect: '/' }
     ]
