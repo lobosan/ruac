@@ -45,11 +45,23 @@ export default new Vuex.Store({
     setLoading (state, payload) {
       state.loading = payload
     },
-    setAlert (state, { alertColor, alertIcon, alertMessage, alertDisplay }) {
-      state.alertColor = alertColor
-      state.alertIcon = alertIcon
+    setSuccessAlert (state, alertMessage) {
+      state.alertColor = 'success'
+      state.alertIcon = 'check_circle'
       state.alertMessage = alertMessage
-      state.alertDisplay = alertDisplay
+      state.alertDisplay = true
+    },
+    setErrorAlert (state, alertMessage) {
+      state.alertColor = 'error'
+      state.alertIcon = 'warning'
+      state.alertMessage = alertMessage
+      state.alertDisplay = true
+    },
+    dismissAlert (state) {
+      state.alertColor = null
+      state.alertIcon = null
+      state.alertMessage = null
+      state.alertDisplay = false
     },
     logout (state) {
       state.menuItems = [

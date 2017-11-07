@@ -46,28 +46,13 @@ export default {
   mounted () {
     const validEmail = this.$route.query.verificado
     if (validEmail === 'true') {
-      this.$store.commit('setAlert', {
-        alertColor: 'success',
-        alertIcon: 'check_circle',
-        alertMessage: 'Su email ha sido verificado exitosamente. Ya puede iniciar sesión.',
-        alertDisplay: true
-      })
+      this.$store.commit('setSuccessAlert', 'Su email ha sido verificado exitosamente. Ya puede iniciar sesión.')
     } else if (validEmail === 'false') {
-      this.$store.commit('setAlert', {
-        alertColor: 'error',
-        alertIcon: 'warning',
-        alertMessage: 'Hubo un error al validar su email. Por favor envie un correo explicando su problema a ruac@culturaypatrimonio.gob.ec',
-        alertDisplay: true
-      })
+      this.$store.commit('setErrorAlert', 'Hubo un error al validar su email. Por favor envie un correo explicando su problema a ruac@culturaypatrimonio.gob.ec')
     }
     const contrasenaValida = this.$route.query.contrasenaValida
     if (contrasenaValida === 'true') {
-      this.$store.commit('setAlert', {
-        alertColor: 'success',
-        alertIcon: 'check_circle',
-        alertMessage: 'Su contraseña ha sido actualizada exitosamente. Ya puede iniciar sesión.',
-        alertDisplay: true
-      })
+      this.$store.commit('setSuccessAlert', 'Su contraseña ha sido actualizada exitosamente. Ya puede iniciar sesión.')
     }
   },
   methods: {
@@ -76,7 +61,7 @@ export default {
       if (validForm) {
         try {
           this.$store.commit('setLoading', true)
-          this.dismissAlert()
+          this.$store.commit('dismissAlert')
           const { data: { signIn } } = await this.$store.dispatch('signIn', { cedula, contrasena })
           const { token, refreshToken } = signIn
           localStorage.setItem('token', token)
@@ -85,17 +70,12 @@ export default {
           this.$router.push('perfil')
         } catch (error) {
           this.$store.commit('setLoading', false)
-          this.$store.commit('setAlert', {
-            alertColor: 'error',
-            alertIcon: 'warning',
-            alertMessage: JSON.parse(JSON.stringify(error)).graphQLErrors[0].message,
-            alertDisplay: true
-          })
+          this.$store.commit('setErrorAlert', JSON.parse(JSON.stringify(error)).graphQLErrors[0].message)
         }
       }
     },
     dismissAlert () {
-      this.$store.commit('setAlert', { alertColor: null, alertIcon: null, alertMessage: null, alertDisplay: false })
+      this.$store.commit('dismissAlert')
     }
   }
 }

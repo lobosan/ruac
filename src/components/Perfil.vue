@@ -65,7 +65,7 @@
         </v-stepper-content>
       </v-stepper>
     </form>
-    <v-tooltip top>
+    <v-tooltip left>
       <v-btn large fixed dark fab bottom right color="accent" slot="activator" @click="validateForm">
         <v-icon>save</v-icon>
       </v-btn>
@@ -159,13 +159,11 @@ export default {
     await this.$store.dispatch('dpa')
     this.items.provincias = _.uniqBy(this.$store.state.dpa, 'codigoProvincia')
     this.items.cantones = _.uniqBy(this.$store.state.dpa, 'codigoCanton')
-    // console.log(this.form)
     this.form = {
       ...this.$store.state.user,
       provinciaDomicilioObj: null,
       cantonDomicilioObj: null
     }
-    // console.log(this.form)
     if (this.$store.state.user.paisDomicilio === 'Ecuador') {
       this.showProvinciaCanton = true
       this.form.provinciaDomicilioObj = {
@@ -177,7 +175,6 @@ export default {
         canton: this.form.cantonDomicilio
       }
     }
-    // console.log(this.form)
     this.initialLoading = false
   },
   computed: mapState([
@@ -239,7 +236,6 @@ export default {
           timeout: 5000,
           message: 'Error al guardar datos. Por favor, inténtelo más tarde.'
         }
-        console.log(JSON.parse(JSON.stringify(error)).message)
       }
     }
   }

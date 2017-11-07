@@ -44,19 +44,9 @@ export default {
   mounted () {
     this.token = this.$route.query.token
     if (this.token) {
-      this.$store.commit('setAlert', {
-        alertColor: 'success',
-        alertIcon: 'check_circle',
-        alertMessage: 'Su solicitud ha sido verificada exitosamente. Por favor ingrese su nueva contraseña y confírmela.',
-        alertDisplay: true
-      })
+      this.$store.commit('setSuccessAlert', 'Su solicitud ha sido verificada exitosamente. Por favor ingrese su nueva contraseña y confírmela.')
     } else {
-      this.$store.commit('setAlert', {
-        alertColor: 'error',
-        alertIcon: 'warning',
-        alertMessage: 'Hubo un error al validar su solicitud. En caso de requerir asistencia contáctenos.',
-        alertDisplay: true
-      })
+      this.$store.commit('setErrorAlert', 'Hubo un error al validar su solicitud. En caso de requerir asistencia contáctenos.')
     }
   },
   methods: {
@@ -65,7 +55,7 @@ export default {
         const validForm = await this.$validator.validateAll()
         if (validForm) {
           this.$store.commit('setLoading', true)
-          this.dismissAlert()
+          this.$store.commit('dismissAlert')
           const token = this.token
           await this.$store.dispatch('updatePassword', { token, contrasena })
           this.$store.commit('setLoading', false)
@@ -73,16 +63,11 @@ export default {
         }
       } catch (error) {
         this.$store.commit('setLoading', false)
-        this.$store.commit('setAlert', {
-          alertColor: 'error',
-          alertIcon: 'warning',
-          alertMessage: JSON.parse(JSON.stringify(error)).graphQLErrors[0].message,
-          alertDisplay: true
-        })
+        this.$store.commit('setErrorAlert', JSON.parse(JSON.stringify(error)).graphQLErrors[0].message)
       }
     },
     dismissAlert () {
-      this.$store.commit('setAlert', { alertColor: null, alertIcon: null, alertMessage: null, alertDisplay: false })
+      this.$store.commit('dismissAlert')
     }
   }
 }

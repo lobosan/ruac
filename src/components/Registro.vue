@@ -50,30 +50,20 @@ export default {
       if (validForm) {
         try {
           this.$store.commit('setLoading', true)
-          this.dismissAlert()
+          this.$store.commit('dismissAlert')
           const { data: { dinardap } } = await this.$store.dispatch('dinardap', form)
           const user = { ...form, ...dinardap }
           await this.$store.dispatch('signUp', user)
           this.$store.commit('setLoading', false)
-          this.$store.commit('setAlert', {
-            alertColor: 'success',
-            alertIcon: 'check_circle',
-            alertMessage: 'Hemos enviado un correo para confirmar su registro. Por favor revise su bandeja de entrada y siga las instrucciones.',
-            alertDisplay: true
-          })
+          this.$store.commit('setSuccessAlert', 'Hemos enviado un correo para confirmar su registro. Por favor revise su bandeja de entrada y siga las instrucciones.')
         } catch (error) {
           this.$store.commit('setLoading', false)
-          this.$store.commit('setAlert', {
-            alertColor: 'error',
-            alertIcon: 'warning',
-            alertMessage: JSON.parse(JSON.stringify(error)).graphQLErrors[0].message,
-            alertDisplay: true
-          })
+          this.$store.commit('setErrorAlert', JSON.parse(JSON.stringify(error)).graphQLErrors[0].message)
         }
       }
     },
     dismissAlert () {
-      this.$store.commit('setAlert', { alertColor: null, alertIcon: null, alertMessage: null, alertDisplay: false })
+      this.$store.commit('dismissAlert')
     }
   }
 }

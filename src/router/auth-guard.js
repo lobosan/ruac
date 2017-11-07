@@ -10,12 +10,7 @@ export default async (to, from, next) => {
     store.commit('setUserIsAuthenticated', true)
     next()
   } catch (error) {
-    store.commit('setAlert', {
-      alertColor: 'error',
-      alertIcon: 'warning',
-      alertMessage: JSON.parse(JSON.stringify(error)).graphQLErrors[0].message,
-      alertDisplay: true
-    })
+    store.commit('setErrorAlert', JSON.parse(JSON.stringify(error)).graphQLErrors[0].message)
     next('/inicio-sesion')
   }
 }
