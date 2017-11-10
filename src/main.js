@@ -6,7 +6,7 @@ import es from 'vee-validate/dist/locale/es'
 
 import './stylus/main.styl'
 import App from './App'
-import Alert from './components/shared/Alert'
+import Dialog from './components/shared/Dialog'
 import store from './store'
 import { createRouter } from './router'
 
@@ -40,7 +40,7 @@ Vue.use(VueGoogleMaps, {
   }
 })
 
-Vue.component('app-alert', Alert)
+Vue.component('app-dialog', Dialog)
 
 Vue.config.productionTip = false
 

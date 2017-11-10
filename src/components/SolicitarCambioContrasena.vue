@@ -1,7 +1,7 @@
 <template>
   <v-flex xs12 sm7 md5 lg4 xl3>
     <v-card class="pa-3">
-      <app-alert :alertColor="alertColor" :alertIcon="alertIcon" :alertMessage="alertMessage" :alertDisplay="alertDisplay" @dismissed="dismissAlert"></app-alert>
+      <app-dialog :dialogDisplay="dialogDisplay" :dialogColor="dialogColor" :dialogIcon="dialogIcon" :dialogTitle="dialogTitle" :dialogText="dialogText"></app-dialog>
       <v-card-text>
         <form method="post" @submit.prevent="requestPasswordChange(form)" autocomplete="off">
           <v-text-field label="Cédula" name="cedula" maxlength="10" mask="##########" v-model="form.cedula" :error-messages="errors.collect('cedula')" v-validate="'required|digits:10'" data-vv-as="Cédula"></v-text-field>
@@ -34,10 +34,11 @@ export default {
   },
   computed: mapState([
     'loading',
-    'alertColor',
-    'alertIcon',
-    'alertMessage',
-    'alertDisplay'
+    'dialogDisplay',
+    'dialogColor',
+    'dialogIcon',
+    'dialogTitle',
+    'dialogText'
   ]),
   methods: {
     async requestPasswordChange ({ cedula, email }) {
@@ -45,18 +46,14 @@ export default {
       if (validForm) {
         try {
           this.$store.commit('setLoading', true)
-          this.$store.commit('dismissAlert')
           await this.$store.dispatch('requestPasswordChange', { cedula, email })
           this.$store.commit('setLoading', false)
-          this.$store.commit('setSuccessAlert', 'Hemos enviado un correo para confirmar su solicitud. Por favor revise su bandeja de entrada y siga las instrucciones.')
+          this.$store.commit('setSuccessDialog', 'Hemos enviado un correo para confirmar su solicitud. Por favor revise su bandeja de entrada y siga las instrucciones.')
         } catch (error) {
           this.$store.commit('setLoading', false)
-          this.$store.commit('setErrorAlert', JSON.parse(JSON.stringify(error)).graphQLErrors[0].message)
+          this.$store.commit('setErrorDialog', JSON.parse(JSON.stringify(error)).graphQLErrors[0].message)
         }
       }
-    },
-    dismissAlert () {
-      this.$store.commit('dismissAlert')
     }
   }
 }

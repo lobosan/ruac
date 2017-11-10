@@ -18,10 +18,11 @@ export default new Vuex.Store({
     paises: [],
     dpa: [],
     loading: false,
-    alertColor: null,
-    alertIcon: null,
-    alertMessage: null,
-    alertDisplay: false
+    dialogDisplay: false,
+    dialogColor: null,
+    dialogIcon: null,
+    dialogTitle: null,
+    dialogText: null
   },
   mutations: {
     setTitle (state, payload) {
@@ -45,23 +46,22 @@ export default new Vuex.Store({
     setLoading (state, payload) {
       state.loading = payload
     },
-    setSuccessAlert (state, alertMessage) {
-      state.alertColor = 'success'
-      state.alertIcon = 'check_circle'
-      state.alertMessage = alertMessage
-      state.alertDisplay = true
+    setSuccessDialog (state, dialogText) {
+      state.dialogColor = 'success'
+      state.dialogIcon = 'check_circle'
+      state.dialogTitle = 'Éxito'
+      state.dialogText = dialogText
+      state.dialogDisplay = true
     },
-    setErrorAlert (state, alertMessage) {
-      state.alertColor = 'error'
-      state.alertIcon = 'warning'
-      state.alertMessage = alertMessage
-      state.alertDisplay = true
+    setErrorDialog (state, dialogText) {
+      state.dialogColor = 'error'
+      state.dialogIcon = 'error'
+      state.dialogTitle = 'Error'
+      state.dialogText = dialogText
+      state.dialogDisplay = true
     },
-    dismissAlert (state) {
-      state.alertColor = null
-      state.alertIcon = null
-      state.alertMessage = null
-      state.alertDisplay = false
+    resetDialog (state) {
+      state.dialogDisplay = false
     },
     logout (state) {
       state.menuItems = [

@@ -1,7 +1,7 @@
 <template>
   <v-flex xs12 sm7 md5 lg4 xl3>
     <v-card class="pa-3">
-      <app-alert :alertColor="alertColor" :alertIcon="alertIcon" :alertMessage="alertMessage" :alertDisplay="alertDisplay" @dismissed="dismissAlert"></app-alert>
+      <app-dialog :dialogDisplay="dialogDisplay" :dialogColor="dialogColor" :dialogIcon="dialogIcon" :dialogTitle="dialogTitle" :dialogText="dialogText"></app-dialog>
       <v-card-text>
         <form method="post" @submit.prevent="signIn(form)" autocomplete="off">
           <v-text-field label="Cédula" name="cedula" maxlength="10" mask="##########" v-model="form.cedula" :error-messages="errors.collect('cedula')" v-validate="'required|digits:10'" data-vv-as="Cédula"></v-text-field>
@@ -38,21 +38,22 @@ export default {
   },
   computed: mapState([
     'loading',
-    'alertColor',
-    'alertIcon',
-    'alertMessage',
-    'alertDisplay'
+    'dialogDisplay',
+    'dialogColor',
+    'dialogIcon',
+    'dialogTitle',
+    'dialogText'
   ]),
   mounted () {
     const validEmail = this.$route.query.verificado
     if (validEmail === 'true') {
-      this.$store.commit('setSuccessAlert', 'Su email ha sido verificado exitosamente. Ya puede iniciar sesión.')
+      this.$store.commit('setSuccessDialog', 'Su email ha sido verificado correctamente. Ya puede iniciar sesión.')
     } else if (validEmail === 'false') {
-      this.$store.commit('setErrorAlert', 'Hubo un error al validar su email. Por favor envie un correo explicando su problema a ruac@culturaypatrimonio.gob.ec')
+      this.$store.commit('setErrorDialog', 'Hubo un error al validar su email. Por favor envie un correo explicando su problema a ruac@culturaypatrimonio.gob.ec')
     }
     const contrasenaValida = this.$route.query.contrasenaValida
     if (contrasenaValida === 'true') {
-      this.$store.commit('setSuccessAlert', 'Su contraseña ha sido actualizada exitosamente. Ya puede iniciar sesión.')
+      this.$store.commit('setSuccessDialog', 'Su contraseña ha sido actualizada correctamente. Ya puede iniciar sesión.')
     }
   },
   methods: {
@@ -61,7 +62,6 @@ export default {
       if (validForm) {
         try {
           this.$store.commit('setLoading', true)
-          this.$store.commit('dismissAlert')
           const { data: { signIn } } = await this.$store.dispatch('signIn', { cedula, contrasena })
           const { token, refreshToken } = signIn
           localStorage.setItem('token', token)
@@ -70,12 +70,9 @@ export default {
           this.$router.push('perfil')
         } catch (error) {
           this.$store.commit('setLoading', false)
-          this.$store.commit('setErrorAlert', JSON.parse(JSON.stringify(error)).graphQLErrors[0].message)
+          this.$store.commit('setErrorDialog', JSON.parse(JSON.stringify(error)).graphQLErrors[0].message)
         }
       }
-    },
-    dismissAlert () {
-      this.$store.commit('dismissAlert')
     }
   }
 }

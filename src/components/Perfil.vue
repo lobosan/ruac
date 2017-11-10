@@ -2,6 +2,7 @@
   <v-progress-circular v-if="initialLoading" size="70" indeterminate color="primary">
   </v-progress-circular>
   <v-flex v-else xs12 sm11 md11 lg10 xl10>
+    <app-dialog :dialogDisplay="dialogDisplay" :dialogColor="dialogColor" :dialogIcon="dialogIcon" :dialogTitle="dialogTitle" :dialogText="dialogText"></app-dialog>
     <form method="post" autocomplete="off">
       <v-stepper v-model="step" vertical class="mb-4">
         <v-stepper-step step="1" editable :complete="step > 1">
@@ -84,10 +85,6 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <v-snackbar :color="snackbar.color" top :timeout="snackbar.timeout" v-model="snackbar.display">
-      <v-icon class="mr-3">{{ snackbar.icon }}</v-icon>
-      {{ snackbar.message }}
-    </v-snackbar>
   </v-flex>
 </template>
 
@@ -106,13 +103,6 @@ export default {
       step: 1,
       showProvinciaCanton: false,
       dialog: false,
-      snackbar: {
-        display: false,
-        color: null,
-        icon: null,
-        timeout: null,
-        message: null
-      },
       items: {
         provincias: [],
         cantones: [],
@@ -180,7 +170,12 @@ export default {
   computed: mapState([
     'loading',
     'paises',
-    'dpa'
+    'dpa',
+    'dialogDisplay',
+    'dialogColor',
+    'dialogIcon',
+    'dialogTitle',
+    'dialogText'
   ]),
   methods: {
     onChangePaisDomicilio (pais) {
@@ -202,13 +197,7 @@ export default {
         this.dialog = true
       } else {
         this.dialog = false
-        this.snackbar = {
-          display: true,
-          color: 'error',
-          icon: 'warning',
-          timeout: 5000,
-          message: 'Error al guardar sus datos, por favor corríjalos.'
-        }
+        this.$store.commit('setErrorDialog', 'Existen problemas con sus datos, por favor corríjalos.')
       }
       return validForm
     },
@@ -219,23 +208,11 @@ export default {
         this.$store.commit('setUser', form)
         this.$store.commit('setLoading', false)
         this.dialog = false
-        this.snackbar = {
-          display: true,
-          color: 'success',
-          icon: 'check_circle',
-          timeout: 3000,
-          message: 'Datos Guardados Exitosamente.'
-        }
+        this.$store.commit('setSuccessDialog', 'Su perfil ha sido actualizado correctamente.')
       } catch (error) {
         this.$store.commit('setLoading', false)
         this.dialog = false
-        this.snackbar = {
-          display: true,
-          color: 'error',
-          icon: 'warning',
-          timeout: 5000,
-          message: 'Error al guardar datos. Por favor, inténtelo más tarde.'
-        }
+        this.$store.commit('setErrorDialog', 'Lo sentimos, hubo un error al guardar sus datos. Por favor, inténtelo más tarde.')
       }
     }
   }
