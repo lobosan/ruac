@@ -1,16 +1,17 @@
 <template>
-  <v-dialog :value="dialogDisplay" persistent>
-      <v-card class="px-2 pt-2 pb-3">
+  <v-dialog :value="dialogDisplay" max-width="330" persistent>
+      <v-card class="px-2 pt-3 pb-4">
         <v-card-title :class="['headline', `${dialogColor}--text`]">
-          <v-icon :color="dialogColor" class="mr-2">{{ dialogIcon }}</v-icon>
-          {{ dialogTitle }}
+          <v-flex class="text-xs-center">
+            {{ dialogTitle }}
+          </v-flex>
         </v-card-title>
-        <v-card-text class="text-xs-center">
+        <v-card-text class="pt-2 text-xs-center">
           {{ dialogText }}
         </v-card-text>
         <v-card-actions>
-          <v-flex class="text-xs-center">
-            <v-btn class="mt-2" @click="resetDialog">Ok</v-btn>
+          <v-flex class="ma-1 text-xs-center">
+            <v-btn @click="resetDialog">Ok</v-btn>
           </v-flex>
         </v-card-actions>
       </v-card>
@@ -19,7 +20,7 @@
 
 <script>
 export default {
-  props: ['dialogDisplay', 'dialogColor', 'dialogIcon', 'dialogTitle', 'dialogText'],
+  props: ['dialogDisplay', 'dialogColor', 'dialogTitle', 'dialogText'],
   methods: {
     resetDialog () {
       this.$store.commit('resetDialog')

@@ -4,13 +4,22 @@ import * as VueGoogleMaps from 'vue2-google-maps'
 import VeeValidate, { Validator } from 'vee-validate'
 import es from 'vee-validate/dist/locale/es'
 
-import './stylus/main.styl'
+import 'vuetify/dist/vuetify.css'
+import './styles/global.css'
 import App from './App'
 import Dialog from './components/shared/Dialog'
 import store from './store'
 import { createRouter } from './router'
 
-Vue.use(Vuetify)
+Vue.use(Vuetify, { theme: {
+  primary: '#673AB7',
+  secondary: '#7C4DFF',
+  accent: '#DA8722',
+  error: '#F44336',
+  info: '#009688',
+  success: '#4CAF50',
+  warning: '#FFA000'
+}})
 
 Validator.addLocale(es)
 

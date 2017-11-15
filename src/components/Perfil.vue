@@ -2,22 +2,23 @@
   <v-progress-circular v-if="initialLoading" size="70" indeterminate color="primary">
   </v-progress-circular>
   <v-flex v-else xs12 sm11 md11 lg10 xl10>
-    <app-dialog :dialogDisplay="dialogDisplay" :dialogColor="dialogColor" :dialogIcon="dialogIcon" :dialogTitle="dialogTitle" :dialogText="dialogText"></app-dialog>
+    <app-dialog :dialogDisplay="dialogDisplay" :dialogColor="dialogColor" :dialogTitle="dialogTitle" :dialogText="dialogText"></app-dialog>
     <form method="post" autocomplete="off">
       <v-stepper v-model="step" vertical class="mb-4">
+        <p class="px-4 pt-4 text-xs-center title primary--text">{{ form.nombre }}</p>
+        <p class="px-4 text-xs-center subheading error--text">Validación Pendiente</p>
         <v-stepper-step step="1" editable :complete="step > 1">
           <span class="subheading">DATOS GENERALES</span>
         </v-stepper-step>
         <!-- Datos Generales -->
         <v-stepper-content step="1">
           <v-text-field label="Número de Cédula" v-model="form.cedula" disabled></v-text-field>
-          <v-text-field label="Nombre Completo" v-model="form.nombre" disabled></v-text-field>
-          <v-text-field label="Fecha de Nacimiento" v-model="form.fechaNacimiento" disabled></v-text-field>
-          <v-text-field label="Lugar de Nacimiento" v-model="form.lugarNacimiento" disabled></v-text-field>
           <v-text-field label="Nacionalidad" v-model="form.nacionalidad" disabled></v-text-field>
+          <v-text-field label="Lugar de Nacimiento" v-model="form.lugarNacimiento" disabled></v-text-field>
+          <v-text-field label="Fecha de Nacimiento" v-model="form.fechaNacimiento" disabled></v-text-field>
+          <v-select label="Títulos Registrados en la SENESCYT" v-model="form.titulosSenescyt" chips tags readonly disabled></v-select>
           <v-text-field label="Estado de Afiliación al IESS" v-model="form.estadoAfiliado" disabled></v-text-field>
           <v-select label="Tipo de Afiliación al IESS" v-model="form.tipoAfiliado" :items="items.tipoAfiliado" autocomplete name="tipoAfiliado" :error-messages="errors.collect('tipoAfiliado')" v-validate="'required'" data-vv-as="Tipo de Afiliación al IESS"></v-select>
-          <v-select label="Títulos Registrados en la SENESCYT" v-model="form.titulosSenescyt" chips tags readonly disabled></v-select>
           <v-text-field label="Email de Contacto" v-model="form.email" name="email" :error-messages="errors.collect('email')" v-validate="'required|email'" data-vv-as="Email de Contacto"></v-text-field>
           <v-text-field label="Teléfono Fijo de Contacto" v-model="form.telefonoFijo" name="telefonoFijo" maxlength="20" :error-messages="errors.collect('telefonoFijo')" v-validate="{ regex: /^0[2-7]{1}\d{7}(\sext\s\d{3,6})?$/ }" data-vv-as="Teléfono Fijo de Contacto" hint="Ej. 022585623 ext 123456"></v-text-field>
           <v-text-field label="Teléfono Celular de Contacto" v-model="form.telefonoCelular" name="telefonoCelular" maxlength="10" mask="##########" :error-messages="errors.collect('telefonoCelular')" v-validate="{ regex: /^0[9]{1}\d{8}$/ }" hint="Ej. 0983507946" data-vv-as="Teléfono Celular de Contacto"></v-text-field>
@@ -72,16 +73,21 @@
       </v-btn>
       <span>Guardar Perfil</span>
     </v-tooltip>
-    <v-dialog v-model="dialog">
-      <v-card class="pa-3">
-        <v-card-title class="headline">Guardar Perfil</v-card-title>
-        <v-card-text>
+    <v-dialog v-model="dialog" max-width="330">
+      <v-card class="px-2 pt-3 pb-4">
+        <v-card-title class="headline">
+          <v-flex class="text-xs-center">
+            Guardar Perfil
+          </v-flex>
+        </v-card-title>
+        <v-card-text class="pt-2 text-xs-center">
           Declaro que son ciertos, reales y verificables todos los datos consignados, haciéndome responsable de cualquier omisión o falsedad en la información solicitada.
         </v-card-text>
         <v-card-actions>
-          <v-btn :disabled="loading" @click="dialog = false">No</v-btn>
-          <v-spacer></v-spacer>
-          <v-btn dark color="accent" :disabled="loading" :loading="loading" @click="updateProfile(form)">Sí</v-btn>
+          <v-flex class="ma-1 text-xs-center">
+            <v-btn class="mr-4" :disabled="loading" @click="dialog = false">No</v-btn>
+            <v-btn dark color="accent" :disabled="loading" :loading="loading" @click="updateProfile(form)">Sí</v-btn>
+          </v-flex>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -173,7 +179,6 @@ export default {
     'dpa',
     'dialogDisplay',
     'dialogColor',
-    'dialogIcon',
     'dialogTitle',
     'dialogText'
   ]),

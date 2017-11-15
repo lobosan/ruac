@@ -20,7 +20,6 @@ export default new Vuex.Store({
     loading: false,
     dialogDisplay: false,
     dialogColor: null,
-    dialogIcon: null,
     dialogTitle: null,
     dialogText: null
   },
@@ -48,14 +47,12 @@ export default new Vuex.Store({
     },
     setSuccessDialog (state, dialogText) {
       state.dialogColor = 'success'
-      state.dialogIcon = 'check_circle'
       state.dialogTitle = 'Éxito'
       state.dialogText = dialogText
       state.dialogDisplay = true
     },
     setErrorDialog (state, dialogText) {
       state.dialogColor = 'error'
-      state.dialogIcon = 'error'
       state.dialogTitle = 'Error'
       state.dialogText = dialogText
       state.dialogDisplay = true

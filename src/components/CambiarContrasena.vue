@@ -1,7 +1,7 @@
 <template>
   <v-flex xs12 sm7 md5 lg4 xl3>
     <v-card class="pa-3">
-      <app-dialog :dialogDisplay="dialogDisplay" :dialogColor="dialogColor" :dialogIcon="dialogIcon" :dialogTitle="dialogTitle" :dialogText="dialogText"></app-dialog>
+      <app-dialog :dialogDisplay="dialogDisplay" :dialogColor="dialogColor" :dialogTitle="dialogTitle" :dialogText="dialogText"></app-dialog>
       <v-card-text>
         <form method="post" @submit.prevent="updatePassword(form)" autocomplete="off">
           <v-text-field label="Contraseña" name="contrasena" maxlength="15" v-model="form.contrasena" :error-messages="errors.collect('contrasena')" v-validate="'required|min:9'" data-vv-as="Contraseña" :append-icon="viewPassword ? 'visibility' : 'visibility_off'" :append-icon-cb="() => (viewPassword = !viewPassword)" :type="viewPassword ? 'text' : 'password'"></v-text-field>
@@ -38,7 +38,6 @@ export default {
     'loading',
     'dialogDisplay',
     'dialogColor',
-    'dialogIcon',
     'dialogTitle',
     'dialogText'
   ]),

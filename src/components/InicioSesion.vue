@@ -1,7 +1,7 @@
 <template>
   <v-flex xs12 sm7 md5 lg4 xl3>
     <v-card class="pa-3">
-      <app-dialog :dialogDisplay="dialogDisplay" :dialogColor="dialogColor" :dialogIcon="dialogIcon" :dialogTitle="dialogTitle" :dialogText="dialogText"></app-dialog>
+      <app-dialog :dialogDisplay="dialogDisplay" :dialogColor="dialogColor" :dialogTitle="dialogTitle" :dialogText="dialogText"></app-dialog>
       <v-card-text>
         <form method="post" @submit.prevent="signIn(form)" autocomplete="off">
           <v-text-field label="Cédula" name="cedula" maxlength="10" mask="##########" v-model="form.cedula" :error-messages="errors.collect('cedula')" v-validate="'required|digits:10'" data-vv-as="Cédula"></v-text-field>
@@ -15,7 +15,7 @@
       </v-card-text>
     </v-card>
     <v-flex class="pt-2 text-xs-center">
-      <v-btn to="/solicitar-cambio-contrasena" flat small class="grey--text text--darken-2">Recuperar Contraseña</v-btn>
+      <v-btn to="/solicitar-cambio-contrasena" flat small class="grey--text text--darken-2">Cambiar Contraseña</v-btn>
     </v-flex>
   </v-flex>
 </template>
@@ -40,7 +40,6 @@ export default {
     'loading',
     'dialogDisplay',
     'dialogColor',
-    'dialogIcon',
     'dialogTitle',
     'dialogText'
   ]),
