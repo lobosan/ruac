@@ -86,12 +86,12 @@ export default new Vuex.Store({
           }`
       })
     },
-    async signUp (_, { cedula, contrasena, nombre, fechaNacimiento, lugarNacimiento, nacionalidad, sexo, estadoAfiliado, titulosSenescyt, email }) {
+    async signUp (_, signUp) {
       return apolloClient.mutate({
-        variables: { cedula, contrasena, nombre, fechaNacimiento, lugarNacimiento, nacionalidad, sexo, estadoAfiliado, titulosSenescyt, email },
+        variables: { signUp },
         mutation: gql`
-          mutation SignUp ($cedula: String!, $contrasena: String!, $nombre: String!, $fechaNacimiento: String!, $lugarNacimiento: String!, $nacionalidad: String!, $sexo: String!, $estadoAfiliado: String, $titulosSenescyt: [String]!, $email: String!) {
-            signUp (cedula: $cedula, contrasena: $contrasena, nombre: $nombre, fechaNacimiento: $fechaNacimiento, lugarNacimiento: $lugarNacimiento, nacionalidad: $nacionalidad, sexo: $sexo, estadoAfiliado: $estadoAfiliado, titulosSenescyt: $titulosSenescyt, email: $email)
+          mutation SignUp ($signUp: SignUp!) {
+            signUp (signUp: $signUp)
           }`
       })
     },
@@ -196,68 +196,24 @@ export default new Vuex.Store({
       })
       commit('setDpa', dpa)
     },
-    async updateProfile (_, {
-      cedula,
-      tipoAfiliado,
-      email,
-      telefonoFijo,
-      telefonoCelular,
-      paisDomicilio,
-      provinciaDomicilioObj,
-      cantonDomicilioObj,
-      nombreArtistico,
-      tipoActorCultural,
-      actividadPrincipal,
-      actividadSecundaria,
-      postulacionesFinanciamiento,
-      otrasEntidadesApoyo,
-      obrasRegistradasIEPI,
-      perteneceOrgCultural,
-      logrosAlcanzados,
-      proyectosCulturales,
-      formacionCapacitacion,
-      webBlog,
-      youtube,
-      facebook,
-      twitter
-    }) {
+    async updateProfile (_, profile) {
       let provinciaDomicilio = null
       let codigoProvinciaDomicilio = null
       let cantonDomicilio = null
       let codigoCantonDomicilio = null
-      if (provinciaDomicilioObj && cantonDomicilioObj) {
-        provinciaDomicilio = provinciaDomicilioObj.provincia
-        codigoProvinciaDomicilio = provinciaDomicilioObj.codigoProvincia
-        cantonDomicilio = cantonDomicilioObj.canton
-        codigoCantonDomicilio = cantonDomicilioObj.codigoCanton
+      if (profile.provinciaDomicilioObj && profile.cantonDomicilioObj) {
+        provinciaDomicilio = profile.provinciaDomicilioObj.provincia
+        codigoProvinciaDomicilio = profile.provinciaDomicilioObj.codigoProvincia
+        cantonDomicilio = profile.cantonDomicilioObj.canton
+        codigoCantonDomicilio = profile.cantonDomicilioObj.codigoCanton
       }
       return apolloClient.mutate({
         variables: {
-          cedula,
-          tipoAfiliado,
-          email,
-          telefonoFijo,
-          telefonoCelular,
-          paisDomicilio,
+          ...profile,
           provinciaDomicilio,
           codigoProvinciaDomicilio,
           cantonDomicilio,
-          codigoCantonDomicilio,
-          nombreArtistico,
-          tipoActorCultural,
-          actividadPrincipal,
-          actividadSecundaria,
-          postulacionesFinanciamiento,
-          otrasEntidadesApoyo,
-          obrasRegistradasIEPI,
-          perteneceOrgCultural,
-          logrosAlcanzados,
-          proyectosCulturales,
-          formacionCapacitacion,
-          webBlog,
-          youtube,
-          facebook,
-          twitter
+          codigoCantonDomicilio
         },
         mutation: gql`
           mutation UpdateProfile (
@@ -296,7 +252,7 @@ export default new Vuex.Store({
               paisDomicilio: $paisDomicilio,
               provinciaDomicilio: $provinciaDomicilio,
               codigoProvinciaDomicilio: $codigoProvinciaDomicilio
-              cantonDomicilio:$cantonDomicilio,
+              cantonDomicilio: $cantonDomicilio,
               codigoCantonDomicilio: $codigoCantonDomicilio
               nombreArtistico: $nombreArtistico,
               tipoActorCultural: $tipoActorCultural,

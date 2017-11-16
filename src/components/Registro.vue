@@ -52,6 +52,8 @@ export default {
           this.$store.commit('setLoading', true)
           const { data: { dinardap } } = await this.$store.dispatch('dinardap', form)
           const user = { ...form, ...dinardap }
+          delete user.confirmarContrasena
+          delete user.__typename
           await this.$store.dispatch('signUp', user)
           this.$store.commit('setLoading', false)
           this.$store.commit('setSuccessDialog', 'Hemos enviado un correo para confirmar su registro. Por favor revise su bandeja de entrada y siga las instrucciones.')

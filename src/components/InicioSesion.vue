@@ -46,7 +46,7 @@ export default {
   mounted () {
     const validEmail = this.$route.query.verificado
     if (validEmail === 'true') {
-      this.$store.commit('setSuccessDialog', 'Su email ha sido verificado correctamente. Ya puede iniciar sesión.')
+      this.$store.commit('setSuccessDialog', 'Su email ha sido confirmado correctamente. Ya puede iniciar sesión.')
     } else if (validEmail === 'false') {
       this.$store.commit('setErrorDialog', 'Hubo un error al validar su email. Por favor envie un correo explicando su problema a ruac@culturaypatrimonio.gob.ec')
     }
