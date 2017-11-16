@@ -95,33 +95,33 @@ export default new Vuex.Store({
           }`
       })
     },
-    async signIn (_, { cedula, contrasena }) {
+    async signIn (_, signIn) {
       return apolloClient.mutate({
-        variables: { cedula, contrasena },
+        variables: { signIn },
         mutation: gql`
-          mutation SignIn ($cedula: String!, $contrasena: String!) {
-            signIn (cedula: $cedula, contrasena: $contrasena) {
+          mutation SignIn ($signIn: SignIn!) {
+            signIn (signIn: $signIn) {
               token
               refreshToken
             }
           }`
       })
     },
-    async requestPasswordChange (_, { cedula, email }) {
+    async changePasswordRequest (_, changePasswordRequest) {
       return apolloClient.mutate({
-        variables: { cedula, email },
+        variables: { changePasswordRequest },
         mutation: gql`
-          mutation RequestPasswordChange ($cedula: String!, $email: String!) {
-            requestPasswordChange (cedula: $cedula, email: $email)
+          mutation changePasswordRequest ($changePasswordRequest: ChangePasswordRequest!) {
+            changePasswordRequest (changePasswordRequest: $changePasswordRequest)
           }`
       })
     },
-    async updatePassword (_, { token, contrasena }) {
+    async updatePassword (_, updatePassword) {
       return apolloClient.mutate({
-        variables: { token, contrasena },
+        variables: { updatePassword },
         mutation: gql`
-          mutation UpdatePassword ($token: String!, $contrasena: String!) {
-            updatePassword (token: $token, contrasena: $contrasena)
+          mutation UpdatePassword ($updatePassword: UpdatePassword!) {
+            updatePassword (updatePassword: $updatePassword)
           }`
       })
     },
@@ -196,112 +196,12 @@ export default new Vuex.Store({
       })
       commit('setDpa', dpa)
     },
-    async updateProfile (_, profile) {
-      let provinciaDomicilio = null
-      let codigoProvinciaDomicilio = null
-      let cantonDomicilio = null
-      let codigoCantonDomicilio = null
-      if (profile.provinciaDomicilioObj && profile.cantonDomicilioObj) {
-        provinciaDomicilio = profile.provinciaDomicilioObj.provincia
-        codigoProvinciaDomicilio = profile.provinciaDomicilioObj.codigoProvincia
-        cantonDomicilio = profile.cantonDomicilioObj.canton
-        codigoCantonDomicilio = profile.cantonDomicilioObj.codigoCanton
-      }
+    async updateProfile (_, updateProfile) {
       return apolloClient.mutate({
-        variables: {
-          ...profile,
-          provinciaDomicilio,
-          codigoProvinciaDomicilio,
-          cantonDomicilio,
-          codigoCantonDomicilio
-        },
+        variables: { updateProfile },
         mutation: gql`
-          mutation UpdateProfile (
-            $cedula: String!,
-            $tipoAfiliado: String!,
-            $email: String!,
-            $telefonoFijo: String,
-            $telefonoCelular: String,
-            $paisDomicilio: String!,
-            $provinciaDomicilio: String,
-            $codigoProvinciaDomicilio: String,
-            $cantonDomicilio: String,
-            $codigoCantonDomicilio: String,
-            $nombreArtistico: String,
-            $tipoActorCultural: String!,
-            $actividadPrincipal: String!,
-            $actividadSecundaria: String,
-            $postulacionesFinanciamiento: [String],
-            $otrasEntidadesApoyo: String,
-            $obrasRegistradasIEPI: String!,
-            $perteneceOrgCultural: String!,
-            $logrosAlcanzados: String,
-            $proyectosCulturales: String,
-            $formacionCapacitacion: String,
-            $webBlog: String,
-            $youtube: String,
-            $facebook: String,
-            $twitter: String
-          ) {
-            updateProfile (
-              cedula: $cedula,
-              tipoAfiliado: $tipoAfiliado,
-              email: $email,
-              telefonoFijo: $telefonoFijo,
-              telefonoCelular: $telefonoCelular,
-              paisDomicilio: $paisDomicilio,
-              provinciaDomicilio: $provinciaDomicilio,
-              codigoProvinciaDomicilio: $codigoProvinciaDomicilio
-              cantonDomicilio: $cantonDomicilio,
-              codigoCantonDomicilio: $codigoCantonDomicilio
-              nombreArtistico: $nombreArtistico,
-              tipoActorCultural: $tipoActorCultural,
-              actividadPrincipal: $actividadPrincipal,
-              actividadSecundaria: $actividadSecundaria,
-              postulacionesFinanciamiento: $postulacionesFinanciamiento,
-              otrasEntidadesApoyo: $otrasEntidadesApoyo,
-              obrasRegistradasIEPI: $obrasRegistradasIEPI,
-              perteneceOrgCultural: $perteneceOrgCultural,
-              logrosAlcanzados: $logrosAlcanzados,
-              proyectosCulturales: $proyectosCulturales,
-              formacionCapacitacion: $formacionCapacitacion,
-              webBlog: $webBlog,
-              youtube: $youtube,
-              facebook: $facebook,
-              twitter: $twitter
-            ) {
-              cedula
-              nombre
-              fechaNacimiento
-              lugarNacimiento
-              nacionalidad
-              estadoAfiliado
-              tipoAfiliado
-              titulosSenescyt
-              email
-              telefonoFijo
-              telefonoCelular
-              paisDomicilio
-              provinciaDomicilio
-              codigoProvinciaDomicilio
-              cantonDomicilio
-              codigoCantonDomicilio
-              nombreArtistico
-              tipoActorCultural
-              actividadPrincipal
-              actividadSecundaria
-              postulacionesFinanciamiento
-              otrasEntidadesApoyo
-              obrasRegistradasIEPI
-              perteneceOrgCultural
-              logrosAlcanzados
-              proyectosCulturales
-              formacionCapacitacion
-              webBlog
-              youtube
-              facebook
-              twitter
-            }
+          mutation UpdateProfile ($updateProfile: UpdateProfile!) {
+            updateProfile (updateProfile: $updateProfile)
           }`
       })
     }

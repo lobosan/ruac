@@ -71,13 +71,13 @@
       <v-btn large fixed dark fab bottom right color="accent" slot="activator" @click="validateForm">
         <v-icon>save</v-icon>
       </v-btn>
-      <span>Guardar Perfil</span>
+      <span>Actualizar Perfil</span>
     </v-tooltip>
-    <v-dialog v-model="dialog" max-width="330">
+    <v-dialog v-model="updateProfileDialog" max-width="330">
       <v-card class="px-2 pt-3 pb-4">
         <v-card-title class="headline">
           <v-flex class="text-xs-center">
-            Guardar Perfil
+            Actualizar Perfil
           </v-flex>
         </v-card-title>
         <v-card-text class="pt-2 text-xs-center">
@@ -85,7 +85,7 @@
         </v-card-text>
         <v-card-actions>
           <v-flex class="ma-1 text-xs-center">
-            <v-btn class="mr-4" :disabled="loading" @click="dialog = false">No</v-btn>
+            <v-btn class="mr-4" :disabled="loading" @click="updateProfileDialog = false">No</v-btn>
             <v-btn dark color="accent" :disabled="loading" :loading="loading" @click="updateProfile(form)">Sí</v-btn>
           </v-flex>
         </v-card-actions>
@@ -96,7 +96,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import _ from 'lodash'
+import { uniqBy, filter, omit } from 'lodash'
 
 export default {
   $_veeValidate: {
@@ -108,7 +108,7 @@ export default {
       form: null,
       step: 1,
       showProvinciaCanton: false,
-      dialog: false,
+      updateProfileDialog: false,
       items: {
         provincias: [],
         cantones: [],
@@ -153,8 +153,8 @@ export default {
     this.initialLoading = true
     await this.$store.dispatch('paises')
     await this.$store.dispatch('dpa')
-    this.items.provincias = _.uniqBy(this.$store.state.dpa, 'codigoProvincia')
-    this.items.cantones = _.uniqBy(this.$store.state.dpa, 'codigoCanton')
+    this.items.provincias = uniqBy(this.$store.state.dpa, 'codigoProvincia')
+    this.items.cantones = uniqBy(this.$store.state.dpa, 'codigoCanton')
     this.form = {
       ...this.$store.state.user,
       provinciaDomicilioObj: null,
@@ -193,30 +193,43 @@ export default {
     onChangeProvincia ({codigoProvincia}) {
       if (codigoProvincia) {
         this.form.cantonDomicilioObj = null
-        this.items.cantones = _.filter(_.uniqBy(this.$store.state.dpa, 'codigoCanton'), ['codigoProvincia', codigoProvincia])
+        this.items.cantones = filter(uniqBy(this.$store.state.dpa, 'codigoCanton'), ['codigoProvincia', codigoProvincia])
       }
     },
     async validateForm () {
       const validForm = await this.$validator.validateAll()
       if (validForm) {
-        this.dialog = true
+        this.updateProfileDialog = true
       } else {
-        this.dialog = false
+        this.updateProfileDialog = false
         this.$store.commit('setErrorDialog', 'Existen problemas con sus datos, por favor corríjalos.')
       }
       return validForm
     },
     async updateProfile (form) {
       try {
+        let provinciaDomicilio = null
+        let codigoProvinciaDomicilio = null
+        let cantonDomicilio = null
+        let codigoCantonDomicilio = null
+        if (form.provinciaDomicilioObj && form.cantonDomicilioObj) {
+          provinciaDomicilio = form.provinciaDomicilioObj.provincia
+          codigoProvinciaDomicilio = form.provinciaDomicilioObj.codigoProvincia
+          cantonDomicilio = form.cantonDomicilioObj.canton
+          codigoCantonDomicilio = form.cantonDomicilioObj.codigoCanton
+        }
+        const deleteProperties = ['nombre', 'fechaNacimiento', 'lugarNacimiento', 'nacionalidad', 'estadoAfiliado', 'titulosSenescyt', 'provinciaDomicilioObj', 'cantonDomicilioObj', '__typename']
+        const profile = omit(form, deleteProperties)
+        const updateProfile = { ...profile, provinciaDomicilio, codigoProvinciaDomicilio, cantonDomicilio, codigoCantonDomicilio }
         this.$store.commit('setLoading', true)
-        await this.$store.dispatch('updateProfile', form)
+        await this.$store.dispatch('updateProfile', updateProfile)
         this.$store.commit('setUser', form)
         this.$store.commit('setLoading', false)
-        this.dialog = false
+        this.updateProfileDialog = false
         this.$store.commit('setSuccessDialog', 'Su perfil ha sido actualizado correctamente.')
       } catch (error) {
         this.$store.commit('setLoading', false)
-        this.dialog = false
+        this.updateProfileDialog = false
         this.$store.commit('setErrorDialog', 'Lo sentimos, hubo un error al guardar sus datos. Por favor, inténtelo más tarde.')
       }
     }

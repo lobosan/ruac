@@ -8,14 +8,14 @@
           <v-text-field label="Contraseña" name="contrasena" maxlength="15" v-model="form.contrasena" :error-messages="errors.collect('contrasena')" v-validate="'required|min:9'" data-vv-as="Contraseña" :append-icon="viewPassword ? 'visibility' : 'visibility_off'" :append-icon-cb="() => (viewPassword = !viewPassword)" :type="viewPassword ? 'text' : 'password'"></v-text-field>
           <v-flex class="text-xs-center">
             <v-btn type="submit" :disabled="loading" :loading="loading" outline color="primary" class="mt-4">
-              Ingresar
+              Iniciar Sesión
             </v-btn>
           </v-flex>
         </form>
       </v-card-text>
     </v-card>
     <v-flex class="pt-2 text-xs-center">
-      <v-btn to="/solicitar-cambio-contrasena" flat small class="grey--text text--darken-2">Cambiar Contraseña</v-btn>
+      <v-btn to="/solicitar-cambio-contrasena" flat small class="grey--text text--darken-2">Solicitar Cambio de Contraseña</v-btn>
     </v-flex>
   </v-flex>
 </template>
@@ -56,12 +56,12 @@ export default {
     }
   },
   methods: {
-    async signIn ({ cedula, contrasena }) {
+    async signIn (form) {
       const validForm = await this.$validator.validateAll()
       if (validForm) {
         try {
           this.$store.commit('setLoading', true)
-          const { data: { signIn } } = await this.$store.dispatch('signIn', { cedula, contrasena })
+          const { data: { signIn } } = await this.$store.dispatch('signIn', form)
           const { token, refreshToken } = signIn
           localStorage.setItem('token', token)
           localStorage.setItem('refresh-token', refreshToken)
