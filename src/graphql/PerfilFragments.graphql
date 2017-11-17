@@ -1,0 +1,36 @@
+#import "./DinardapFragment.graphql"
+
+fragment DatosGenerales on Usuario {
+  ...Dinardap
+  tipoAfiliado
+  cedula
+  email
+  telefonoFijo
+  telefonoCelular
+  paisDomicilio
+  provinciaDomicilio
+  codigoProvinciaDomicilio
+  cantonDomicilio
+  codigoCantonDomicilio
+}
+
+fragment ActividadCultural on Usuario {
+  nombreArtistico
+  tipoActorCultural
+  actividadPrincipal
+  actividadSecundaria
+  postulacionesFinanciamiento
+  otrasEntidadesApoyo
+  obrasRegistradasIEPI
+  perteneceOrgCultural
+}
+
+fragment PortafolioTrayectoria on Usuario {
+  logrosAlcanzados
+  proyectosCulturales
+  formacionCapacitacion
+  webBlog
+  youtube
+  facebook
+  twitter
+}

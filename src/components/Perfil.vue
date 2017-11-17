@@ -13,6 +13,7 @@
         <!-- Datos Generales -->
         <v-stepper-content step="1">
           <v-text-field label="Número de Cédula" v-model="form.cedula" disabled></v-text-field>
+          <v-text-field label="Sexo" v-model="form.sexo" disabled></v-text-field>
           <v-text-field label="Nacionalidad" v-model="form.nacionalidad" disabled></v-text-field>
           <v-text-field label="Lugar de Nacimiento" v-model="form.lugarNacimiento" disabled></v-text-field>
           <v-text-field label="Fecha de Nacimiento" v-model="form.fechaNacimiento" disabled></v-text-field>
@@ -218,7 +219,7 @@ export default {
           cantonDomicilio = form.cantonDomicilioObj.canton
           codigoCantonDomicilio = form.cantonDomicilioObj.codigoCanton
         }
-        const deleteProperties = ['nombre', 'fechaNacimiento', 'lugarNacimiento', 'nacionalidad', 'estadoAfiliado', 'titulosSenescyt', 'provinciaDomicilioObj', 'cantonDomicilioObj', '__typename']
+        const deleteProperties = ['nombre', 'fechaNacimiento', 'lugarNacimiento', 'nacionalidad', 'sexo', 'estadoAfiliado', 'titulosSenescyt', 'provinciaDomicilioObj', 'cantonDomicilioObj', '__typename']
         const profile = omit(form, deleteProperties)
         const updateProfile = { ...profile, provinciaDomicilio, codigoProvinciaDomicilio, cantonDomicilio, codigoCantonDomicilio }
         this.$store.commit('setLoading', true)

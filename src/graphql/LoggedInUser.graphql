@@ -1,0 +1,9 @@
+#import "./PerfilFragments.graphql"
+
+query {
+  loggedInUser {
+    ...DatosGenerales
+    ...ActividadCultural
+    ...PortafolioTrayectoria
+  }
+}

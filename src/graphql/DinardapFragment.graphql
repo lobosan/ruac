@@ -1,0 +1,9 @@
+fragment Dinardap on Usuario {
+  nombre
+  fechaNacimiento
+  lugarNacimiento
+  nacionalidad
+  sexo
+  titulosSenescyt
+  estadoAfiliado
+}

@@ -1,0 +1,6 @@
+mutation SignIn($signIn: SignIn!) {
+  signIn(signIn: $signIn) {
+    token
+    refreshToken
+  }
+}

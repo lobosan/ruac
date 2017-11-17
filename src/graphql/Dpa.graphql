@@ -1,0 +1,8 @@
+query {
+  dpa {
+    codigoProvincia
+    provincia
+    codigoCanton
+    canton
+  }
+}

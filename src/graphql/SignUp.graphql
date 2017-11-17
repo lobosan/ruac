@@ -1,0 +1,3 @@
+mutation SignUp($signUp: SignUp!) {
+  signUp(signUp: $signUp)
+}

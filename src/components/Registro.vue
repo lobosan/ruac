@@ -50,7 +50,8 @@ export default {
       if (validForm) {
         try {
           this.$store.commit('setLoading', true)
-          const { data: { dinardap } } = await this.$store.dispatch('dinardap', form)
+          const { cedula } = form
+          const { data: { dinardap } } = await this.$store.dispatch('dinardap', cedula)
           const user = { ...form, ...dinardap }
           delete user.confirmarContrasena
           delete user.__typename
