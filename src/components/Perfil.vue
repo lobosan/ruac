@@ -6,7 +6,7 @@
     <form method="post" autocomplete="off">
       <v-stepper v-model="step" vertical class="mb-4">
         <p class="px-4 pt-4 text-xs-center title primary--text">{{ form.nombre }}</p>
-        <p class="px-4 text-xs-center subheading error--text">Validación Pendiente</p>
+        <p class="px-4 text-xs-center subheading error--text">Perfil Registrado</p>
         <v-stepper-step step="1" editable :complete="step > 1">
           <span class="subheading">DATOS GENERALES</span>
         </v-stepper-step>

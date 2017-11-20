@@ -1,4 +1,4 @@
-#import "./DinardapFragment.graphql"
+#import "./DinardapFragment.gql"
 
 fragment DatosGenerales on Usuario {
   ...Dinardap

@@ -1,4 +1,4 @@
-#import "./PerfilFragments.graphql"
+#import "./PerfilFragments.gql"
 
 query {
   loggedInUser {

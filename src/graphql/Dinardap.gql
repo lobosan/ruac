@@ -1,4 +1,4 @@
-#import "./DinardapFragment.graphql"
+#import "./DinardapFragment.gql"
 
 query Dinardap($cedula: String!) {
   dinardap(cedula: $cedula) {
