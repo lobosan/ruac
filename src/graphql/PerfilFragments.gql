@@ -19,7 +19,10 @@ fragment ActividadCultural on Usuario {
   tipoActorCultural
   actividadPrincipal
   actividadSecundaria
-  postulacionesFinanciamiento
+  fondosConcursables
+  auspicios
+  cncine
+  foncultura
   otrasEntidadesApoyo
   obrasRegistradasIEPI
   perteneceOrgCultural

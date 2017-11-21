@@ -42,10 +42,14 @@
           <v-select label="Tipo de Actor Cultural" v-model="form.tipoActorCultural" :items="items.tipoActorCultural" autocomplete name="tipoActorCultural" :error-messages="errors.collect('tipoActorCultural')" v-validate="'required'" data-vv-as="Tipo de Actor Cultural"></v-select>
           <v-select label="Actividad Principal" v-model="form.actividadPrincipal" :items="items.ambitoActividad" autocomplete name="actividadPrincipal" :error-messages="errors.collect('actividadPrincipal')" v-validate="'required'" data-vv-as="Actividad Principal"></v-select>
           <v-select label="Actividad Secundaria" v-model="form.actividadSecundaria" :items="items.ambitoActividad" autocomplete></v-select>
-          <v-select label="Postulaciones a Financiamiento" v-model="form.postulacionesFinanciamiento" :items="items.postulacionesFinanciamiento" multiple chips autocomplete></v-select>
-          <v-text-field label="Otras Entidades que lo han Apoyado" v-model="form.otrasEntidadesApoyo"></v-text-field>
-          <v-select label="Obras Registradas en el IEPI" v-model="form.obrasRegistradasIEPI" :items="items.siNo" autocomplete name="obrasRegistradasIEPI" :error-messages="errors.collect('obrasRegistradasIEPI')" v-validate="'required'" data-vv-as="Obras Registradas en el IEPI"></v-select>
           <v-select label="Pertenece a una Organización Cultural" v-model="form.perteneceOrgCultural" :items="items.siNo" autocomplete name="perteneceOrgCultural" :error-messages="errors.collect('perteneceOrgCultural')" v-validate="'required'" data-vv-as="Pertenece a una Organización Cultural"></v-select>
+          <v-select label="Tiene Obras Registradas en el IEPI" v-model="form.obrasRegistradasIEPI" :items="items.siNo" autocomplete name="obrasRegistradasIEPI" :error-messages="errors.collect('obrasRegistradasIEPI')" v-validate="'required'" data-vv-as="Tiene Obras Registradas en el IEPI"></v-select>
+          <label class="custom_label">Postulaciones a Mecanismos de Fomento</label>
+          <v-checkbox label="Fondos Concursables del MCYP" class="custom_checkbox" v-model="form.fondosConcursables" false-value="No" true-value="Si" name="fondosConcursables" :error-messages="errors.collect('fondosConcursables')" data-vv-as="Fondos Concursables del MCYP"></v-checkbox>
+          <v-checkbox label="Auspicios del MCYP" class="custom_checkbox" v-model="form.auspicios" false-value="No" true-value="Si" name="auspicios" :error-messages="errors.collect('auspicios')" data-vv-as="Auspicios del MCYP"></v-checkbox>
+          <v-checkbox label="Fondo de Fomento CNCine" class="custom_checkbox" v-model="form.cncine" false-value="No" true-value="Si" name="cncine" :error-messages="errors.collect('cncine')" data-vv-as="Fondo de Fomento CNCine"></v-checkbox>
+          <v-checkbox label="Financiamiento Foncultura" class="custom_checkbox" v-model="form.foncultura" false-value="No" true-value="Si" name="foncultura" :error-messages="errors.collect('foncultura')" data-vv-as="Financiamiento Foncultura"></v-checkbox>
+          <v-text-field label="Otras Entidades que lo han Apoyado" v-model="form.otrasEntidadesApoyo"></v-text-field>
           <v-flex class="text-xs-center">
             <v-btn outline color="primary" class="mt-2 mx-0" @click="step = 3">
               Continuar
@@ -69,7 +73,7 @@
       </v-stepper>
     </form>
     <v-tooltip left>
-      <v-btn large fixed dark fab bottom right color="accent" slot="activator" @click="validateForm">
+      <v-btn large fixed dark fab bottom right color="info" slot="activator" @click="validateForm">
         <v-icon>save</v-icon>
       </v-btn>
       <span>Actualizar Perfil</span>
@@ -87,7 +91,7 @@
         <v-card-actions>
           <v-flex class="ma-1 text-xs-center">
             <v-btn class="mr-4" :disabled="loading" @click="updateProfileDialog = false">No</v-btn>
-            <v-btn dark color="accent" :disabled="loading" :loading="loading" @click="updateProfile(form)">Sí</v-btn>
+            <v-btn dark color="info" :disabled="loading" :loading="loading" @click="updateProfile(form)">Sí</v-btn>
           </v-flex>
         </v-card-actions>
       </v-card>
@@ -136,12 +140,6 @@ export default {
           'Memoria social',
           'Patrimonio cultural',
           'Otras'
-        ],
-        postulacionesFinanciamiento: [
-          'Fondos concursables del MCYP',
-          'Auspicios del MCYP',
-          'Fondo de fomento CNCine',
-          'Financiamiento Foncultura'
         ],
         siNo: [
           'Si',
@@ -237,3 +235,14 @@ export default {
   }
 }
 </script>
+
+<style>
+.custom_label {
+  color: rgba(0,0,0,0.54);
+  font-size: 12px;
+}
+.custom_checkbox > label {
+  color: rgba(0,0,0,0.87) !important;
+  height: 40px !important;
+}
+</style>

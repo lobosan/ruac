@@ -14,9 +14,9 @@ import { createRouter } from './router'
 Vue.use(Vuetify, { theme: {
   primary: '#673AB7',
   secondary: '#7C4DFF',
-  accent: '#DA8722',
+  accent: '#4CAF50',
   error: '#F44336',
-  info: '#009688',
+  info: '#DA8722',
   success: '#4CAF50',
   warning: '#FFA000'
 }})
