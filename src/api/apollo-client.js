@@ -1,23 +1,24 @@
-import ApolloClient, { createNetworkInterface } from 'apollo-client'
+import { ApolloClient } from 'apollo-client'
+import { createHttpLink } from 'apollo-link-http'
+import { InMemoryCache } from 'apollo-cache-inmemory'
+import { setContext } from 'apollo-link-context'
+import { ApolloLink } from 'apollo-link'
 
-const networkInterface = createNetworkInterface({
+const httpLink = createHttpLink({
   uri: 'http://172.17.6.74:3000/graphql',
-  opts: { credentials: 'include' }
+  credentials: 'include'
 })
 
-networkInterface.use([{
-  applyMiddleware (req, next) {
-    if (!req.options.headers) {
-      req.options.headers = {}
-    }
-    req.options.headers['x-token'] = localStorage.getItem('token')
-    req.options.headers['x-refresh-token'] = localStorage.getItem('refresh-token')
-    next()
+const middlewareLink = setContext(() => ({
+  headers: {
+    'x-token': localStorage.getItem('token'),
+    'x-refresh-token': localStorage.getItem('refresh-token')
   }
-}])
+}))
 
-networkInterface.useAfter([{
-  applyAfterware ({ response: { headers } }, next) {
+const afterwareLink = new ApolloLink((operation, forward) => {
+  const { headers } = operation.getContext()
+  if (headers) {
     const token = headers.get('x-token')
     const refreshToken = headers.get('x-refresh-token')
     if (token) {
@@ -26,12 +27,15 @@ networkInterface.useAfter([{
     if (refreshToken) {
       localStorage.setItem('refresh-token', refreshToken)
     }
-    next()
   }
-}])
+  return forward(operation)
+})
+
+const link = ApolloLink.from([afterwareLink, middlewareLink, httpLink])
 
 const apolloClient = new ApolloClient({
-  networkInterface
+  link,
+  cache: new InMemoryCache()
 })
 
 export default apolloClient
