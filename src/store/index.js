@@ -137,6 +137,16 @@ export default new Vuex.Store({
         variables: { updateProfile },
         mutation: UPDATE_PROFILE_MUTATION
       })
+    },
+    handleError ({ commit }, { graphQLErrors, networkError }) {
+      if (graphQLErrors) {
+        graphQLErrors.map(({ message }) => {
+          commit('setErrorDialog', message)
+        })
+      }
+      if (networkError) {
+        commit('setErrorDialog', 'Lo sentimos, nuestro servidor está fuera de línea. Por favor inténtelo más tarde.')
+      }
     }
   }
 })

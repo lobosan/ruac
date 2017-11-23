@@ -229,7 +229,7 @@ export default {
       } catch (error) {
         this.$store.commit('setLoading', false)
         this.updateProfileDialog = false
-        this.$store.commit('setErrorDialog', 'Lo sentimos, hubo un error al guardar sus datos. Por favor, inténtelo más tarde.')
+        this.$store.dispatch('handleError', error)
       }
     }
   }

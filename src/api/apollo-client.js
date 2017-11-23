@@ -4,7 +4,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory'
 import { setContext } from 'apollo-link-context'
 import { ApolloLink } from 'apollo-link'
 
-const httpLink = createHttpLink({
+const requestLink = createHttpLink({
   uri: 'http://172.17.6.74:3000/graphql',
   credentials: 'include'
 })
@@ -21,20 +21,14 @@ const afterwareLink = new ApolloLink((operation, forward) => {
   if (headers) {
     const token = headers.get('x-token')
     const refreshToken = headers.get('x-refresh-token')
-    if (token) {
-      localStorage.setItem('token', token)
-    }
-    if (refreshToken) {
-      localStorage.setItem('refresh-token', refreshToken)
-    }
+    if (token) localStorage.setItem('token', token)
+    if (refreshToken) localStorage.setItem('refresh-token', refreshToken)
   }
   return forward(operation)
 })
 
-const link = ApolloLink.from([afterwareLink, middlewareLink, httpLink])
-
 const apolloClient = new ApolloClient({
-  link,
+  link: ApolloLink.from([afterwareLink, middlewareLink, requestLink]),
   cache: new InMemoryCache()
 })
 

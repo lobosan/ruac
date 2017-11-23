@@ -69,7 +69,7 @@ export default {
           this.$router.push('perfil')
         } catch (error) {
           this.$store.commit('setLoading', false)
-          this.$store.commit('setErrorDialog', JSON.parse(JSON.stringify(error)).graphQLErrors[0].message)
+          this.$store.dispatch('handleError', error)
         }
       }
     }

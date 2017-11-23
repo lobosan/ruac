@@ -10,7 +10,7 @@ export default async (to, from, next) => {
     store.commit('setUserIsAuthenticated', true)
     next()
   } catch (error) {
-    store.commit('setErrorDialog', JSON.parse(JSON.stringify(error)).graphQLErrors[0].message)
+    store.dispatch('handleError', error)
     next('/inicio-sesion')
   }
 }
