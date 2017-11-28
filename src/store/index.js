@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import { pick } from 'lodash'
 
 import apolloClient from '../api/apollo-client'
 import DINARDAP_QUERY from '../graphql/Dinardap.gql'
@@ -130,7 +131,7 @@ export default new Vuex.Store({
       const { data: { dpa } } = await apolloClient.query({
         query: DPA_QUERY
       })
-      commit('setDpa', dpa)
+      commit('setDpa', dpa.map(obj => pick(obj, ['codigo', 'descripcion'])))
     },
     async updateProfile (_, updateProfile) {
       return apolloClient.mutate({
@@ -146,6 +147,7 @@ export default new Vuex.Store({
       }
       if (networkError) {
         commit('setErrorDialog', 'Lo sentimos, nuestro servidor está fuera de línea. Por favor inténtelo más tarde.')
+        console.log('Network error', networkError)
       }
     }
   }

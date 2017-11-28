@@ -8,10 +8,14 @@ fragment DatosGenerales on Usuario {
   telefonoFijo
   telefonoCelular
   paisDomicilio
-  provinciaDomicilio
-  codigoProvinciaDomicilio
-  cantonDomicilio
-  codigoCantonDomicilio
+  provinciaDomicilio {
+    codigo
+    descripcion
+  }
+  cantonDomicilio {
+    codigo
+    descripcion
+  }
 }
 
 fragment ActividadCultural on Usuario {

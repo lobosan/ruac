@@ -24,8 +24,8 @@
           <v-text-field label="Teléfono Fijo de Contacto" v-model="form.telefonoFijo" name="telefonoFijo" maxlength="20" :error-messages="errors.collect('telefonoFijo')" v-validate="{ regex: /^0[2-7]{1}\d{7}(\sext\s\d{3,6})?$/ }" data-vv-as="Teléfono Fijo de Contacto" hint="Ej. 022585623 ext 123456"></v-text-field>
           <v-text-field label="Teléfono Celular de Contacto" v-model="form.telefonoCelular" name="telefonoCelular" maxlength="10" mask="##########" :error-messages="errors.collect('telefonoCelular')" v-validate="{ regex: /^0[9]{1}\d{8}$/ }" hint="Ej. 0983507946" data-vv-as="Teléfono Celular de Contacto"></v-text-field>
           <v-select label="País de Domicilio" v-model="form.paisDomicilio" :items="paises" @change="onChangePaisDomicilio" autocomplete name="paisDomicilio" :error-messages="errors.collect('paisDomicilio')" v-validate="'required'" data-vv-as="País de Domicilio"></v-select>
-          <v-select v-show="showProvinciaCanton" label="Provincia de Domicilio" v-model="form.provinciaDomicilioObj" :items="items.provincias" item-text="provincia" item-value="codigoProvincia" return-object @change="onChangeProvincia" autocomplete></v-select>
-          <v-select v-show="showProvinciaCanton" label="Cantón de Domicilio" v-model="form.cantonDomicilioObj" :items="items.cantones" item-text="canton" item-value="codigoCanton" return-object autocomplete></v-select>
+          <v-select v-show="showProvinciaCanton" label="Provincia de Domicilio" v-model="form.provinciaDomicilio" :items="items.provincias" item-text="descripcion" item-value="codigo" return-object @change="onChangeProvincia" autocomplete></v-select>
+          <v-select v-show="showProvinciaCanton" label="Cantón de Domicilio" v-model="form.cantonDomicilio" :items="items.cantones" item-text="descripcion" item-value="codigo" return-object autocomplete></v-select>
           <v-flex class="text-xs-center">
             <v-btn outline color="primary" class="mt-2 mx-0" @click="step = 2">
               Continuar
@@ -62,9 +62,9 @@
           <span class="subheading">PORTAFOLIO / TRAYECTORIA</span>
         </v-stepper-step>
         <v-stepper-content step="3">
-          <v-text-field label="Logros Alcanzados" v-model="form.logrosAlcanzados" hint="Publicaciones, galardones, reconocimientos, conciertos, grabaciones, festivales, entre otros." multi-line rows="3"></v-text-field>
-          <v-text-field label="Proyectos Culturales" v-model="form.proyectosCulturales" hint="Describir su vinculación con proyectos culturales." multi-line rows="3"></v-text-field>
-          <v-text-field label="Formación y Capacitación" v-model="form.formacionCapacitacion" hint="Talleres, cursos, diplomados, entre otros espacios que no generen título reconocido por la SENESCYT" multi-line rows="3"></v-text-field>
+          <v-text-field label="Logros Alcanzados" v-model="form.logrosAlcanzados" placeholder="Publicaciones, galardones, reconocimientos, conciertos, grabaciones, festivales, entre otros." multi-line rows="3"></v-text-field>
+          <v-text-field label="Proyectos Culturales" v-model="form.proyectosCulturales" placeholder="Describir su vinculación con proyectos culturales." multi-line rows="3"></v-text-field>
+          <v-text-field label="Formación y Capacitación" v-model="form.formacionCapacitacion" placeholder="Talleres, cursos, diplomados, entre otros espacios que no generen título reconocido por la SENESCYT" multi-line rows="3"></v-text-field>
           <v-text-field label="Página Web o Blog" v-model="form.webBlog" name="webBlog" :error-messages="errors.collect('webBlog')" v-validate="'url'" data-vv-as="Página Web o Blog"></v-text-field>
           <v-text-field label="YouTube" v-model="form.youtube" name="youtube" :error-messages="errors.collect('youtube')" v-validate="'url'" data-vv-as="YouTube"></v-text-field>
           <v-text-field label="Facebook" v-model="form.facebook" name="facebook" :error-messages="errors.collect('facebook')" v-validate="'url'" data-vv-as="Facebook"></v-text-field>
@@ -101,7 +101,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import { uniqBy, filter, omit } from 'lodash'
+import { filter, startsWith, omit } from 'lodash'
 
 export default {
   $_veeValidate: {
@@ -152,23 +152,18 @@ export default {
     this.initialLoading = true
     await this.$store.dispatch('paises')
     await this.$store.dispatch('dpa')
-    this.items.provincias = uniqBy(this.$store.state.dpa, 'codigoProvincia')
-    this.items.cantones = uniqBy(this.$store.state.dpa, 'codigoCanton')
+    this.items.provincias = filter(this.$store.state.dpa, row => row.codigo.length === 2)
     this.form = {
-      ...this.$store.state.user,
-      provinciaDomicilioObj: null,
-      cantonDomicilioObj: null
+      ...this.$store.state.user
     }
     if (this.$store.state.user.paisDomicilio === 'Ecuador') {
       this.showProvinciaCanton = true
-      this.form.provinciaDomicilioObj = {
-        codigoProvincia: this.form.codigoProvinciaDomicilio,
-        provincia: this.form.provinciaDomicilio
-      }
-      this.form.cantonDomicilioObj = {
-        codigoCanton: this.form.codigoCantonDomicilio,
-        canton: this.form.cantonDomicilio
-      }
+    }
+    if (this.form.provinciaDomicilio) {
+      const codigo = this.form.provinciaDomicilio.codigo
+      this.items.cantones = filter(this.$store.state.dpa, row => {
+        return startsWith(row.codigo, codigo) && row.codigo.length === 4
+      })
     }
     this.initialLoading = false
   },
@@ -185,14 +180,16 @@ export default {
     onChangePaisDomicilio (pais) {
       if (pais) {
         this.showProvinciaCanton = pais === 'Ecuador'
-        this.form.provinciaDomicilioObj = null
-        this.form.cantonDomicilioObj = null
+        this.form.provinciaDomicilio = null
+        this.form.cantonDomicilio = null
       }
     },
-    onChangeProvincia ({codigoProvincia}) {
-      if (codigoProvincia) {
-        this.form.cantonDomicilioObj = null
-        this.items.cantones = filter(uniqBy(this.$store.state.dpa, 'codigoCanton'), ['codigoProvincia', codigoProvincia])
+    onChangeProvincia ({codigo}) {
+      if (codigo) {
+        this.form.cantonDomicilio = null
+        this.items.cantones = filter(this.$store.state.dpa, row => {
+          return startsWith(row.codigo, codigo) && row.codigo.length === 4
+        })
       }
     },
     async validateForm () {
@@ -207,21 +204,10 @@ export default {
     },
     async updateProfile (form) {
       try {
-        let provinciaDomicilio = null
-        let codigoProvinciaDomicilio = null
-        let cantonDomicilio = null
-        let codigoCantonDomicilio = null
-        if (form.provinciaDomicilioObj && form.cantonDomicilioObj) {
-          provinciaDomicilio = form.provinciaDomicilioObj.provincia
-          codigoProvinciaDomicilio = form.provinciaDomicilioObj.codigoProvincia
-          cantonDomicilio = form.cantonDomicilioObj.canton
-          codigoCantonDomicilio = form.cantonDomicilioObj.codigoCanton
-        }
-        const deleteProperties = ['nombre', 'fechaNacimiento', 'lugarNacimiento', 'nacionalidad', 'sexo', 'estadoAfiliado', 'titulosSenescyt', 'provinciaDomicilioObj', 'cantonDomicilioObj', '__typename']
+        const deleteProperties = ['nombre', 'fechaNacimiento', 'lugarNacimiento', 'nacionalidad', 'sexo', 'estadoAfiliado', 'titulosSenescyt', '__typename']
         const profile = omit(form, deleteProperties)
-        const updateProfile = { ...profile, provinciaDomicilio, codigoProvinciaDomicilio, cantonDomicilio, codigoCantonDomicilio }
         this.$store.commit('setLoading', true)
-        await this.$store.dispatch('updateProfile', updateProfile)
+        await this.$store.dispatch('updateProfile', profile)
         this.$store.commit('setUser', form)
         this.$store.commit('setLoading', false)
         this.updateProfileDialog = false
