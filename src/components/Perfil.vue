@@ -153,9 +153,7 @@ export default {
     await this.$store.dispatch('paises')
     await this.$store.dispatch('dpa')
     this.items.provincias = filter(this.$store.state.dpa, row => row.codigo.length === 2)
-    this.form = {
-      ...this.$store.state.user
-    }
+    this.form = { ...this.$store.state.user }
     if (this.$store.state.user.paisDomicilio === 'Ecuador') {
       this.showProvinciaCanton = true
     }
@@ -204,9 +202,20 @@ export default {
     },
     async updateProfile (form) {
       try {
-        const deleteProperties = ['nombre', 'fechaNacimiento', 'lugarNacimiento', 'nacionalidad', 'sexo', 'estadoAfiliado', 'titulosSenescyt', '__typename']
-        const profile = omit(form, deleteProperties)
         this.$store.commit('setLoading', true)
+        const deleteProperties = [
+          'nombre',
+          'fechaNacimiento',
+          'lugarNacimiento',
+          'nacionalidad',
+          'sexo',
+          'estadoAfiliado',
+          'titulosSenescyt',
+          '__typename',
+          'provinciaDomicilio["__typename"]',
+          'cantonDomicilio["__typename"]'
+        ]
+        const profile = omit(form, deleteProperties)
         await this.$store.dispatch('updateProfile', profile)
         this.$store.commit('setUser', form)
         this.$store.commit('setLoading', false)
