@@ -1,9 +1,16 @@
 #import "./PerfilFragments.gql"
 
-query {
+query Perfil {
   loggedInUser {
     ...DatosGenerales
     ...ActividadCultural
     ...PortafolioTrayectoria
+  }
+  paises {
+    pais
+  }
+  dpa {
+    codigo
+    descripcion
   }
 }

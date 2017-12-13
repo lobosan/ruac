@@ -151,9 +151,7 @@ export default {
   async created () {
     try {
       this.initialLoading = true
-      await this.$store.dispatch('loggedInUser')
-      await this.$store.dispatch('paises')
-      await this.$store.dispatch('dpa')
+      await this.$store.dispatch('perfil')
       this.items.provincias = filter(this.$store.state.dpa, row => row.codigo.length === 2)
       this.form = { ...this.$store.state.user }
       if (this.$store.state.user.paisDomicilio === 'Ecuador') {

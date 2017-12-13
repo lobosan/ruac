@@ -8,11 +8,9 @@ import SIGN_UP_MUTATION from '../graphql/SignUp.gql'
 import SIGN_IN_MUTATION from '../graphql/SignIn.gql'
 import CHANGE_PASSWORD_REQUEST_MUTATION from '../graphql/ChangePasswordRequest.gql'
 import UPDATE_PASSWORD_MUTATION from '../graphql/UpdatePassword.gql'
-import LOGGED_IN_USER_QUERY from '../graphql/LoggedInUser.gql'
-import LOGOUT_QUERY from '../graphql/Logout.gql'
-import PAISES_QUERY from '../graphql/Paises.gql'
-import DPA_QUERY from '../graphql/Dpa.gql'
+import PERFIL_QUERY from '../graphql/Perfil.gql'
 import UPDATE_PROFILE_MUTATION from '../graphql/UpdateProfile.gql'
+import LOGOUT_QUERY from '../graphql/Logout.gql'
 
 Vue.use(Vuex)
 
@@ -109,29 +107,13 @@ export default new Vuex.Store({
         mutation: UPDATE_PASSWORD_MUTATION
       })
     },
-    async loggedInUser ({ commit }) {
-      const { data: { loggedInUser } } = await apolloClient.query({
+    async perfil ({ commit }) {
+      const { data: { loggedInUser, paises, dpa } } = await apolloClient.query({
         fetchPolicy: 'network-only',
-        query: LOGGED_IN_USER_QUERY
+        query: PERFIL_QUERY
       })
       commit('setUser', loggedInUser)
-    },
-    async logout ({ commit }) {
-      await apolloClient.query({
-        query: LOGOUT_QUERY
-      })
-      commit('logout')
-    },
-    async paises ({ commit }) {
-      const { data: { paises } } = await apolloClient.query({
-        query: PAISES_QUERY
-      })
       commit('setPaises', paises.map(obj => obj.pais))
-    },
-    async dpa ({ commit }) {
-      const { data: { dpa } } = await apolloClient.query({
-        query: DPA_QUERY
-      })
       commit('setDpa', dpa.map(obj => pick(obj, ['codigo', 'descripcion'])))
     },
     async updateProfile (_, updateProfile) {
@@ -139,6 +121,12 @@ export default new Vuex.Store({
         variables: { updateProfile },
         mutation: UPDATE_PROFILE_MUTATION
       })
+    },
+    async logout ({ commit }) {
+      await apolloClient.query({
+        query: LOGOUT_QUERY
+      })
+      commit('logout')
     },
     handleError ({ commit }, { graphQLErrors, networkError }) {
       if (graphQLErrors) {
