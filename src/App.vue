@@ -64,12 +64,12 @@ export default {
     },
     async logout () {
       try {
+        await this.$store.dispatch('logout')
         localStorage.removeItem('token')
         localStorage.removeItem('refresh-token')
-        await this.$store.dispatch('logout')
         this.$router.push('inicio-sesion')
       } catch (error) {
-        console.log(error)
+        this.$store.dispatch('handleError', error)
       }
     }
   }

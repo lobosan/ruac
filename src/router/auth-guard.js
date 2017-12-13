@@ -1,16 +1,25 @@
 import store from '../store'
+import decode from 'jwt-decode'
 
 export default async (to, from, next) => {
   try {
-    const { data: { loggedInUser } } = await store.dispatch('loggedInUser')
-    store.commit('setUser', loggedInUser)
+    const token = localStorage.getItem('token')
+    const refreshToken = localStorage.getItem('refresh-token')
+    decode(token)
+    const { exp } = decode(refreshToken)
+    if (Date.now() / 1000 > exp) {
+      store.commit('setUserIsAuthenticated', false)
+      store.commit('setErrorDialog', 'Su sesión ha caducado. Por favor vuelva a iniciar sesión para acceder a la página solicitada.')
+      next('/inicio-sesion')
+    }
+    store.commit('setUserIsAuthenticated', true)
     store.commit('setMenuItems', [
       { title: 'Mi Perfil', icon: 'account_circle', route: '/perfil' }
     ])
-    store.commit('setUserIsAuthenticated', true)
     next()
   } catch (error) {
-    store.dispatch('handleError', error)
+    store.commit('setUserIsAuthenticated', false)
+    store.commit('setErrorDialog', 'Inicie sesión para acceder a la página solicitada.')
     next('/inicio-sesion')
   }
 }

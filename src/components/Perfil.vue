@@ -149,21 +149,27 @@ export default {
     }
   },
   async created () {
-    this.initialLoading = true
-    await this.$store.dispatch('paises')
-    await this.$store.dispatch('dpa')
-    this.items.provincias = filter(this.$store.state.dpa, row => row.codigo.length === 2)
-    this.form = { ...this.$store.state.user }
-    if (this.$store.state.user.paisDomicilio === 'Ecuador') {
-      this.showProvinciaCanton = true
+    try {
+      this.initialLoading = true
+      await this.$store.dispatch('loggedInUser')
+      await this.$store.dispatch('paises')
+      await this.$store.dispatch('dpa')
+      this.items.provincias = filter(this.$store.state.dpa, row => row.codigo.length === 2)
+      this.form = { ...this.$store.state.user }
+      if (this.$store.state.user.paisDomicilio === 'Ecuador') {
+        this.showProvinciaCanton = true
+      }
+      if (this.form.provinciaDomicilio) {
+        const codigo = this.form.provinciaDomicilio.codigo
+        this.items.cantones = filter(this.$store.state.dpa, row => {
+          return startsWith(row.codigo, codigo) && row.codigo.length === 4
+        })
+      }
+      this.initialLoading = false
+    } catch (error) {
+      this.initialLoading = false
+      this.$store.dispatch('handleError', error)
     }
-    if (this.form.provinciaDomicilio) {
-      const codigo = this.form.provinciaDomicilio.codigo
-      this.items.cantones = filter(this.$store.state.dpa, row => {
-        return startsWith(row.codigo, codigo) && row.codigo.length === 4
-      })
-    }
-    this.initialLoading = false
   },
   computed: mapState([
     'loading',

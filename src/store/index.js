@@ -109,11 +109,12 @@ export default new Vuex.Store({
         mutation: UPDATE_PASSWORD_MUTATION
       })
     },
-    async loggedInUser () {
-      return apolloClient.query({
+    async loggedInUser ({ commit }) {
+      const { data: { loggedInUser } } = await apolloClient.query({
         fetchPolicy: 'network-only',
         query: LOGGED_IN_USER_QUERY
       })
+      commit('setUser', loggedInUser)
     },
     async logout ({ commit }) {
       await apolloClient.query({
