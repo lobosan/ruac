@@ -11,12 +11,9 @@ export default async (to, from, next) => {
       store.commit('setUserIsAuthenticated', false)
       store.commit('setErrorDialog', 'Su sesión ha caducado. Por favor vuelva a iniciar sesión para acceder a la página solicitada.')
       next('/inicio-sesion')
+    } else {
+      next()
     }
-    store.commit('setUserIsAuthenticated', true)
-    store.commit('setMenuItems', [
-      { title: 'Mi Perfil', icon: 'account_circle', route: '/perfil' }
-    ])
-    next()
   } catch (error) {
     store.commit('setUserIsAuthenticated', false)
     store.commit('setErrorDialog', 'Inicie sesión para acceder a la página solicitada.')

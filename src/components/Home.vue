@@ -98,7 +98,7 @@
         <v-flex xs12 md5 pa-4 class="pa-2" order-xs2 order-md1>
           <p>Dirección: Av. Colón E5-34 y Juan León Mera</p>
           <p>Email: ruac@culturaypatrimonio.gob.ec</p>
-          <p>Teléfono: 593-2 381-4550</p>
+          <p>Teléfono: +593 2-381-4550</p>
           <p>Quito – Ecuador</p>
         </v-flex>
         <v-flex xs12 md7 order-xs1 order-md2>

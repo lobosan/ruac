@@ -35,6 +35,14 @@ export function createRouter () {
 
   router.beforeEach(async (to, from, next) => {
     store.commit('setTitle', to.meta.title)
+    const token = localStorage.getItem('token')
+    const refreshToken = localStorage.getItem('refresh-token')
+    if (token && refreshToken) {
+      store.commit('setUserIsAuthenticated', true)
+      store.commit('setMenuItems', [
+        { title: 'Mi Perfil', icon: 'account_circle', route: '/perfil' }
+      ])
+    }
     next()
   })
 
