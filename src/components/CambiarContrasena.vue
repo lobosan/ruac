@@ -1,13 +1,49 @@
 <template>
   <v-flex xs12 sm7 md5 lg4 xl3>
     <v-card class="pa-3">
-      <app-dialog :dialogDisplay="dialogDisplay" :dialogColor="dialogColor" :dialogTitle="dialogTitle" :dialogText="dialogText"></app-dialog>
+      <app-dialog
+        :dialogDisplay="dialogDisplay"
+        :dialogColor="dialogColor"
+        :dialogTitle="dialogTitle"
+        :dialogText="dialogText">
+      </app-dialog>
       <v-card-text>
-        <form method="post" @submit.prevent="updatePassword(form)" autocomplete="off">
-          <v-text-field label="Contraseña" name="contrasena" maxlength="15" v-model="form.contrasena" :error-messages="errors.collect('contrasena')" v-validate="'required|min:9'" data-vv-as="Contraseña" :append-icon="viewPassword ? 'visibility' : 'visibility_off'" :append-icon-cb="() => (viewPassword = !viewPassword)" :type="viewPassword ? 'text' : 'password'"></v-text-field>
-          <v-text-field label="Confirmar Contraseña" name="confirmarContrasena" maxlength="15" v-model="form.confirmarContrasena" :error-messages="errors.collect('confirmarContrasena')" v-validate="'required|min:9|confirmed:contrasena'" data-vv-as="Confirmar Contraseña" :append-icon="viewPassword ? 'visibility' : 'visibility_off'" :append-icon-cb="() => (viewPassword = !viewPassword)" :type="viewPassword ? 'text' : 'password'"></v-text-field>
+        <form
+          method="post"
+          autocomplete="off"
+          @submit.prevent="updatePassword(form)">
+          <v-text-field
+            v-validate="'required|min:9'"
+            v-model="form.contrasena"
+            name="contrasena"
+            label="Contraseña"
+            data-vv-as="Contraseña"
+            maxlength="15"
+            :error-messages="errors.collect('contrasena')"
+            :append-icon="viewPassword ? 'visibility' : 'visibility_off'"
+            :append-icon-cb="() => (viewPassword = !viewPassword)"
+            :type="viewPassword ? 'text' : 'password'">
+          </v-text-field>
+          <v-text-field
+            v-validate="'required|min:9|confirmed:contrasena'"
+            v-model="form.confirmarContrasena"
+            name="confirmarContrasena"
+            label="Confirmar Contraseña"
+            data-vv-as="Confirmar Contraseña"
+            maxlength="15"
+            :error-messages="errors.collect('confirmarContrasena')"
+            :append-icon="viewPassword ? 'visibility' : 'visibility_off'"
+            :append-icon-cb="() => (viewPassword = !viewPassword)"
+            :type="viewPassword ? 'text' : 'password'">
+          </v-text-field>
           <v-flex class="text-xs-center">
-            <v-btn type="submit" :disabled="loading" :loading="loading" outline color="primary" class="mt-4">
+            <v-btn
+              type="submit"
+              color="primary"
+              class="mt-4"
+              outline
+              :disabled="loading"
+              :loading="loading">
               Cambiar Contraseña
             </v-btn>
           </v-flex>

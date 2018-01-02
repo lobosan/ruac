@@ -34,41 +34,41 @@
         <!-- Datos Generales -->
         <v-stepper-content step="1">
           <v-text-field
-            label="Número de Cédula"
             v-model="form.cedula"
+            label="Número de Cédula"
             disabled>
           </v-text-field>
           <v-text-field
-            label="Sexo"
             v-model="form.sexo"
+            label="Sexo"
             disabled>
           </v-text-field>
           <v-text-field
-            label="Nacionalidad"
             v-model="form.nacionalidad"
+            label="Nacionalidad"
             disabled>
           </v-text-field>
           <v-text-field
-            label="Lugar de Nacimiento"
             v-model="form.lugarNacimiento"
+            label="Lugar de Nacimiento"
             disabled>
           </v-text-field>
           <v-text-field
-            label="Fecha de Nacimiento"
             v-model="form.fechaNacimiento"
+            label="Fecha de Nacimiento"
             disabled>
           </v-text-field>
           <v-select
-            label="Títulos Registrados en la SENESCYT"
             v-model="form.titulosSenescyt"
+            label="Títulos Registrados en la SENESCYT"
             chips
             tags
             readonly
             disabled>
           </v-select>
           <v-text-field
-            label="Estado de Afiliación al IESS"
             v-model="form.estadoAfiliado"
+            label="Estado de Afiliación al IESS"
             disabled>
           </v-text-field>
           <v-select
