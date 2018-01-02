@@ -1,9 +1,9 @@
 <template>
   <v-progress-circular
+    indeterminate
     v-if="initialLoading"
     color="primary"
-    size="70"
-    indeterminate>
+    size="70">
   </v-progress-circular>
   <v-flex v-else xs12 sm11 md11 lg10 xl10>
     <app-dialog
@@ -16,8 +16,8 @@
       method="post"
       autocomplete="off">
       <v-stepper
-        v-model="step"
         vertical
+        v-model="step"
         class="mb-4">
         <p class="title primary--text text-xs-center px-4 pt-4">
           {{ form.nombre }}
@@ -26,61 +26,57 @@
           Perfil Registrado
         </p>
         <v-stepper-step
-          step="1"
           editable
+          step="1"
           :complete="step > 1">
           DATOS GENERALES
         </v-stepper-step>
         <!-- Datos Generales -->
         <v-stepper-content step="1">
           <v-text-field
+            disabled
             v-model="form.cedula"
-            label="Número de Cédula"
-            disabled>
+            label="Número de Cédula">
           </v-text-field>
           <v-text-field
+            disabled
             v-model="form.sexo"
-            label="Sexo"
-            disabled>
+            label="Sexo">
           </v-text-field>
           <v-text-field
+            disabled
             v-model="form.nacionalidad"
-            label="Nacionalidad"
-            disabled>
+            label="Nacionalidad">
           </v-text-field>
           <v-text-field
+            disabled
             v-model="form.lugarNacimiento"
-            label="Lugar de Nacimiento"
-            disabled>
+            label="Lugar de Nacimiento">
           </v-text-field>
           <v-text-field
+            disabled
             v-model="form.fechaNacimiento"
-            label="Fecha de Nacimiento"
-            disabled>
+            label="Fecha de Nacimiento">
           </v-text-field>
           <v-select
+            chips tags readonly disabled
             v-model="form.titulosSenescyt"
-            label="Títulos Registrados en la SENESCYT"
-            chips
-            tags
-            readonly
-            disabled>
+            label="Títulos Registrados en la SENESCYT">
           </v-select>
           <v-text-field
+            disabled
             v-model="form.estadoAfiliado"
-            label="Estado de Afiliación al IESS"
-            disabled>
+            label="Estado de Afiliación al IESS">
           </v-text-field>
           <v-select
+            autocomplete
             v-validate="'required'"
             v-model="form.tipoAfiliado"
             name="tipoAfiliado"
             label="Tipo de Afiliación al IESS"
             data-vv-as="Tipo de Afiliación al IESS"
-            autocomplete
             :items="items.tipoAfiliado"
-            :error-messages="errors.collect('tipoAfiliado')"
-            >
+            :error-messages="errors.collect('tipoAfiliado')">
           </v-select>
           <v-text-field
             v-validate="'required|email'"
@@ -112,44 +108,42 @@
             :error-messages="errors.collect('telefonoCelular')">
           </v-text-field>
           <v-select
+            autocomplete
             v-validate="'required'"
             v-model="form.paisDomicilio"
             name="paisDomicilio"
             label="País de Domicilio"
             data-vv-as="País de Domicilio"
-            autocomplete
             :items="paises"
             :error-messages="errors.collect('paisDomicilio')"
             @change="onChangePaisDomicilio">
           </v-select>
           <v-select
+            autocomplete return-object
             v-show="showProvinciaCanton"
             v-model="form.provinciaDomicilio"
             name="provinciaDomicilio"
             label="Provincia de Domicilio"
             item-text="descripcion"
             item-value="codigo"
-            autocomplete
-            return-object
             :items="items.provincias"
             @change="onChangeProvincia">
           </v-select>
           <v-select
+            autocomplete return-object
             v-show="showProvinciaCanton"
             v-model="form.cantonDomicilio"
             name="cantonDomicilio"
             label="Cantón de Domicilio"
             item-text="descripcion"
             item-value="codigo"
-            autocomplete
-            return-object
             :items="items.cantones">
           </v-select>
           <v-flex class="text-xs-center">
             <v-btn
+              outline
               class="mt-2 mx-0"
               color="primary"
-              outline
               @click="step = 2">
               Continuar
               <v-icon>expand_more</v-icon>
@@ -158,8 +152,8 @@
         </v-stepper-content>
         <!-- Actividad Cultural -->
         <v-stepper-step
-          step="2"
           editable
+          step="2"
           :complete="step > 2">
           ACTIVIDAD CULTURAL
         </v-stepper-step>
@@ -169,48 +163,48 @@
             label="Nombre Artístico">
           </v-text-field>
           <v-select
+            autocomplete
             v-validate="'required'"
             v-model="form.tipoActorCultural"
             name="tipoActorCultural"
             label="Tipo de Actor Cultural"
             data-vv-as="Tipo de Actor Cultural"
-            autocomplete
             :items="items.tipoActorCultural"
             :error-messages="errors.collect('tipoActorCultural')">
           </v-select>
           <v-select
+            autocomplete
             v-validate="'required'"
             v-model="form.actividadPrincipal"
             name="actividadPrincipal"
             label="Actividad Principal"
             data-vv-as="Actividad Principal"
-            autocomplete
             :items="items.ambitoActividad"
             :error-messages="errors.collect('actividadPrincipal')">
           </v-select>
           <v-select
+            autocomplete
             v-model="form.actividadSecundaria"
             label="Actividad Secundaria"
-            autocomplete
             :items="items.ambitoActividad">
           </v-select>
           <v-select
+            autocomplete
             v-validate="'required'"
             v-model="form.perteneceOrgCultural"
             name="perteneceOrgCultural"
             label="Pertenece a una Organización Cultural"
             data-vv-as="Pertenece a una Organización Cultural"
-            autocomplete
             :items="items.siNo"
             :error-messages="errors.collect('perteneceOrgCultural')">
           </v-select>
           <v-select
+            autocomplete
             v-validate="'required'"
             v-model="form.obrasRegistradasIEPI"
             name="obrasRegistradasIEPI"
             label="Tiene Obras Registradas en el IEPI"
             data-vv-as="Tiene Obras Registradas en el IEPI"
-            autocomplete
             :items="items.siNo"
             :error-messages="errors.collect('obrasRegistradasIEPI')">
           </v-select>
@@ -263,9 +257,9 @@
           </v-text-field>
           <v-flex class="text-xs-center">
             <v-btn
+              outline
               class="mt-2 mx-0"
               color="primary"
-              outline
               @click="step = 3">
               Continuar
               <v-icon>expand_more</v-icon>
@@ -274,31 +268,31 @@
         </v-stepper-content>
         <!-- Trayectoria -->
         <v-stepper-step
-          step="3"
-          editable>
+          editable
+          step="3">
           PORTAFOLIO / TRAYECTORIA
         </v-stepper-step>
         <v-stepper-content step="3">
           <v-text-field
+            multi-line
             v-model="form.logrosAlcanzados"
             label="Logros Alcanzados"
             placeholder="Publicaciones, galardones, reconocimientos, conciertos, grabaciones, festivales, entre otros."
-            rows="3"
-            multi-line>
+            rows="3">
           </v-text-field>
           <v-text-field
+            multi-line
             v-model="form.proyectosCulturales"
             label="Proyectos Culturales"
             placeholder="Describir su vinculación con proyectos culturales."
-            rows="3"
-            multi-line>
+            rows="3">
           </v-text-field>
           <v-text-field
+            multi-line
             v-model="form.formacionCapacitacion"
             label="Formación y Capacitación"
             placeholder="Talleres, cursos, diplomados, entre otros espacios que no generen título reconocido por la SENESCYT"
-            rows="3"
-            multi-line>
+            rows="3">
           </v-text-field>
           <v-text-field
             v-validate="'url'"
@@ -338,9 +332,9 @@
     </form>
     <v-tooltip left>
       <v-btn
+        large fixed dark fab bottom right
         color="info"
         slot="activator"
-        large fixed dark fab bottom right
         @click="validateForm">
         <v-icon>save</v-icon>
       </v-btn>
@@ -367,8 +361,8 @@
               No
             </v-btn>
             <v-btn
-              color="info"
               dark
+              color="info"
               :disabled="loading"
               :loading="loading"
               @click="updateProfile(form)">

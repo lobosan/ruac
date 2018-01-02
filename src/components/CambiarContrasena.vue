@@ -38,10 +38,10 @@
           </v-text-field>
           <v-flex class="text-xs-center">
             <v-btn
+              outline
               type="submit"
               color="primary"
               class="mt-4"
-              outline
               :disabled="loading"
               :loading="loading">
               Cambiar Contraseña

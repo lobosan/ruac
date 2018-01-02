@@ -4,24 +4,49 @@
     <v-card class="mt-3 mb-5">
       <v-layout row wrap>
         <v-flex xs12 md6>
-          <v-card-media :src="secciones[0].src" height="270">
-            <v-layout fill-height align-center justify-center>
-              <h2 class="display-2 white--text text-xs-center">{{secciones[0].title}}</h2>
+          <v-card-media
+            height="270"
+            :src="secciones[0].src">
+            <v-layout align-center fill-height justify-center>
+              <h2 class="display-2 white--text text-xs-center">
+                {{secciones[0].title}}
+              </h2>
             </v-layout>
           </v-card-media>
         </v-flex>
         <v-flex xs12 md6>
           <v-card-text>
             <v-layout row wrap>
-              <v-flex xs12 class="pa-2">
+              <v-flex
+                xs12
+                class="pa-2">
                 {{secciones[0].text}}
               </v-flex>
-              <v-flex v-if="!userIsAuthenticated" xs12 py-2 class="text-xs-center">
-                <v-btn to="/inicio-sesion" dark color="info">
-                  <v-icon dark class="mr-2">face</v-icon> Inicia sesión
+              <v-flex
+                xs12 py-2
+                v-if="!userIsAuthenticated"
+                class="text-xs-center">
+                <v-btn
+                  dark
+                  to="/inicio-sesion"
+                  color="info">
+                  <v-icon
+                    dark
+                    class="mr-2">
+                    face
+                  </v-icon>
+                  Inicia sesión
                 </v-btn>
-                <v-btn to="/registro" dark color="info">
-                  <v-icon dark class="mr-2">fingerprint</v-icon> Regístrate
+                <v-btn
+                  dark
+                  to="/registro"
+                  color="info">
+                  <v-icon
+                    dark
+                    class="mr-2">
+                    fingerprint
+                  </v-icon>
+                  Regístrate
                 </v-btn>
               </v-flex>
             </v-layout>
@@ -33,17 +58,26 @@
     <v-card class="mb-5">
       <v-layout row wrap>
         <v-flex xs12 md6 order-xs1 order-md2>
-          <v-card-media :src="secciones[1].src" height="270">
-            <v-layout fill-height align-center justify-center>
-              <h2 class="display-2 white--text text-xs-center">{{secciones[1].title}}</h2>
+          <v-card-media
+            height="270"
+            :src="secciones[1].src">
+            <v-layout align-center fill-height justify-center>
+              <h2 class="display-2 white--text text-xs-center">
+                {{secciones[1].title}}
+              </h2>
             </v-layout>
           </v-card-media>
         </v-flex>
         <v-flex xs12 md6 order-xs2 order-md1>
           <v-card-text>
-            <v-flex xs12 class="pa-2">
+            <v-flex
+              xs12
+              class="pa-2">
               <ul class="beneficios">
-                <li class="mb-1" v-for="(beneficio, i) in secciones[1].text" :key="i">
+                <li
+                  v-for="(beneficio, i) in secciones[1].text"
+                  class="mb-1"
+                  :key="i">
                   {{beneficio}}
                 </li>
               </ul>
@@ -56,24 +90,46 @@
     <v-card class="mb-5">
       <v-layout row wrap>
         <v-flex xs12 md6>
-          <v-card-media :src="secciones[2].src" height="270">
-            <v-layout fill-height align-center justify-center>
-              <h2 class="display-2 white--text text-xs-center">{{secciones[2].title}}</h2>
+          <v-card-media
+            height="270"
+            :src="secciones[2].src">
+            <v-layout align-center fill-height justify-center>
+              <h2 class="display-2 white--text text-xs-center">
+                {{secciones[2].title}}
+              </h2>
             </v-layout>
           </v-card-media>
         </v-flex>
         <v-flex xs12 md6>
           <v-card-text>
             <v-layout row wrap>
-              <v-flex xs12 class="pa-2">
+              <v-flex
+                xs12
+                class="pa-2">
                 {{secciones[2].text}}
               </v-flex>
-              <v-flex xs12 py-2 class="text-xs-center">
-                <v-btn href="/static/docs/acuerdo_ministerial.pdf" target="_blank" outline color="primary">
-                  <v-icon class="mr-2">description</v-icon> Acuerdo Ministerial
+              <v-flex
+                xs12 py-2
+                class="text-xs-center">
+                <v-btn
+                  outline
+                  href="/static/docs/acuerdo_ministerial.pdf"
+                  color="primary"
+                  target="_blank">
+                  <v-icon class="mr-2">
+                    description
+                  </v-icon>
+                  Acuerdo Ministerial
                 </v-btn>
-                <v-btn href="/static/docs/norma_tecnica.pdf" target="_blank" outline color="primary">
-                  <v-icon class="mr-2">description</v-icon> Norma Técnica
+                <v-btn
+                  outline
+                  href="/static/docs/norma_tecnica.pdf"
+                  color="primary"
+                  target="_blank">
+                  <v-icon class="mr-2">
+                    description
+                  </v-icon>
+                  Norma Técnica
                 </v-btn>
               </v-flex>
             </v-layout>
@@ -82,28 +138,52 @@
       </v-layout>
     </v-card>
     <!-- Preguntas Frecuentes -->
-    <h2 class="mb-4 headline text-xs-center">Preguntas Frecuentes</h2>
-    <v-expansion-panel focusable class="mb-5">
-      <v-expansion-panel-content v-for="(pregunta, i) in preguntas" :key="i">
-        <div slot="header" class="ml-1">{{i+1}}. {{pregunta.title}}</div>
+    <h2 class="mb-4 headline text-xs-center">
+      Preguntas Frecuentes
+    </h2>
+    <v-expansion-panel
+      focusable
+      class="mb-5">
+      <v-expansion-panel-content
+        v-for="(pregunta, i) in preguntas"
+        :key="i">
+        <div
+          slot="header"
+          class="ml-1">
+          {{i+1}}. {{pregunta.title}}
+        </div>
         <v-card>
-          <v-card-text class="px-4 grey lighten-3">{{pregunta.response}}</v-card-text>
+          <v-card-text class="px-4 grey lighten-3">
+            {{pregunta.response}}
+          </v-card-text>
         </v-card>
       </v-expansion-panel-content>
     </v-expansion-panel>
     <!-- Dirección y contactos -->
-    <h2 class="mb-4 headline text-xs-center">Dirección y Contactos</h2>
+    <h2 class="mb-4 headline text-xs-center">
+      Dirección y Contactos
+    </h2>
     <v-card class="mb-5">
       <v-layout row wrap>
-        <v-flex xs12 md5 pa-4 class="pa-2" order-xs2 order-md1>
+        <v-flex
+          xs12 md5 pa-4 order-xs2 order-md1
+          class="pa-2">
           <p>Dirección: Av. Colón E5-34 y Juan León Mera</p>
           <p>Email: ruac@culturaypatrimonio.gob.ec</p>
           <p>Teléfono: +593 2-381-4550</p>
           <p>Quito – Ecuador</p>
         </v-flex>
         <v-flex xs12 md7 order-xs1 order-md2>
-          <gmap-map :center="gmap.center" :zoom="19" style="min-width: 320px; height: 350px">
-            <gmap-marker :position="gmap.position" :clickable="true" :draggable="true" @click="gmap.center=gmap.position"></gmap-marker>
+          <gmap-map
+            style="min-width: 320px; height: 350px"
+            :center="gmap.center"
+            :zoom="19">
+            <gmap-marker
+              :position="gmap.position"
+              :clickable="true"
+              :draggable="true"
+              @click="gmap.center=gmap.position">
+            </gmap-marker>
           </gmap-map>
         </v-flex>
       </v-layout>
