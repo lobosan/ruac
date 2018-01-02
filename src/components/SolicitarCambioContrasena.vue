@@ -1,13 +1,44 @@
 <template>
   <v-flex xs12 sm7 md5 lg4 xl3>
     <v-card class="pa-3">
-      <app-dialog :dialogDisplay="dialogDisplay" :dialogColor="dialogColor" :dialogTitle="dialogTitle" :dialogText="dialogText"></app-dialog>
+      <app-dialog
+        :dialogDisplay="dialogDisplay"
+        :dialogColor="dialogColor"
+        :dialogTitle="dialogTitle"
+        :dialogText="dialogText">
+      </app-dialog>
       <v-card-text>
-        <form method="post" @submit.prevent="changePasswordRequest(form)" autocomplete="off">
-          <v-text-field label="Cédula" name="cedula" maxlength="10" mask="##########" v-model="form.cedula" :error-messages="errors.collect('cedula')" v-validate="'required|digits:10'" data-vv-as="Cédula"></v-text-field>
-          <v-text-field label="Email" name="email" maxlength="35" v-model="form.email" :error-messages="errors.collect('email')" v-validate="'required|email'" data-vv-as="Email"></v-text-field>
+        <form
+          method="post"
+          autocomplete="off"
+          @submit.prevent="changePasswordRequest(form)">
+          <v-text-field
+            v-validate="'required|digits:10'"
+            v-model="form.cedula"
+            name="cedula"
+            label="Cédula"
+            data-vv-as="Cédula"
+            maxlength="10"
+            mask="##########"
+            :error-messages="errors.collect('cedula')">
+          </v-text-field>
+          <v-text-field
+            v-validate="'required|email'"
+            v-model="form.email"
+            name="email"
+            label="Email"
+            data-vv-as="Email"
+            maxlength="35"
+            :error-messages="errors.collect('email')">
+          </v-text-field>
           <v-flex class="text-xs-center">
-            <v-btn type="submit" :disabled="loading" :loading="loading" outline color="primary" class="mt-4">
+            <v-btn
+              outline
+              type="submit"
+              color="primary"
+              class="mt-4"
+              :disabled="loading"
+              :loading="loading">
               Solicitar Cambio de Contraseña
             </v-btn>
           </v-flex>
