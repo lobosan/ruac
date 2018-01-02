@@ -1,15 +1,68 @@
 <template>
   <v-flex xs12 sm7 md5 lg4 xl3>
     <v-card class="pa-3">
-      <app-dialog :dialogDisplay="dialogDisplay" :dialogColor="dialogColor" :dialogTitle="dialogTitle" :dialogText="dialogText"></app-dialog>
+      <app-dialog
+        :dialogDisplay="dialogDisplay"
+        :dialogColor="dialogColor"
+        :dialogTitle="dialogTitle"
+        :dialogText="dialogText">
+      </app-dialog>
       <v-card-text>
-        <form method="post" @submit.prevent="signUp(form)" autocomplete="off">
-          <v-text-field label="Cédula" name="cedula" maxlength="10" mask="##########" v-model="form.cedula" :error-messages="errors.collect('cedula')" v-validate="'required|digits:10'" data-vv-as="Cédula"></v-text-field>
-          <v-text-field label="Email" name="email" maxlength="35" v-model="form.email" :error-messages="errors.collect('email')" v-validate="'required|email'" data-vv-as="Email"></v-text-field>
-          <v-text-field label="Contraseña" name="contrasena" maxlength="15" v-model="form.contrasena" :error-messages="errors.collect('contrasena')" v-validate="'required|min:9'" data-vv-as="Contraseña" :append-icon="viewPassword ? 'visibility' : 'visibility_off'" :append-icon-cb="() => (viewPassword = !viewPassword)" :type="viewPassword ? 'text' : 'password'"></v-text-field>
-          <v-text-field label="Confirmar Contraseña" name="confirmarContrasena" maxlength="15" v-model="form.confirmarContrasena" :error-messages="errors.collect('confirmarContrasena')" v-validate="'required|min:9|confirmed:contrasena'" data-vv-as="Confirmar Contraseña" :append-icon="viewPassword ? 'visibility' : 'visibility_off'" :append-icon-cb="() => (viewPassword = !viewPassword)" :type="viewPassword ? 'text' : 'password'"></v-text-field>
+        <form
+          method="post"
+          autocomplete="off"
+          @submit.prevent="signUp(form)">
+          <v-text-field
+            v-validate="'required|digits:10'"
+            v-model="form.cedula"
+            name="cedula"
+            label="Cédula"
+            data-vv-as="Cédula"
+            maxlength="10"
+            mask="##########"
+            :error-messages="errors.collect('cedula')">
+          </v-text-field>
+          <v-text-field
+            v-validate="'required|email'"
+            v-model="form.email"
+            name="email"
+            label="Email"
+            data-vv-as="Email"
+            maxlength="35"
+            :error-messages="errors.collect('email')">
+          </v-text-field>
+          <v-text-field
+            v-validate="'required|min:9'"
+            v-model="form.contrasena"
+            name="contrasena"
+            label="Contraseña"
+            maxlength="15"
+            data-vv-as="Contraseña"
+            :error-messages="errors.collect('contrasena')"
+            :append-icon="viewPassword ? 'visibility' : 'visibility_off'"
+            :append-icon-cb="() => (viewPassword = !viewPassword)"
+            :type="viewPassword ? 'text' : 'password'">
+          </v-text-field>
+          <v-text-field
+            v-validate="'required|min:9|confirmed:contrasena'"
+            v-model="form.confirmarContrasena"
+            name="confirmarContrasena"
+            label="Confirmar Contraseña"
+            data-vv-as="Confirmar Contraseña"
+            maxlength="15"
+            :error-messages="errors.collect('confirmarContrasena')"
+            :append-icon="viewPassword ? 'visibility' : 'visibility_off'"
+            :append-icon-cb="() => (viewPassword = !viewPassword)"
+            :type="viewPassword ? 'text' : 'password'">
+          </v-text-field>
           <v-flex class="text-xs-center">
-            <v-btn type="submit" :disabled="loading" :loading="loading" outline color="primary" class="mt-4">
+            <v-btn
+              outline
+              type="submit"
+              class="mt-4"
+              color="primary"
+              :disabled="loading"
+              :loading="loading">
               Registrar Cuenta
             </v-btn>
           </v-flex>
