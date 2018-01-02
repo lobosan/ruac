@@ -32,10 +32,8 @@ const afterwareLink = new ApolloLink((operation, forward) => {
   })
 })
 
-const link = ApolloLink.from([afterwareLink, middlewareLink, httpLink])
-
 const apolloClient = new ApolloClient({
-  link,
+  link: ApolloLink.from([afterwareLink, middlewareLink, httpLink]),
   cache: new InMemoryCache()
 })
 
