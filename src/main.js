@@ -11,17 +11,23 @@ import Dialog from './components/shared/Dialog'
 import store from './store'
 import { createRouter } from './router'
 
-Vue.use(Vuetify, { theme: {
-  primary: '#673AB7',
-  secondary: '#7C4DFF',
-  accent: '#4CAF50',
-  error: '#F44336',
-  info: '#DA8722',
-  success: '#4CAF50',
-  warning: '#FFA000'
-}})
+Vue.use(Vuetify, {
+  theme: {
+    primary: '#673AB7',
+    secondary: '#7C4DFF',
+    accent: '#4CAF50',
+    error: '#F44336',
+    info: '#DA8722',
+    success: '#4CAF50',
+    warning: '#FFA000'
+  }
+})
 
-Validator.addLocale(es)
+Vue.use(VueGoogleMaps, {
+  load: {
+    key: 'AIzaSyBjkOESteDGfqatHkRHYXrTHlcMrMkjBL0'
+  }
+})
 
 Vue.use(VeeValidate, {
   locale: 'es',
@@ -43,22 +49,18 @@ Vue.use(VeeValidate, {
   }
 })
 
-Vue.use(VueGoogleMaps, {
-  load: {
-    key: 'AIzaSyBjkOESteDGfqatHkRHYXrTHlcMrMkjBL0'
-  }
-})
+Validator.addLocale(es)
 
 Vue.component('app-dialog', Dialog)
 
-Vue.config.productionTip = false
-
 const router = createRouter()
+
+Vue.config.productionTip = false
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
   store,
-  render: h => h(App)
+  ...App
 })

@@ -1,29 +1,53 @@
 <template>
   <v-app light>
-    <v-toolbar app fixed dark color="primary">
+    <v-toolbar
+      app fixed dark
+      color="primary">
       <v-slide-x-reverse-transition mode="out-in">
-        <v-btn v-if="title !== 'RUAC'" icon @click="redirectToHome" class="mr-0">
-          <v-icon>arrow_back</v-icon>
+        <v-btn
+          icon
+          v-if="title !== 'RUAC'"
+          class="mr-0"
+          @click="redirectToHome">
+          <v-icon>
+            arrow_back
+          </v-icon>
         </v-btn>
       </v-slide-x-reverse-transition>
       <v-slide-x-reverse-transition mode="out-in">
-        <v-toolbar-title :key="title">{{title}}</v-toolbar-title>
+        <v-toolbar-title :key="title">
+          {{title}}
+        </v-toolbar-title>
       </v-slide-x-reverse-transition>
       <v-spacer></v-spacer>
       <v-menu bottom left>
-        <v-btn icon slot="activator" dark>
-          <v-icon>more_vert</v-icon>
+        <v-btn
+          dark
+          icon
+          slot="activator">
+          <v-icon>
+            more_vert
+          </v-icon>
         </v-btn>
         <v-list>
-          <v-list-tile v-for="(item, i) in menuItems" :key="i" :to="item.route">
+          <v-list-tile
+            v-for="(item, i) in menuItems"
+            :key="i"
+            :to="item.route">
             <v-list-tile-title>
-              <v-icon class="mr-1">{{ item.icon }}</v-icon>
+              <v-icon class="mr-1">
+                {{ item.icon }}
+              </v-icon>
               {{ item.title }}
             </v-list-tile-title>
           </v-list-tile>
-          <v-list-tile @click="logout" v-if="userIsAuthenticated">
+          <v-list-tile
+            v-if="userIsAuthenticated"
+            @click="logout">
             <v-list-tile-title>
-              <v-icon class="mr-1">exit_to_app</v-icon>
+              <v-icon class="mr-1">
+                exit_to_app
+              </v-icon>
               Cerrar sesión
             </v-list-tile-title>
           </v-list-tile>
@@ -39,8 +63,12 @@
         </v-layout>
       </v-container>
     </v-content>
-    <v-footer app class="grey lighten-2 justify-center">
-      <span class="grey--text text--darken-3">&copy; {{ new Date().getFullYear() }} Ministerio de Cultura y Patrimonio</span>
+    <v-footer
+      app
+      class="grey lighten-2 justify-center">
+      <span class="grey--text text--darken-3">
+        &copy; {{ new Date().getFullYear() }} Ministerio de Cultura y Patrimonio
+      </span>
     </v-footer>
   </v-app>
 </template>
