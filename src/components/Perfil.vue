@@ -423,8 +423,13 @@ export default {
       this.initialLoading = true
       await this.$store.dispatch('perfil')
       this.items.provincias = filter(this.$store.state.dpa, row => row.codigo.length === 2)
-      this.form = { ...this.$store.state.user }
-      if (this.$store.state.user.paisDomicilio === 'Ecuador') {
+      this.form = {
+        ...this.$store.state.user
+      }
+      if (!this.form.paisDomicilio) {
+        this.form.paisDomicilio = 'ECUADOR'
+      }
+      if (this.form.paisDomicilio === 'ECUADOR') {
         this.showProvinciaCanton = true
       }
       if (this.form.provinciaDomicilio) {
@@ -447,7 +452,7 @@ export default {
   methods: {
     onChangePaisDomicilio (pais) {
       if (pais) {
-        this.showProvinciaCanton = pais === 'Ecuador'
+        this.showProvinciaCanton = pais === 'ECUADOR'
         this.form.provinciaDomicilio = null
         this.form.cantonDomicilio = null
       }
