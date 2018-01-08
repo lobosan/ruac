@@ -1,12 +1,6 @@
 <template>
   <v-flex xs12 sm7 md5 lg4 xl3>
     <v-card class="pa-3">
-      <app-dialog
-        :dialogDisplay="dialogDisplay"
-        :dialogColor="dialogColor"
-        :dialogTitle="dialogTitle"
-        :dialogText="dialogText">
-      </app-dialog>
       <v-card-text>
         <form
           method="post"
@@ -91,11 +85,7 @@ export default {
     }
   },
   computed: mapState([
-    'loading',
-    'dialogDisplay',
-    'dialogColor',
-    'dialogTitle',
-    'dialogText'
+    'loading'
   ]),
   methods: {
     async signUp (form) {

@@ -60,6 +60,12 @@
           <v-slide-x-reverse-transition mode="out-in">
             <router-view></router-view>
           </v-slide-x-reverse-transition>
+          <app-dialog
+            :dialogDisplay="dialogDisplay"
+            :dialogColor="dialogColor"
+            :dialogTitle="dialogTitle"
+            :dialogText="dialogText">
+          </app-dialog>
         </v-layout>
       </v-container>
     </v-content>
@@ -74,8 +80,16 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   computed: {
+    ...mapState([
+      'dialogDisplay',
+      'dialogColor',
+      'dialogTitle',
+      'dialogText'
+    ]),
     title () {
       return this.$store.state.title
     },

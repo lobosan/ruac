@@ -6,12 +6,6 @@
     size="70">
   </v-progress-circular>
   <v-flex v-else xs12 sm11 md11 lg10 xl10>
-    <app-dialog
-      :dialogDisplay="dialogDisplay"
-      :dialogColor="dialogColor"
-      :dialogTitle="dialogTitle"
-      :dialogText="dialogText">
-    </app-dialog>
     <form
       method="post"
       autocomplete="off">
@@ -448,11 +442,7 @@ export default {
   computed: mapState([
     'loading',
     'paises',
-    'dpa',
-    'dialogDisplay',
-    'dialogColor',
-    'dialogTitle',
-    'dialogText'
+    'dpa'
   ]),
   methods: {
     onChangePaisDomicilio (pais) {
