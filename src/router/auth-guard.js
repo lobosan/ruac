@@ -12,6 +12,7 @@ export default async (to, from, next) => {
       store.commit('setErrorDialog', 'Su sesión ha caducado. Por favor vuelva a iniciar sesión para acceder a la página solicitada.')
       next('/inicio-sesion')
     } else {
+      await store.dispatch('perfil')
       next()
     }
   } catch (error) {

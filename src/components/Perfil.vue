@@ -418,14 +418,11 @@ export default {
       }
     }
   },
-  async created () {
+  mounted () {
     try {
       this.initialLoading = true
-      await this.$store.dispatch('perfil')
+      this.form = { ...this.$store.state.user }
       this.items.provincias = filter(this.$store.state.dpa, row => row.codigo.length === 2)
-      this.form = {
-        ...this.$store.state.user
-      }
       if (!this.form.paisDomicilio) {
         this.form.paisDomicilio = 'ECUADOR'
       }
